@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'corretto'
-          version: 17
+          java-version: '17'
 
       - name: Print the branch STDOUT
         run: git rev-parse --abbrev-ref HEAD

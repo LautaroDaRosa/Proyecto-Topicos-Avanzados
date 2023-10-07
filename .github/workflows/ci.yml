@@ -1,0 +1,62 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI.
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Checkout code
+        uses: actions/checkout@v3.0.2
+
+      - name: Setup Java
+        uses: ./.github/actions/setup-java
+        with:
+          version: 17
+
+      - name: Print the branch STDOUT
+        run: git rev-parse --abbrev-ref HEAD
+
+      - name: Print Java version
+        run: java -version
+
+      - name: Print Maven version
+        run: mvn -version
+
+      - name: Compile
+        run: |
+          cd backend/
+          mvn clean --batch-mode compile
+
+      - name: Test
+        run: |
+          cd backend/
+          mvn --batch-mode test
+          
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install modules
+        run: yarn
+     
+      - name: Run ESLint
+        run: eslint . --ext .js,.jsx,.ts,.tsx

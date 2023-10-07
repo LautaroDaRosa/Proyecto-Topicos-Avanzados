@@ -29,8 +29,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          version: 17
           distribution: 'corretto'
+          version: 17
 
       - name: Print the branch STDOUT
         run: git rev-parse --abbrev-ref HEAD

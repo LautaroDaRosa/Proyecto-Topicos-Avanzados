@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Employee Posts renders employee posts correctly 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #818097;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.c2 {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0px 4px 9px 0px rgba(0,0,0,0.1);
+  width: 100%;
+  padding: 20px;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  font-size: 18px;
+  line-height: normal;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+
+.c4 div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c4 a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  object-fit: cover;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+}
+
+.c7 {
+  width: 100%;
+}
+
+.c6 {
+  color: #7e7e7e;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+<div>
+  <div
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <span
+        class="c2"
+      >
+        Eliana's Posts
+      </span>
+    </div>
+    <div
+      class="c3"
+    >
+      <div
+        class="c4"
+      >
+        <img
+          alt="User pic"
+          class="c5"
+          src="employees/erosselli.png"
+          type="post-publisher"
+        />
+        <div>
+          <a
+            href="/profile/12"
+            id="user-12"
+          >
+            <span>
+              Eliana Rosselli
+            </span>
+          </a>
+          <span
+            class="c6"
+          >
+            July 21, 2020
+          </span>
+        </div>
+      </div>
+      <span>
+        This is my first post!
+      </span>
+      <img
+        alt="Post pic!"
+        class="c7"
+        src="image.png"
+      />
+    </div>
+  </div>
+</div>
+`;

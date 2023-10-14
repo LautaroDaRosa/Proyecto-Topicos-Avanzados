@@ -1,0 +1,413 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Gallery shows pictures fetched from the backend correctly 1`] = `
+.c1 {
+  height: 72px;
+  background-color: white;
+  box-shadow: 0px 0px 20px 0px lightgrey;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 9;
+}
+
+.c1 img {
+  height: 100%;
+}
+
+.c4 {
+  padding: 0 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  box-sizing: border-box;
+  padding-left: 40px;
+}
+
+.c4 a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #1c1a46;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.c3 {
+  background: #c0bfcb;
+  width: 1px;
+  height: 24px;
+  border-radius: 1px;
+  display: none;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 12px 24px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 8px;
+  margin-right: 20px;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  justify-items: center;
+  cursor: default;
+}
+
+.c5 span {
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.c5 img {
+  width: 24px;
+}
+
+.c5 span {
+  color: #c70548;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 12px 24px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 8px;
+  margin-right: 20px;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.c6 span {
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.c6 img {
+  width: 24px;
+}
+
+.c6 span {
+  color: #1c1a46;
+}
+
+.c6:hover {
+  background-color: #f1f1f5;
+}
+
+.c2 {
+  padding-right: 50px;
+  font-size: 20px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 88px 16px;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  gap: px;
+  width: %;
+}
+
+.c8 {
+  display: grid;
+  width: 100%;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+
+.c11 {
+  display: grid;
+  width: 100%;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.c9:hover span {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c9 img {
+  width: 100%;
+  -webkit-transition: filter 0.1s;
+  transition: filter 0.1s;
+  object-fit: cover;
+  -webkit-transition: -webkit-transform 0.3s ease;
+  -webkit-transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.c9:hover > img {
+  -webkit-filter: brightness(75%);
+  filter: brightness(75%);
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.c9:hover div {
+  opacity: 100%;
+}
+
+.c10 {
+  position: absolute;
+  color: white;
+  bottom: 16px;
+  left: 12px;
+  font-size: 16px;
+  display: none;
+  font-weight: 300;
+}
+
+@media (max-width:1279px) {
+  .c4 {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background: white;
+    height: 72px;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
+
+@media (min-width:1280px) {
+  .c3 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+@media (min-width:1280px) {
+  .c5 img {
+    display: none;
+  }
+
+  .c5 span {
+    font-size: 20px;
+  }
+}
+
+@media (min-width:1280px) {
+  .c6 img {
+    display: none;
+  }
+
+  .c6 span {
+    font-size: 20px;
+  }
+}
+
+@media (min-width:768px) {
+  .c7 {
+    padding: 94px 24px;
+  }
+}
+
+@media (min-width:1280px) {
+  .c7 {
+    padding: 156px 156px 84px 156px;
+  }
+}
+
+@media (min-width:768px) {
+  .c8 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width:768px) {
+  .c11 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+<div>
+  <div
+    class="c0"
+  >
+    <header
+      class="c1"
+    >
+      <img
+        alt="logo"
+        src="logo.png"
+      />
+      <span
+        class="c2"
+      >
+        Octobot Community
+      </span>
+      <div
+        class="c3"
+      />
+      <nav
+        class="c4"
+      >
+        <a
+          href="/"
+        >
+          <div
+            class="c5"
+          >
+            <img
+              alt="Home icon"
+              src="home-selected.svg"
+            />
+            <span>
+              Home
+            </span>
+          </div>
+        </a>
+        <a
+          href="/gallery"
+        >
+          <div
+            class="c6"
+          >
+            <img
+              alt="Gallery icon"
+              src="gallery.svg"
+            />
+            <span>
+              Gallery
+            </span>
+          </div>
+        </a>
+      </nav>
+    </header>
+    <div
+      class="c7"
+    >
+      <div
+        class="c8"
+      >
+        <div
+          class="c9"
+        >
+          <img
+            alt="A day at Octobot's office"
+            src="pictures/pic1.jpeg"
+          />
+          <span
+            class="c10"
+          >
+            A day at Octobot's office
+          </span>
+        </div>
+        <div
+          class="c9"
+        >
+          <img
+            alt="Octobot Office"
+            src="pictures/pic2.jpeg"
+          />
+          <span
+            class="c10"
+          >
+            Octobot Office
+          </span>
+        </div>
+      </div>
+      <div
+        class="c11"
+      >
+        <div
+          class="c9"
+        >
+          <img
+            alt="Octobot Team"
+            src="pictures/pic3.jpeg"
+          />
+          <span
+            class="c10"
+          >
+            Octobot Team
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  ,
+</div>
+`;

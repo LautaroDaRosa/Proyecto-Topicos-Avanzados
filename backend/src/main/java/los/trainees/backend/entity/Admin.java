@@ -9,6 +9,6 @@ import lombok.EqualsAndHashCode;
 @Entity
 public class Admin extends User {
 
-    private String role;
+    private String businessRole;
 
 }

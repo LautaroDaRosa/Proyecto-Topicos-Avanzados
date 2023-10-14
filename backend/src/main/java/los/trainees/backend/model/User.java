@@ -1,5 +1,6 @@
 package los.trainees.backend.model;
 
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import los.trainees.backend.enums.Role;
 

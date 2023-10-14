@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class Admin extends User{
+public class Admin extends User {
+
     private String role;
+
 }

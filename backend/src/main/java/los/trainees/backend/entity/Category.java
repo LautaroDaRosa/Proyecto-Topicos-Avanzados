@@ -9,11 +9,12 @@ import lombok.Data;
 @Entity
 @Data
 public class Category {
+
     @Id
     @OneToOne(cascade = CascadeType.ALL)
     private User userId;
 
     @Id
-    private Rubro category;
+    private ECategory category;
 
 }

@@ -9,13 +9,19 @@ import lombok.Data;
 @Data
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long userId;
+    protected Long userId;
 
     protected String name;
+
     protected String phone;
+
     protected String password;
-    protected String mail;
+
+    protected String email;
+
     protected String info;
+
 }

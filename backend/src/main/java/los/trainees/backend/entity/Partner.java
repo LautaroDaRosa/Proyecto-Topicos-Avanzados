@@ -5,20 +5,26 @@ import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class Partner extends User{
-    @Transient
-    private boolean connected;
+public class Partner extends User {
 
-    private Date lastConnection;
+    @Transient
+    private Boolean connected;
+
+    private LocalDateTime lastConnection;
 
     private String businessName;
+
     private String rut;
+
     private String contact;
+
     private String logo;
+
     private String address;
+
 }

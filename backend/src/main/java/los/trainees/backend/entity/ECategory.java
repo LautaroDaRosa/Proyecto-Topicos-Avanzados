@@ -1,6 +1,6 @@
 package los.trainees.backend.entity;
 
-public enum Rubro {
+public enum ECategory {
     AGRO_FORESTAL_OTROS,
     COMERCIO_RETAIL_SERVICIOS,
     COMUNICACIONES_PUBLICIDAD,

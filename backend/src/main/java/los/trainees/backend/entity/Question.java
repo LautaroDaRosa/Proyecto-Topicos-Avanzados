@@ -9,11 +9,13 @@ import lombok.Data;
 @Entity
 @Data
 public class Question {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long questionId;
+    protected Long questionId;
 
-    private TypeQuestion type;
+    private ETypeQuestion type;
+
     private String text;
 
 }

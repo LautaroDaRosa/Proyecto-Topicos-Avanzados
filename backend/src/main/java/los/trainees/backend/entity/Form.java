@@ -8,10 +8,12 @@ import java.util.List;
 @Data
 @Entity
 public class Form {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long formId;
+    protected Long formId;
 
-    @OneToMany(mappedBy="question")
+    @OneToMany
     private List<Question> questions;
+
 }

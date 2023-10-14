@@ -1,7 +1,7 @@
 package los.trainees.backend.controller;
 
 import los.trainees.backend.dto.LoginRequest;
-import los.trainees.backend.dto.RUser;
+import los.trainees.backend.entity.User;
 import los.trainees.backend.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,7 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping(produces = "application/json")
-    public RUser login(@RequestBody LoginRequest loginRequest) {
-
-        return loginService.checkCredentials(loginRequest);
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok(loginService.checkCredentials(loginRequest));
     }
 }

@@ -1,14 +1,12 @@
 package los.trainees.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import los.trainees.backend.enums.ERole;
 
 @Data
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id
@@ -25,6 +23,7 @@ public class User {
 
     protected String info;
 
+    @Enumerated(EnumType.STRING)
     protected ERole role;
 
 }

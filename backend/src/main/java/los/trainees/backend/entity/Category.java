@@ -13,7 +13,7 @@ public class Category {
 
     @Id
     @OneToOne(cascade = CascadeType.ALL)
-    private User userId;
+    private Provider provider;
 
     @Id
     private ECategory category;

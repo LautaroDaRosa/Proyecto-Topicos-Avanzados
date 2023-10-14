@@ -18,6 +18,6 @@ public class ProviderService {
     }
 
     public List<Provider> getProviders() {
-        return providerRepository.getAllProviders();
+        return providerRepository.findAll();
     }
 }

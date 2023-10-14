@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IProviderRepository extends JpaRepository<Provider,Long> {
-    List<Provider> getAllProviders();
+    List<Provider> findAll();
 }

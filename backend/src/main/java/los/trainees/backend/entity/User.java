@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import los.trainees.backend.enums.ERole;
 
 @Data
 @Entity
@@ -23,5 +24,7 @@ public class User {
     protected String email;
 
     protected String info;
+
+    protected ERole role;
 
 }

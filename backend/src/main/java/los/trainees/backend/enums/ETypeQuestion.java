@@ -1,4 +1,4 @@
-package los.trainees.backend.entity;
+package los.trainees.backend.enums;
 
 public enum ETypeQuestion {
     SOCIAL,

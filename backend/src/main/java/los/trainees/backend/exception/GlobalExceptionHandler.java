@@ -1,17 +1,18 @@
 package los.trainees.backend.exception;
 
-import los.trainees.backend.entity.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Map;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(IncorrectUserDataException.class)
-    public ResponseEntity<String> handleCustomException(IncorrectUserDataException ex) {
-        return new ResponseEntity<>("Incorrect user data.", HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<Map<String, String>> handleCustomException() {
+        return new ResponseEntity<>(Map.of("message", "Incorrect login credentials"), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)

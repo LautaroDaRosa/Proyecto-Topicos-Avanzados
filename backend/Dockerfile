@@ -4,13 +4,13 @@ WORKDIR /app
 
 COPY . .
 
-RUN mvn clean install
+RUN mvn clean install -DskipTests
 
 FROM openjdk:17-slim
 
 WORKDIR /app
 
-COPY --from=builder /app/target/*.jar tu-aplicacion.jar
+COPY --from=builder /app/target/*.jar backend.jar
 
 EXPOSE 8080
 

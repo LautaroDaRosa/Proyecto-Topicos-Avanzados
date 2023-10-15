@@ -12,9 +12,9 @@ import java.util.Optional;
 @Service
 public class LoginService {
 
-    @Autowired
     private IUserRepository userRepository;
 
+    @Autowired
     public LoginService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }

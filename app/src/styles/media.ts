@@ -11,7 +11,7 @@ export const sizes = {
   small: 600,
   medium: 768,
   large: 1280,
-  xlarge: 1920,
+  xlarge: 1440,
 };
 
 // Iterate through the sizes and create min-width media queries

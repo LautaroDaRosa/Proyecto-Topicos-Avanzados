@@ -36,7 +36,7 @@ const StNavOption = styled.div<{ isSelected: boolean }>`
     props.isSelected &&
     `
       span {
-        color: #c70548;
+        color: #04b0f4;
       }
       cursor: default;
     `}

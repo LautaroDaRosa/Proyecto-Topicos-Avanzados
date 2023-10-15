@@ -7,7 +7,7 @@ const StSidebar = styled.div<Omit<SidebarProps, 'chilren'>>`
   display: none;
 
   > div {
-    padding: 0 30px 72px 60px;
+    padding: 0 30px 72px 30px;
     overflow-y: scroll;
     position: fixed;
     height: calc(100% - 80px);
@@ -16,7 +16,7 @@ const StSidebar = styled.div<Omit<SidebarProps, 'chilren'>>`
   ${props =>
     props.placement === 'right' &&
     css`
-      ${media.large} {
+      ${media.xlarge} {
         display: flex;
       }
     `}

@@ -1,5 +1,6 @@
 import Home from 'app/pages/Home';
 import { NotFoundPage } from 'app/pages/NotFoundPage/Loadable';
+import ProvidersPage from 'app/pages/ProvidersPage';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
@@ -15,7 +16,8 @@ const ProtectedRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/provider/:id" element={<></>} />
+      <Route path="/providers" element={<ProvidersPage />} />
+      <Route path="/providers/:id" element={<></>} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

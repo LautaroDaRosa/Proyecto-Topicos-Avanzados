@@ -1,5 +1,5 @@
-import { PostsState } from 'store/content/types';
 import { AuthState } from 'store/auth/types';
+import { ProvidersState } from 'store/providers/types';
 
 /*
   Because the redux-injectors injects your reducers asynchronously somewhere in your code
@@ -9,5 +9,5 @@ import { AuthState } from 'store/auth/types';
 */
 export interface RootState {
   authSlice?: AuthState;
-  postsSlice?: PostsState;
+  providersSlice?: ProvidersState;
 }

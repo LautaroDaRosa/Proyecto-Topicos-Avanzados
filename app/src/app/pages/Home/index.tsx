@@ -1,27 +1,22 @@
-import Feed from '../Feed';
 import StHome from './StHome';
 import Sidebar from '../../components/Sidebar';
-import { UserList } from '../UserList';
 import Title from '../../components/Title';
 import Navbar from '../../components/NavBar';
 import PageContainer from 'app/components/PageContainer';
-import Ball from 'app/components/Ball';
 
 const Home = () => (
   <StHome>
     <Navbar />
     <PageContainer>
-      <Sidebar placement="left">
-        <UserList />
-      </Sidebar>
-      <Feed />
+      <div style={{ flex: 1, margin: 32, marginTop: 0 }}>
+        <Title text="Bienvenido a la aplicacion de DERES!" />
+      </div>
       <Sidebar placement="right">
-        <Title text="Coming soon" />
-        <p>We are currently working on amazing features.</p>
-        <p>Stay tuned!</p>
+        <Title text="Muy pronto..." />
+        <p>Estamos trabajando en nuevas features.</p>
+        <p>Mantenete al tanto!</p>
       </Sidebar>
     </PageContainer>
-    <Ball width={76} height={80} color="white" type="home-ball" />
   </StHome>
 );
 export default Home;

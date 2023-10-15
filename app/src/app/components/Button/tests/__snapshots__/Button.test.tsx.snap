@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders correctly when action is not primary 1`] = `
+.c0 {
+  border-radius: 8px;
+  height: 48px;
+  font-size: 16px;
+  padding: 12px 24px;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+<button
+  class="c0"
+>
+  hello
+</button>
+`;
+
+exports[`Button renders correctly when action is primary 1`] = `
+.c0 {
+  border-radius: 8px;
+  height: 48px;
+  font-size: 16px;
+  padding: 12px 24px;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  border: 1.5px solid #fca408;
+  background-color: white;
+  color: #fca408;
+}
+
+.c0:disabled {
+  border-color: #c0bfcb;
+  color: #c0bfcb;
+}
+
+.c0:hover:enabled {
+  cursor: pointer;
+  color: white;
+  background-color: #fca408;
+}
+
+.c0:active:enabled {
+  color: white;
+  background-color: #b27508;
+  border-color: #b27508;
+}
+
+<button
+  action="primary"
+  class="c0"
+>
+  hello
+</button>
+`;

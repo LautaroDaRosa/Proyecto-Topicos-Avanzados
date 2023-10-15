@@ -51,15 +51,15 @@ jobs:
           cd backend/
           mvn --batch-mode test
           
-  frontend:
+  app:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       
       - name: Install modules
-        working-directory: ./frontend
+        working-directory: ./app
         run: yarn
      
       - name: Run ESLint
-        working-directory: ./frontend
+        working-directory: ./app
         run: yarn run eslint . --ext .js,.jsx,.ts,.tsx

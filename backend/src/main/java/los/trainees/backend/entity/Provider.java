@@ -29,6 +29,8 @@ public class Provider extends User {
 
     private Integer socialGovernance;
 
+    private Integer averageScore;
+
     @ManyToMany
     private List<Category> categoryList;
 

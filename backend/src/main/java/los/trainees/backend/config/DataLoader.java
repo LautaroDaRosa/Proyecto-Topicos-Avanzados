@@ -2,6 +2,7 @@ package los.trainees.backend.config;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,6 +17,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @Component
+@Profile("!test")
 public class DataLoader {
 
     @Autowired

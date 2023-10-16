@@ -1,2 +1,2 @@
 export const PROVIDERS = '/providers';
-export const CATEGORIES = '/categories';
+export const CATEGORIES = '/category';

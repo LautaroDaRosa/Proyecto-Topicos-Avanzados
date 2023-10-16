@@ -1,12 +1,9 @@
 package los.trainees.backend.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -30,9 +27,6 @@ public class Provider extends User {
     private Integer socialGovernance;
 
     private Integer averageScore;
-
-    @ManyToMany
-    private List<Category> categoryList;
 
     @ManyToOne
     private Form form;

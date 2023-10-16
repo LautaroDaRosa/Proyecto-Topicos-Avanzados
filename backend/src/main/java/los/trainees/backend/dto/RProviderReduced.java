@@ -1,12 +1,11 @@
 package los.trainees.backend.dto;
 
 import lombok.Data;
-import los.trainees.backend.entity.Category;
-
-import java.util.List;
 
 @Data
 public class RProviderReduced {
+
+    private Long userId;
 
     private String name;
 
@@ -17,7 +16,5 @@ public class RProviderReduced {
     private String logo;
 
     private Integer averageScore;
-
-    private List<Category> categoryList;
 
 }

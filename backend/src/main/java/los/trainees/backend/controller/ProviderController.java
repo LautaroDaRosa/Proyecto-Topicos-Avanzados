@@ -1,6 +1,7 @@
 package los.trainees.backend.controller;
 
 import los.trainees.backend.dto.RProviderReduced;
+import los.trainees.backend.enums.ECategory;
 import los.trainees.backend.mapper.ProviderMapper;
 import los.trainees.backend.service.ProviderService;
 import org.mapstruct.factory.Mappers;
@@ -27,8 +28,10 @@ public class ProviderController {
     }
 
     @GetMapping(path = "/filter", produces = "application/json")
-    public Page<RProviderReduced> filterProviders(@RequestParam(required = false) String name, @RequestParam(required = false) String businessName, @RequestParam(required = false) String rut, @RequestParam(required = false) Integer score, @RequestParam(required = false) String category, Pageable pageable) {
-        return providerMapper.pageToDtoReduced(providerService.filter(name, businessName, rut, score, category, pageable));
+    public Page<RProviderReduced> filterProviders(@RequestParam(required = false) String name, @RequestParam(required = false) String businessName,
+                                                  @RequestParam(required = false) String rut, @RequestParam(required = false) Integer score,
+                                                  @RequestParam(required = false) String category, Pageable pageable) {
+        return providerMapper.pageToDtoReduced(providerService.filter(name, businessName, rut, score, ECategory.findByName(category), pageable));
     }
 
 }

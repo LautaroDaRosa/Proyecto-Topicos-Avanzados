@@ -23,4 +23,13 @@ public enum ECategory {
     ECategory(String name) {
         this.name = name;
     }
+
+    public static ECategory findByName(String name) {
+        for (ECategory eCategory : ECategory.values()) {
+            if (eCategory.name.equalsIgnoreCase(name)) {
+                return eCategory;
+            }
+        }
+        return null;
+    }
 }

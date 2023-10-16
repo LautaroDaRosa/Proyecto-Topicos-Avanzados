@@ -21,7 +21,7 @@ public class ProviderService {
     }
 
     public Page<Provider> filter(String name, String businessName, String rut, Integer score, String category, Pageable pageable) {
-        List<Provider> filtered = providerRepository.filter(name, businessName, rut, score, category, pageable).stream()
+        List<Provider> filtered = providerRepository.filter(name, businessName, rut, score, pageable).stream()
                 .filter(provider -> provider.getCategoryList().stream().
                         anyMatch(category1 -> category1.getCategory().toString().equals(category))).toList();
         return new PageImpl<>(filtered);

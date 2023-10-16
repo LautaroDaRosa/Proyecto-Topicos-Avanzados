@@ -21,7 +21,6 @@ public interface IProviderRepository extends JpaRepository<Provider, Long> {
                           @Param("businessName") String businessName,
                           @Param("rut") String rut,
                           @Param("score") Integer score,
-                          @Param("category") String category,
                           Pageable pageable);
 
 }

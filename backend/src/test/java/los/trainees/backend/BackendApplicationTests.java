@@ -58,4 +58,13 @@ class BackendApplicationTests {
 
         assertThrows(IncorrectUserDataException.class, () -> loginService.checkCredentials(loginRequest));
     }
+
+     @Test
+    void testCheckCredentialsIncorrectPassword() {
+        Mockito.when(userRepository.getUserByName("username")).thenReturn(Optional.of(user));
+
+        LoginRequest loginRequest = new LoginRequest();
+
+        assertThrows(IncorrectUserDataException.class, () -> loginService.checkCredentials(loginRequest));
+    }
 }

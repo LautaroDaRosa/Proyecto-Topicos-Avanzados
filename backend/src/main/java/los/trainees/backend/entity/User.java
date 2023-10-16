@@ -1,16 +1,21 @@
 package los.trainees.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import los.trainees.backend.enums.ERole;
 
-@Data
 @Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     protected Long userId;
 
     protected String name;

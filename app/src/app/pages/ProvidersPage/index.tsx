@@ -12,7 +12,6 @@ const ProvidersPage = () => {
   useEffect(() => {
     async function fetchCategories() {
       const result = await getCategories();
-      console.log(result);
       setCategories(result);
     }
     fetchCategories();

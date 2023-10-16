@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class CategoryService {
-    public List<ECategory> getCategories() {
-        return Arrays.stream(ECategory.values()).toList();
+    public List<String> getCategories() {
+        return Arrays.stream(ECategory.values()).map(eCategory -> eCategory.name).toList();
     }
 }

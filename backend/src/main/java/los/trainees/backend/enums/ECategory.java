@@ -18,7 +18,7 @@ public enum ECategory {
     SERVICIO_VIGILANCIA_LIMPIEZA("Serivcio Vigilancia y Limpieza"),
     TELECOMUNICACIONES_DATOS("Telecomunicaciones y Datos");
 
-    final String name;
+    public final String name;
 
     ECategory(String name) {
         this.name = name;

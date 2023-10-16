@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -16,8 +17,9 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("application/json")
-    public List<ECategory> getCategories(){
+    @GetMapping(produces = "application/json")
+    @ResponseBody
+    public List<String> getCategories(){
         return categoryService.getCategories();
     }
 }

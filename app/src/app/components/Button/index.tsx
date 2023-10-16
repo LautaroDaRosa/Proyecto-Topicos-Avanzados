@@ -57,6 +57,29 @@ const StButton = styled.button<Omit<ButtonProps, 'text'>>`
         border-color: #137ca5;
       }
     `};
+  ${props =>
+    props.action === 'link' &&
+    css`
+      border-color: transparent;
+      background: transparent;
+      color: #fca408;
+      padding: 0;
+
+      &:disabled {
+        color: #c0bfcb;
+      }
+
+      &:hover:enabled {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      &:active:enabled {
+        color: white;
+        background-color: #b27508;
+        border-color: #b27508;
+      }
+    `};
 `;
 
 type ButtonProps = {

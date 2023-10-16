@@ -12,11 +12,11 @@ const ProvidersGrid = ({ providers }: Providers) => {
   return (
     <StProvidersGrid>
       {providers.map(provider => (
-        <StProviderGridCard key={provider.id}>
+        <StProviderGridCard key={provider.userId}>
           <h3>{provider.name}</h3>
           <img src={provider.logo} alt={`${provider.name} Logo`} />
           <StInfoContainer>
-            <span>Score: {provider.score}</span>
+            <span>Score: {provider.averageScore}</span>
             <span>Razon Social: {provider.businessName}</span>
             <span>RUT: {provider.rut}</span>
             <Button

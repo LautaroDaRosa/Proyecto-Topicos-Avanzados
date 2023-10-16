@@ -27,8 +27,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-  frontend:
-    build: ./app
-    ports:
-      - "3000:3000"
-    container_name: frontend
+  # frontend:
+  #   build: ./app
+  #   ports:
+  #     - "3000:3000"
+  #   container_name: frontend

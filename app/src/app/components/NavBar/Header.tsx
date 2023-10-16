@@ -11,9 +11,14 @@ const Header = styled.header`
   left: 0;
   top: 0;
   z-index: 9;
+  justify-content: space-between;
 
   img {
     height: 100%;
+  }
+
+  button {
+    margin-right: 24px;
   }
 `;
 

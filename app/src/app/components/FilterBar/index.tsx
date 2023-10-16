@@ -11,14 +11,17 @@ interface FilterBarProps {
     category: string,
   ) => void;
   clearFilters: () => void;
+  categories: string[];
 }
 
-const FilterBar = ({ onSearch, clearFilters }: FilterBarProps) => {
+const FilterBar = ({ onSearch, clearFilters, categories }: FilterBarProps) => {
   const [name, setName] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [rut, setRut] = useState('');
   const [category, setCategory] = useState('');
   const [score, setScore] = useState('');
+
+  const scores = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const clearAllFilters = () => {
     setName('');
@@ -61,28 +64,22 @@ const FilterBar = ({ onSearch, clearFilters }: FilterBarProps) => {
         <option value="" disabled>
           Score
         </option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+        {scores.map(score => (
+          <option value={score} key={score}>
+            {score}
+          </option>
+        ))}
       </select>
 
       <select value={category} onChange={e => setCategory(e.target.value)}>
         <option value="" disabled>
           Rubro
         </option>
-        <option value="Comunicaciones, Publicidad">
-          Comunicaciones, Publicidad
-        </option>
-        <option value="Servicios Financieros y Afines">
-          Servicios Financieros y Afines
-        </option>
+        {categories.map(cat => (
+          <option value={cat} key={cat}>
+            {cat}
+          </option>
+        ))}
       </select>
       <div style={{ gap: '8px', display: 'flex' }}>
         <Button

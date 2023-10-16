@@ -14,7 +14,7 @@ export const filterProviders = async (
   size: number,
   props: SearchProps,
 ) => {
-  let url = `${PROVIDERS}?page=${page}&size=${size}`;
+  let url = `${PROVIDERS}/filter?page=${page}&size=${size}`;
   url += props.name !== '' ? `&name=${props.name}` : '';
   url += props.businessName !== '' ? `&businessName=${props.businessName}` : '';
   url += props.rut !== '' ? `&rut=${props.rut}` : '';

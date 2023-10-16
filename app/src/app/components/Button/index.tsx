@@ -73,12 +73,6 @@ const StButton = styled.button<Omit<ButtonProps, 'text'>>`
         cursor: pointer;
         text-decoration: underline;
       }
-
-      &:active:enabled {
-        color: white;
-        background-color: #b27508;
-        border-color: #b27508;
-      }
     `};
 `;
 

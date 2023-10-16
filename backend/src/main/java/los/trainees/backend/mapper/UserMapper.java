@@ -4,7 +4,7 @@ import los.trainees.backend.dto.RUser;
 import los.trainees.backend.entity.User;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface UserMapper {
 
     RUser toDto(User user);

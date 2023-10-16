@@ -16,6 +16,8 @@ services:
       interval: 5s
       timeout: 2s
       retries: 10
+    volumes:
+      - ./db_init_scripts:/docker-entrypoint-initdb.d
   backend:
     build: ./backend
     ports:

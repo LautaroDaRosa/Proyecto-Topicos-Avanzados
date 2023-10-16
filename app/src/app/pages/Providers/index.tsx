@@ -7,7 +7,11 @@ import { getProvidersSelector } from 'store/providers/selectors';
 import { ProvidersSlice } from 'store/providers/slice'; */
 import { Provider } from 'store/providers/types';
 
-const Providers = () => {
+interface ProviderProps {
+  categories: string[];
+}
+
+const Providers = ({ categories }: ProviderProps) => {
   const mockedProviders: Provider[] = [
     {
       name: 'Canal 10',
@@ -59,8 +63,6 @@ const Providers = () => {
     dispatch(actions.fetchProviders());
   }, [dispatch, actions]); */
 
-  console.log(mockedProviders);
-
   const handleSearch = (
     name: string,
     businessName: string,
@@ -87,7 +89,11 @@ const Providers = () => {
   };
   return (
     <StProviders>
-      <FilterBar onSearch={handleSearch} clearFilters={handleClearFilters} />
+      <FilterBar
+        onSearch={handleSearch}
+        clearFilters={handleClearFilters}
+        categories={categories}
+      />
       {filteredProviders.length ? (
         <ProvidersGrid providers={filteredProviders} />
       ) : (

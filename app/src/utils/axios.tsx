@@ -22,7 +22,7 @@ export const parseJwt = token => {
 
 // AXIOS INSTANCE
 export const axiosInstance = axios.create({
-  baseURL: `http://localhost:8000`,
+  baseURL: `http://localhost:8080`,
   headers: getHeaders(),
 });
 
@@ -43,9 +43,11 @@ axiosInstance.interceptors.response.use(
       if (error.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
         const refresh = tokenService.getLocalRefreshToken();
-        const decodedJwt = parseJwt(refresh);
+        /* const decodedJwt = parseJwt(refresh); */
         // if there isn't a refresh token or the refresh token is expired
-        if (!refresh || (decodedJwt && decodedJwt.exp * 1000 < Date.now())) {
+        if (
+          !refresh /* || (decodedJwt && decodedJwt.exp * 1000 < Date.now()) */
+        ) {
           tokenService.removeLocalTokens();
           rootNavigate('/login');
           return;

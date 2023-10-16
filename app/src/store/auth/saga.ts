@@ -2,18 +2,20 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import api from './api';
 import { authActions } from './slice';
-import { LoginDataType } from './types';
+// import { LoginDataType } from './types';
 import TokenService from 'utils/tokenService';
 
 export function* login(action) {
   try {
     const { username, password } = action.payload;
-    const { access, refresh }: LoginDataType = yield call(
+    /* const { access, refresh }: LoginDataType = yield call(
       api.login,
       username,
       password,
-    );
-    yield call(TokenService.setLocalTokens, access, refresh);
+    ); */
+    yield call(api.login, username, password);
+
+    yield call(TokenService.setLocalTokens, 1, 1);
     yield put(authActions.loginSuccess());
   } catch (error: any) {
     yield put(authActions.loginError(error));

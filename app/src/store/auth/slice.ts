@@ -5,16 +5,6 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import authSaga from './saga';
 import { AuthState } from './types';
 
-export const emptyPostsState = {
-  posts: undefined,
-  status: undefined,
-};
-
-export const emptyUserState = {
-  data: undefined,
-  status: undefined,
-};
-
 export const initialState: AuthState = {
   login: {
     status: undefined,
@@ -41,6 +31,7 @@ const slice = createSlice({
           ? response.status
           : response;
     },
+    logout: state => initialState,
   },
 });
 

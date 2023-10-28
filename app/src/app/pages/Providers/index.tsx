@@ -1,65 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import StProviders from './StProviders';
 import FilterBar from 'app/components/FilterBar';
 import ProvidersGrid from 'app/components/ProvidersGrid';
-/* import { useDispatch, useSelector } from 'react-redux';
-import { getProvidersSelector } from 'store/providers/selectors';
-import { ProvidersSlice } from 'store/providers/slice'; */
-import { Provider } from 'store/providers/types';
+import { filterProviders, getProviders } from 'store/providers/api';
+import { Provider, SearchProps } from 'store/providers/types';
+import Button from 'app/components/Button';
 
-const Providers = () => {
-  const mockedProviders: Provider[] = [
-    {
-      name: 'Canal 10',
-      businessName: 'CANAL 10 S.A.',
-      rut: '734879753738964',
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Canal_10_Uruguay_Logo_1960.webp/640px-Canal_10_Uruguay_Logo_1960.webp.png',
-      address: 'Lorenzo Carnelli 1234',
-      id: 1,
-      score: 9,
-      categories: ['Comunicaciones, Publicidad'],
-    },
-    {
-      name: 'Canal 4',
-      businessName: 'CANAL 4 S.A.',
-      rut: '633334234363643',
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Canal4_uy.png',
-      address: 'Paraguay, 2253, Montevideo, Uruguay',
-      id: 2,
-      score: 6,
-      categories: ['Comunicaciones, Publicidad'],
-    },
-    {
-      name: 'Teledoce',
-      businessName: 'TELEDOCE S.A.',
-      rut: '3457385937529',
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Teledoce_2022.png',
-      address: 'Enriqueta Compte y Riqué 1276',
-      id: 3,
-      score: 7,
-      categories: ['Comunicaciones, Publicidad'],
-    },
-    {
-      name: 'Banco Santander del Uruguay',
-      businessName: 'SANTANDER S.A.',
-      rut: '5765384337675',
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Banco_santander_logo.svg/2560px-Banco_santander_logo.svg.png',
-      address: '18 de Julio 1321',
-      id: 4,
-      score: 9,
-      categories: ['Servicios Financieros y Afines'],
-    },
-  ];
-  /* const allProviders: Provider[] = useSelector(getProvidersSelector); */
-  const [filteredProviders, setFilteredProviders] = useState(mockedProviders);
-  /* const { actions } = ProvidersSlice();
-  const dispatch = useDispatch();
+interface ProviderProps {
+  categories: string[];
+}
+
+const Providers = ({ categories }: ProviderProps) => {
+  const pageSize = 3;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [isFirst, setIsFirst] = useState(true);
+  const [isLast, setIsLast] = useState(true);
+  const [providers, setProviders] = useState<Provider[]>([]);
+  const [isFiltering, setIsFiltering] = useState(false);
+  const [searchProps, setSearchProps] = useState<SearchProps>({
+    name: '',
+    businessName: '',
+    rut: '',
+    score: '',
+    category: '',
+  });
 
   useEffect(() => {
-    dispatch(actions.fetchProviders());
-  }, [dispatch, actions]); */
+    async function fetchProviders() {
+      const result = !isFiltering
+        ? await getProviders(currentPage, pageSize)
+        : await filterProviders(currentPage, pageSize, searchProps);
+      setIsFirst(result.first);
+      setIsLast(result.last);
+      setProviders(result.content);
+    }
+    fetchProviders();
+  }, [pageSize, currentPage, isFiltering, searchProps]);
 
-  console.log(mockedProviders);
+  const handleClearFilters = () => {
+    setIsFiltering(false);
+    setCurrentPage(0);
+  };
 
   const handleSearch = (
     name: string,
@@ -68,28 +49,58 @@ const Providers = () => {
     score: string,
     category: string,
   ) => {
-    const filterFn = p => {
-      return (
-        (name === '' || p.name.toLowerCase().includes(name.toLowerCase())) &&
-        (businessName === '' ||
-          p.businessName.toLowerCase().includes(businessName.toLowerCase())) &&
-        (rut === '' || p.rut === rut) &&
-        (score === '' || p.score === parseInt(score)) &&
-        (category === '' || p.categories.includes(category))
-      );
-    };
-
-    setFilteredProviders(mockedProviders.filter(filterFn));
+    setSearchProps({
+      name: name,
+      businessName: businessName,
+      rut: rut,
+      score: score,
+      category: category,
+    });
+    setIsFiltering(true);
+    setCurrentPage(0);
   };
 
-  const handleClearFilters = () => {
-    setFilteredProviders(mockedProviders);
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
   };
+
+  const previousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
   return (
     <StProviders>
-      <FilterBar onSearch={handleSearch} clearFilters={handleClearFilters} />
-      {filteredProviders.length ? (
-        <ProvidersGrid providers={filteredProviders} />
+      <div style={{ width: '100%' }}>
+        <FilterBar
+          onSearch={handleSearch}
+          clearFilters={handleClearFilters}
+          categories={categories}
+        />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: 8,
+            width: '100%',
+            justifyContent: 'center',
+          }}
+        >
+          <Button
+            text="Anterior"
+            action="link"
+            disabled={isFirst}
+            onClick={previousPage}
+          />
+          <Button
+            text="Siguiente"
+            action="link"
+            disabled={isLast}
+            onClick={nextPage}
+          />
+        </div>
+      </div>
+      {providers.length ? (
+        <ProvidersGrid providers={providers} />
       ) : (
         <span>
           No se han encontrado proveedores para los filtros de búsqueda

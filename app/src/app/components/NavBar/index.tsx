@@ -4,7 +4,7 @@
  *
  */
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import selectedHome from '../../../resources/home-selected.svg';
 import home from '../../../resources/home.svg';
@@ -16,40 +16,68 @@ import Nav from './Nav';
 import StBrand from './StBrand';
 import StLine from './StLine';
 import StNavOption from './StNavOption';
+import Button from '../Button';
+import tokenService from 'utils/tokenService';
+import { useDispatch } from 'react-redux';
+import { AuthSlice } from 'store/auth/slice';
+import StBrandAndLinks from './StBrandAndLinks';
 
 const Navbar = () => {
   const pathname = useLocation().pathname;
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const { actions } = AuthSlice();
+
+  const logout = () => {
+    tokenService.removeLocalTokens();
+    dispatch(actions.logout());
+    navigate('/login');
+  };
+
   return (
     <Header>
-      <img
-        src={logo}
-        alt="logo"
-        style={{
-          width: '60px',
-          height: '60px',
-          marginLeft: '24px',
-          marginRight: '24px',
-        }}
+      <StBrandAndLinks>
+        <img
+          src={logo}
+          alt="logo"
+          style={{
+            width: '60px',
+            height: '60px',
+            marginLeft: '24px',
+            marginRight: '24px',
+          }}
+        />
+        <StBrand>Empresas por el desarrollo sostenible</StBrand>
+        <StLine />
+        <Nav>
+          <Link to="/">
+            <StNavOption isSelected={pathname === '/'}>
+              <img
+                src={pathname === '/' ? selectedHome : home}
+                alt="Home icon"
+              />
+              <span>Inicio</span>
+            </StNavOption>
+          </Link>
+          <Link to="/providers">
+            <StNavOption isSelected={pathname === '/providers'}>
+              <img
+                src={pathname === '/providers' ? selectedBuildings : buildings}
+                alt="Home icon"
+              />
+              <span>Proveedores</span>
+            </StNavOption>
+          </Link>
+        </Nav>
+      </StBrandAndLinks>
+      <Button
+        text="Cerar sesión"
+        type="submit"
+        action="primary"
+        onClick={logout}
       />
-      <StBrand>Empresas por el desarrollo sostenible</StBrand>
-      <StLine />
-      <Nav>
-        <Link to="/">
-          <StNavOption isSelected={pathname === '/'}>
-            <img src={pathname === '/' ? selectedHome : home} alt="Home icon" />
-            <span>Inicio</span>
-          </StNavOption>
-        </Link>
-        <Link to="/providers">
-          <StNavOption isSelected={pathname === '/providers'}>
-            <img
-              src={pathname === '/providers' ? selectedBuildings : buildings}
-              alt="Home icon"
-            />
-            <span>Proveedores</span>
-          </StNavOption>
-        </Link>
-      </Nav>
     </Header>
   );
 };

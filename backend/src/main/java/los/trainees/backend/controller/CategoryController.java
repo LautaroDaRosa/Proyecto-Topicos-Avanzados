@@ -1,6 +1,5 @@
 package los.trainees.backend.controller;
 
-import los.trainees.backend.enums.ECategory;
 import los.trainees.backend.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,7 @@ public class CategoryController {
 
     @GetMapping(produces = "application/json")
     @ResponseBody
+    //@PreAuthorize("hasRole('ADMIN')")
     public List<String> getCategories(){
         return categoryService.getCategories();
     }

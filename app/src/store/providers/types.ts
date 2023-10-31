@@ -16,6 +16,8 @@ export interface Provider {
   averageScore: number;
 }
 
+// HACER UN EXTENDER PROVIDER CON TODA LA DATA NUEVA.
+
 export interface ProvidersPage {
   content: Provider[];
   pageable: Pageable;

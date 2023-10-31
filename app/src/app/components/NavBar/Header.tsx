@@ -16,10 +16,6 @@ const Header = styled.header`
   img {
     height: 100%;
   }
-
-  button {
-    margin-right: 24px;
-  }
 `;
 
 export default Header;

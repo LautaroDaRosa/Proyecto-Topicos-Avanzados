@@ -10,6 +10,7 @@ import Button from '../../components/Button';
 import Form from './Form';
 import StBackgroundImage from './StBackgroundImage';
 import StLogin from './StLogin';
+import tokenService from 'utils/tokenService';
 
 const Login = () => {
   const [user, setUser] = useState('');
@@ -21,7 +22,10 @@ const Login = () => {
   const { actions } = AuthSlice();
 
   useEffect(() => {
-    if (loginStatus === API_STATUS.success) {
+    if (
+      loginStatus === API_STATUS.success ||
+      tokenService.getLocalAccessToken()
+    ) {
       navigate('/');
     }
   }, [loginStatus, navigate]);

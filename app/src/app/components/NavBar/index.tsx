@@ -1,9 +1,3 @@
-/**
- *
- * Navbar
- *
- */
-
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import selectedHome from '../../../resources/home-selected.svg';
@@ -21,6 +15,9 @@ import tokenService from 'utils/tokenService';
 import { useDispatch } from 'react-redux';
 import { AuthSlice } from 'store/auth/slice';
 import StBrandAndLinks from './StBrandAndLinks';
+import StUserActionsContainer from './StUserActionsContainer';
+import StAvatar from './StAvatar';
+import AvatarButton from './StAvatarButton';
 
 const Navbar = () => {
   const pathname = useLocation().pathname;
@@ -34,6 +31,11 @@ const Navbar = () => {
     tokenService.removeLocalTokens();
     dispatch(actions.logout());
     navigate('/login');
+  };
+
+  const goToMyProfile = () => {
+    dispatch(actions.logout());
+    navigate('/profile');
   };
 
   return (
@@ -72,12 +74,17 @@ const Navbar = () => {
           </Link>
         </Nav>
       </StBrandAndLinks>
-      <Button
-        text="Cerar sesión"
-        type="submit"
-        action="primary"
-        onClick={logout}
-      />
+      <StUserActionsContainer>
+        <StAvatar>
+          <AvatarButton onClick={goToMyProfile} />
+        </StAvatar>
+        <Button
+          text="Cerar sesión"
+          type="submit"
+          action="primary"
+          onClick={logout}
+        />
+      </StUserActionsContainer>
     </Header>
   );
 };

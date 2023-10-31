@@ -9,5 +9,5 @@ import java.util.Optional;
 @Mapper
 public interface UserMapper {
 
-    RUser toDto(Optional<User> user);
+    RUser toDto(User user);
 }

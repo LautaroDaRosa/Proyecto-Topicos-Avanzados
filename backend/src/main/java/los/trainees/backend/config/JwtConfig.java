@@ -2,22 +2,18 @@ package los.trainees.backend.config;
 
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class JwtConfig {
-    /*
-    Esto es si se quiere poner estas variables en un archivo properties afuera, es mas seguro pero bueno
+
     @Value("${jwt.secret}")
-    private String secret = "Bananero";
+    private String secret;
 
-    @Value("${jwt.expiration}")
-    private int expiration = 100000;
-    */
-
-    private final String secret = "mi_clave_secreta";
-    private final int expiration = 3600;
+    @Value("${jwt.expirationInMinutes}")
+    private int expirationInMinutes;
 
     @Bean
     public JwtParser jwtParser() {
@@ -26,6 +22,6 @@ public class JwtConfig {
 
     @Bean
     public JwtGenerator jwtGenerator() {
-        return new JwtGenerator(secret, expiration);
+        return new JwtGenerator(secret, expirationInMinutes);
     }
 }

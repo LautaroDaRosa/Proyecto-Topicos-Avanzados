@@ -28,7 +28,7 @@ class BackendApplicationTests extends Containers {
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(User.builder().name("Michael").email("usuario@ejemplo.com").password("3506402").role(ERole.PROVIDER).build());
+        userRepository.save(User.builder().username("Michael").email("usuario@ejemplo.com").password("3506402").role(ERole.PROVIDER).build());
     }
 
     @AfterEach

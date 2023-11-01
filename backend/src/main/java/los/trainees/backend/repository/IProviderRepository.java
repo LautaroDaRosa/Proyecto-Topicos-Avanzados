@@ -16,13 +16,11 @@ public interface IProviderRepository extends JpaRepository<Provider, Long> {
             "WHERE (:name IS NULL OR p.name LIKE %:name%) " +
             "AND (:businessName IS NULL OR p.businessName LIKE %:businessName%) " +
             "AND (:rut IS NULL OR p.rut LIKE %:rut%) " +
-            "AND (:score IS NULL OR p.averageScore = :score) " +
             "AND (:category IS NULL OR EXISTS (SELECT pc FROM ProviderCategory pc " +
             "WHERE pc.provider.userId = p.userId AND pc.category = :category))")
     Page<Provider> filter(@Param("name") String name,
                           @Param("businessName") String businessName,
                           @Param("rut") String rut,
-                          @Param("score") Integer score,
                           @Param("category") ECategory category,
                           Pageable pageable);
 

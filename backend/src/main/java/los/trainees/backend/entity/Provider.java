@@ -24,12 +24,6 @@ public class Provider extends User {
 
     private String address;
 
-    private Integer socialScore;
-
-    private Integer socialEnvironmental;
-
-    private Integer socialGovernance;
-
     @Transient
     private Score score;
 

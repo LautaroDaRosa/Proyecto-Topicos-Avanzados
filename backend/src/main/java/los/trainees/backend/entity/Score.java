@@ -9,14 +9,17 @@ import java.util.List;
 @Getter
 @Setter
 public class Score {
-    private double governance;
-    private double social;
-    private double environmental;
+    private int governance;
+    private int social;
+    private int environmental;
 
     public Score() {
     }
 
     public Score(List<Answer> answerList) {
+        double socialScore = 0;
+        double governanceScore = 0;
+        double environmentalScore = 0;
         for (Answer ans: answerList) {
             Question quest = ans.getQuestion();
             double weightFactor = 0;
@@ -27,16 +30,22 @@ public class Score {
 
             switch (quest.getCategoryQuestion()){
                 case SOCIAL:
-                    this.social += quest.getPeso() * ans.getResponse() * weightFactor;
+                    socialScore += quest.getPeso() * ans.getResponse() * weightFactor;
                     break;
                 case GOVERNANCE:
-                    this.governance += quest.getPeso() * ans.getResponse() * weightFactor;
+                    governanceScore += quest.getPeso() * ans.getResponse() * weightFactor;
                     break;
                 case ENVIRONMENTAL:
-                    this.environmental += quest.getPeso() * ans.getResponse() * weightFactor;
+                    environmentalScore += quest.getPeso() * ans.getResponse() * weightFactor;
                     break;
             }
         }
+        this.social = (int)socialScore;
+        this.governance = (int)governanceScore;
+        this.environmental = (int)environmentalScore;
     }
 
+    public int getAverage() {
+        return (social+governance+environmental)/3;
+    }
 }

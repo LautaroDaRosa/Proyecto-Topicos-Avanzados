@@ -1,9 +1,10 @@
 package los.trainees.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -20,14 +21,16 @@ public class Provider extends User {
 
     private String address;
 
-    private Integer socialScore;
+    @Transient
+    private Score score;
 
-    private Integer socialEnvironmental;
+    public Score getScore(){
+        if(this.score == null){
+            this.score = new Score(this.answerList);
+        }
+        return this.score;
+    }
 
-    private Integer socialGovernance;
-
-    private Integer averageScore;
-
-    @ManyToOne
-    private Form form;
+    @OneToMany(mappedBy = "id.provider", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Answer> answerList;
 }

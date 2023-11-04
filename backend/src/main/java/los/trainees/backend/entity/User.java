@@ -18,7 +18,7 @@ public class User {
     @EqualsAndHashCode.Include
     protected Long userId;
 
-    protected String name;
+    protected String username;
 
     protected String phone;
 

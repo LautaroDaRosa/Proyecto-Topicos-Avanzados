@@ -1,10 +1,8 @@
 package los.trainees.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import los.trainees.backend.enums.ECategoryQuestion;
 import los.trainees.backend.enums.ETypeQuestion;
 
 @Entity
@@ -15,8 +13,14 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long questionId;
 
-    private ETypeQuestion type;
+    @Enumerated(EnumType.STRING)
+    private ECategoryQuestion categoryQuestion;
+
+    private int peso;
 
     private String text;
+
+    @Enumerated(EnumType.STRING)
+    private ETypeQuestion typeQuestion;
 
 }

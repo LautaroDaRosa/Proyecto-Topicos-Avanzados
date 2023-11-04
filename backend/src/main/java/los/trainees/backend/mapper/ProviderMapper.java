@@ -11,7 +11,11 @@ public interface ProviderMapper {
     RProviderReduced toDtoReduced(Provider provider);
 
     default Page<RProviderReduced> pageToDtoReduced(Page<Provider> page) {
-        return page.map(this::toDtoReduced);
+        return page.map(provider -> {
+            RProviderReduced rProviderReduced = toDtoReduced(provider);
+            rProviderReduced.setAverageScore(provider.getScore().getAverage());
+            return rProviderReduced;
+        });
     }
 
 }

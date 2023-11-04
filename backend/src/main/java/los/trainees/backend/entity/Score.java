@@ -21,7 +21,7 @@ public class Score {
         double governanceScore = 0;
         double environmentalScore = 0;
         for (Answer ans: answerList) {
-            Question quest = ans.getQuestion();
+            Question quest = ans.getId().getQuestion();;
             double weightFactor = 0;
             switch (quest.getTypeQuestion()){
                 case TrueOrFalse -> weightFactor = 1;

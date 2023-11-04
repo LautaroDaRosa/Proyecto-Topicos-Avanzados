@@ -2,7 +2,6 @@ package los.trainees.backend.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import los.trainees.backend.enums.ETypeQuestion;
 
 import java.util.List;
 

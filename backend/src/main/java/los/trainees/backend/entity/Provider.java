@@ -1,9 +1,6 @@
 package los.trainees.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -34,6 +31,6 @@ public class Provider extends User {
         return this.score;
     }
 
-    @OneToMany
+    @OneToMany(mappedBy = "id.provider", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Answer> answerList;
 }

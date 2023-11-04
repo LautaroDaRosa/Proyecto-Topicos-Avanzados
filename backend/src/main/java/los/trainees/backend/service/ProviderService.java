@@ -5,8 +5,11 @@ import los.trainees.backend.enums.ECategory;
 import los.trainees.backend.repository.IProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProviderService {
@@ -19,6 +22,9 @@ public class ProviderService {
     }
 
     public Page<Provider> filter(String username, String businessName, String rut, Integer score, ECategory category, Pageable pageable) {
-        return providerRepository.filter(username, businessName, rut, score, category, pageable);
+        Page<Provider> dbProviders =  providerRepository.filter(username, businessName, rut, category, pageable);
+        List<Provider> list = dbProviders.getContent().stream()
+                .filter(provider -> provider.getScore().getAverage()/10 == score).toList();
+        return new PageImpl<>(list,pageable,dbProviders.getTotalElements());
     }
 }

@@ -23,8 +23,8 @@ public class AnswerController {
     private AnswerService answerService;
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PROVIDER')")
-    @PostMapping(path = "/send",produces = "application/json")
-    public ResponseEntity<Boolean> sendAnswers(@RequestBody List<AnswerData> answerDataList){
+    @PostMapping(path = "/send", produces = "application/json")
+    public ResponseEntity<Boolean> sendAnswers(@RequestBody List<AnswerData> answerDataList) {
         AnswerDTO answerDTO = new AnswerDTO();
         RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
         answerDTO.setProvider(rUser.getUserId());

@@ -12,9 +12,6 @@ import los.trainees.backend.repository.IQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class AnswerService {
 
@@ -28,9 +25,6 @@ public class AnswerService {
     private IQuestionRepository questionRepository;
 
     public Boolean saveAnswers(AnswerDTO answerList) {
-
-        List<Answer> savedAnswers = new ArrayList<>();
-
         Provider provider = providerRepository.findById(answerList.getProvider()).orElse(null);
         for (AnswerData answerData : answerList.getAnswers()) {
             // Busca el Provider y la Question por sus IDs.
@@ -46,12 +40,10 @@ public class AnswerService {
                 answerId.setQuestion(question);
                 answer.setId(answerId);
                 answer.setResponse(answerData.getResponse());
-
                 // Guarda la respuesta en la base de datos.
-                savedAnswers.add(answerRepository.save(answer));
+                answerRepository.save(answer);
             }
         }
-
         return true;
     }
 }

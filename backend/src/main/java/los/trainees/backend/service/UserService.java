@@ -10,17 +10,21 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class LoginService {
+public class UserService {
 
     private IUserRepository userRepository;
 
     @Autowired
-    public LoginService(IUserRepository userRepository) {
+    public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    public Optional<User> findUserByUsername(String username) {
+        return userRepository.getUserByUsername(username);
+    }
+
     public User checkCredentials(LoginRequest loginRequest) {
-        Optional<User> optionalUser = userRepository.getUserByName(loginRequest.getUsername());
+        Optional<User> optionalUser = findUserByUsername(loginRequest.getUsername());
         User user = optionalUser.orElseThrow(IncorrectUserDataException::new);
         String hashedPassword = String.valueOf(loginRequest.getPassword().hashCode());
         if (user.getPassword().compareTo(hashedPassword) == 0) {

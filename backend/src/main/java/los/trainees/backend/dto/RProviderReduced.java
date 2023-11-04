@@ -7,7 +7,7 @@ public class RProviderReduced {
 
     private Long userId;
 
-    private String name;
+    private String username;
 
     private String businessName;
 

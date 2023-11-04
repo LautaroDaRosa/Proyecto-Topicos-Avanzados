@@ -19,12 +19,12 @@ public class JwtGenerator {
         this.expirationInMinutes = expirationInMinutes;
     }
 
-    public String generateToken(String username, String roles) {
+    public String generateToken(String username, String role) {
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + expirationInMinutes * 60000);
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
-        claims.put("roles", roles);
+        claims.put("role", role);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)
@@ -41,10 +41,10 @@ public class JwtGenerator {
         return claims.getBody().getSubject();
     }
 
-    public String getRolesFromToken(String token) {
+    public String getRoleFromToken(String token) {
         Jws<Claims> claims = Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token);
-        return (String) claims.getBody().get("roles");
+        return (String) claims.getBody().get("role");
     }
 }

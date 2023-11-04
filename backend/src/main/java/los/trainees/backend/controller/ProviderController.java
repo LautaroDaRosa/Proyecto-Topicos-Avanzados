@@ -23,16 +23,18 @@ public class ProviderController {
 
     private final ProviderMapper providerMapper = Mappers.getMapper(ProviderMapper.class);
 
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")
     @GetMapping(produces = "application/json")
     public Page<RProviderReduced> getAllProviders(Pageable pageable) {
         return providerMapper.pageToDtoReduced(providerService.getProviders(pageable));
     }
 
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")
     @GetMapping(path = "/filter", produces = "application/json")
-    public Page<RProviderReduced> filterProviders(@RequestParam(required = false) String name, @RequestParam(required = false) String businessName,
+    public Page<RProviderReduced> filterProviders(@RequestParam(required = false) String username, @RequestParam(required = false) String businessName,
                                                   @RequestParam(required = false) String rut, @RequestParam(required = false) Integer score,
                                                   @RequestParam(required = false) String category, Pageable pageable) {
-        return providerMapper.pageToDtoReduced(providerService.filter(name, businessName, rut, score, ECategory.findByName(category), pageable));
+        return providerMapper.pageToDtoReduced(providerService.filter(username, businessName, rut, score, ECategory.findByName(category), pageable));
     }
 
 }

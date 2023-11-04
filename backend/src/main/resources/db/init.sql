@@ -1,4 +1,4 @@
-INSERT IGNORE INTO user (user_id, email, info, name, password, phone, role)
+INSERT IGNORE INTO user (user_id, email, info, username, password, phone, role)
 VALUES (1, 'provider1@example.com', 'Provider 1 Info', 'Provider 1', '48690', '48690', 'PROVIDER'),
        (2, 'provider2@example.com', 'Provider 2 Info', 'Provider 2', '48690', '48690', 'PROVIDER'),
        (3, 'provider3@example.com', 'Provider 3 Info', 'Provider 3', '48690', '48690', 'PROVIDER'),
@@ -27,7 +27,7 @@ VALUES ('AGRO_FORESTAL_OTROS', 1),
        ('SERVICIO_FINANCIERO_AFINES', 4),
        ('SERVICIO_GASTRONOMICO_AFINES', 3),
        ('SERVICIO_GASTRONOMICO_AFINES', 1);
-INSERT IGNORE INTO user (user_id, email, info, name, password, phone, role)
+INSERT IGNORE INTO user (user_id, email, info, username, password, phone, role)
 VALUES (5, 'topicos@example.com', 'User Test', 'topicos', '48690', '48691', 'PARTNER');
 INSERT IGNORE INTO partner (address, business_name, contact, logo, rut, user_id)
 VALUES ('address', 'business_name', 'contact', 'logo', 'rut', 5)

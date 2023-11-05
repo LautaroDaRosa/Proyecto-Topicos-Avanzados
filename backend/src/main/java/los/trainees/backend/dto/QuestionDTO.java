@@ -5,7 +5,7 @@ import los.trainees.backend.enums.ECategoryQuestion;
 import los.trainees.backend.enums.ETypeQuestion;
 
 @Data
-public class QuestionData {
+public class QuestionDTO {
 
     private Long questionId;
 

@@ -1,16 +1,12 @@
 package los.trainees.backend.controller;
 
-import los.trainees.backend.dto.AnswerDTO;
-import los.trainees.backend.dto.AnswerData;
-import los.trainees.backend.dto.QuestionData;
-import los.trainees.backend.dto.RUser;
+import los.trainees.backend.dto.ListQuestionIdDTO;
+import los.trainees.backend.dto.QuestionDTO;
 import los.trainees.backend.entity.Question;
-import los.trainees.backend.service.AnswerService;
 import los.trainees.backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,24 +18,27 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN','PROVIDER')")
+    @GetMapping(produces = "application/json")
+    public ResponseEntity<List<Question>> getQuestion() {
+        return ResponseEntity.ok(questionService.getQuestions());
+    }
+
     @PreAuthorize(value = "hasAnyAuthority('ADMIN')")
     @PostMapping(produces = "application/json")
-    public ResponseEntity<Question> createQuestion(@RequestBody QuestionData questionData) {
-        //RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        return ResponseEntity.ok(questionService.createQuestion(questionData));
+    public ResponseEntity<List<Question>> createQuestion(@RequestBody List<QuestionDTO> listQuestionData) {
+        return ResponseEntity.ok(questionService.createQuestions(listQuestionData));
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN')")
     @PutMapping(produces = "application/json")
-    public ResponseEntity<Question> modifyQuestion(@RequestBody QuestionData questionData) {
-        //RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        return ResponseEntity.ok(questionService.modifyQuestion(questionData));
+    public ResponseEntity<List<Question>> modifyQuestion(@RequestBody List<QuestionDTO> listQuestionData) {
+        return ResponseEntity.ok(questionService.modifyQuestions(listQuestionData));
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN')")
     @DeleteMapping(produces = "application/json")
-    public ResponseEntity<Question> deleteQuestion(@RequestParam Long questionId) {
-        //RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        return ResponseEntity.ok(questionService.deleteQuestion(questionId));
+    public ResponseEntity<Boolean> deleteQuestion(@RequestBody ListQuestionIdDTO listQuestionIdDTO) {
+        return ResponseEntity.ok(questionService.deleteQuestions(listQuestionIdDTO));
     }
 }

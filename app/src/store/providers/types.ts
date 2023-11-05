@@ -2,12 +2,12 @@ import { API_STATUS } from 'utils/constants';
 
 export interface ProvidersState {
   providersApiResult: {
-    providers: Provider[] | undefined;
+    providers: MinimalProvider[] | undefined;
     status: API_STATUS | undefined;
   };
 }
 
-export interface Provider {
+export interface MinimalProvider {
   userId: number;
   name: string;
   businessName: string;
@@ -16,10 +16,8 @@ export interface Provider {
   averageScore: number;
 }
 
-// HACER UN EXTENDER PROVIDER CON TODA LA DATA NUEVA.
-
 export interface ProvidersPage {
-  content: Provider[];
+  content: MinimalProvider[];
   pageable: Pageable;
   last: boolean;
   totalPages: number;

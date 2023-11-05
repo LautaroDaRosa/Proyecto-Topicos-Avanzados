@@ -9,6 +9,11 @@ import UserInfo from 'app/components/UserInfo';
 import ProviderScores from 'app/components/ProviderScores';
 import Button from 'app/components/Button';
 import StButtonContainer from './StButtonContainer';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getProvider } from 'store/providers/api';
+import { Profile } from 'types';
+import { getMyProfile } from 'store/auth/api';
 
 interface ProfileProperties {
   itsOwnProfile: boolean;
@@ -16,7 +21,19 @@ interface ProfileProperties {
 
 const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
   // Como este es el que va a repartir la informacion, tiene que hacer la request.
-  const mockedProvider = {
+  // Dependiendo de si el perfil es propio o no, se hace una request con el id.
+  const { id } = useParams();
+  const [useR, setUser] = useState<Profile>();
+  console.log(useR);
+  useEffect(() => {
+    async function fetchProvider() {
+      const response = id ? await getProvider(id) : await getMyProfile();
+      setUser(response);
+    }
+    fetchProvider();
+  }, [id]);
+
+  const user = {
     name: 'Canal 4',
     logo: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Canal4_uy.png',
     email: 'canal4@gmail.com',
@@ -45,39 +62,37 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
         <StPageContent>
           <Title text="Perfil de usuario" />
           <UserProfile
-            logo={mockedProvider.logo}
-            name={mockedProvider.name}
-            role={mockedProvider.role}
-            telephone={mockedProvider.telephone}
-            description={mockedProvider.description}
-            email={mockedProvider.email}
+            logo={user.logo}
+            name={user.name}
+            role={user.role}
+            telephone={user.telephone}
+            description={user.description}
+            email={user.email}
           />
-          {['PROVIDER', 'PARTNER'].includes(mockedProvider.role) && (
+          {['PROVIDER', 'PARTNER'].includes(user.role) && (
             <>
-              <Title
-                text={`Información de ${roleMapper[mockedProvider.role]}`}
-              />
+              <Title text={`Información de ${roleMapper[user.role]}`} />
               <UserInfo
-                businessName={mockedProvider.businessName}
-                rut={mockedProvider.rut}
-                contact={mockedProvider.contact}
-                address={mockedProvider.address}
-                categories={mockedProvider.categories}
+                businessName={user.businessName}
+                rut={user.rut}
+                contact={user.contact}
+                address={user.address}
+                categories={user.categories}
               />
             </>
           )}
-          {mockedProvider.role === 'PROVIDER' && (
+          {user.role === 'PROVIDER' && (
             <>
               <Title text={'Resumen de scores'} />
               <ProviderScores
-                socialScore={mockedProvider.socialScore}
-                environmentalScore={mockedProvider.environmentalScore}
-                governanceScore={mockedProvider.governanceScore}
-                averageScore={mockedProvider.averageScore}
+                socialScore={user.socialScore}
+                environmentalScore={user.environmentalScore}
+                governanceScore={user.governanceScore}
+                averageScore={user.averageScore}
               />
             </>
           )}
-          {itsOwnProfile && (
+          {itsOwnProfile && user.role === 'PROVIDER' && (
             <StButtonContainer>
               <Button
                 action="secondary"

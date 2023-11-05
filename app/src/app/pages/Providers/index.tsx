@@ -3,7 +3,7 @@ import StProviders from './StProviders';
 import FilterBar from 'app/components/FilterBar';
 import ProvidersGrid from 'app/components/ProvidersGrid';
 import { filterProviders, getProviders } from 'store/providers/api';
-import { Provider, SearchProps } from 'store/providers/types';
+import { MinimalProvider, SearchProps } from 'store/providers/types';
 import Button from 'app/components/Button';
 
 interface ProviderProps {
@@ -15,7 +15,7 @@ const Providers = ({ categories }: ProviderProps) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isFirst, setIsFirst] = useState(true);
   const [isLast, setIsLast] = useState(true);
-  const [providers, setProviders] = useState<Provider[]>([]);
+  const [providers, setProviders] = useState<MinimalProvider[]>([]);
   const [isFiltering, setIsFiltering] = useState(false);
   const [searchProps, setSearchProps] = useState<SearchProps>({
     name: '',

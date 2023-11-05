@@ -18,8 +18,11 @@ const ProtectedRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/providers" element={<ProvidersPage />} />
-      <Route path="/providers/:id" element={<></>} />
-      <Route path="/profile" element={<ProfilePage itsOwnProfile={true}/>} />
+      <Route
+        path="/provider/:id"
+        element={<ProfilePage itsOwnProfile={false} />}
+      />
+      <Route path="/profile" element={<ProfilePage itsOwnProfile={true} />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

@@ -127,7 +127,6 @@ Object {
             <button
               action="primary"
               class="c3"
-              disabled=""
             >
               Ver perfil de proveedor
             </button>
@@ -161,7 +160,6 @@ Object {
             <button
               action="primary"
               class="c3"
-              disabled=""
             >
               Ver perfil de proveedor
             </button>
@@ -293,7 +291,6 @@ Object {
           <button
             action="primary"
             class="c3"
-            disabled=""
           >
             Ver perfil de proveedor
           </button>
@@ -327,7 +324,6 @@ Object {
           <button
             action="primary"
             class="c3"
-            disabled=""
           >
             Ver perfil de proveedor
           </button>

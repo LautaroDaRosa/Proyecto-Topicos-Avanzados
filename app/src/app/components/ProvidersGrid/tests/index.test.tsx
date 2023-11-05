@@ -2,9 +2,10 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 
 import ProvidersGrid from '..';
-import { Provider } from 'store/providers/types';
+import { MinimalProvider } from 'store/providers/types';
+import { MemoryRouter } from 'react-router-dom';
 
-const mockedProviders: Provider[] = [
+const mockedProviders: MinimalProvider[] = [
   {
     name: 'Canal 10',
     businessName: 'CANAL 10 S.A.',
@@ -25,11 +26,19 @@ const mockedProviders: Provider[] = [
 
 describe('Filter Bar', () => {
   it('should match snapshot', () => {
-    const providersGrid = render(<ProvidersGrid providers={mockedProviders} />);
+    const providersGrid = render(
+      <MemoryRouter>
+        <ProvidersGrid providers={mockedProviders} />
+      </MemoryRouter>,
+    );
     expect(providersGrid).toMatchSnapshot();
   });
   it('should show all the providers information', () => {
-    const providersGrid = render(<ProvidersGrid providers={mockedProviders} />);
+    const providersGrid = render(
+      <MemoryRouter>
+        <ProvidersGrid providers={mockedProviders} />
+      </MemoryRouter>,
+    );
     providersGrid.getByText('Canal 10');
     providersGrid.getByText('Razon Social: CANAL 10 S.A.');
     providersGrid.getByText('RUT: 734879753738964');

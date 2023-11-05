@@ -29,13 +29,13 @@ public class Score {
 
             switch (quest.getCategoryQuestion()){
                 case SOCIAL:
-                    socialScore += quest.getPeso() * ans.getResponse() * weightFactor;
+                    socialScore += quest.getWeight() * ans.getResponse() * weightFactor;
                     break;
                 case GOVERNANCE:
-                    governanceScore += quest.getPeso() * ans.getResponse() * weightFactor;
+                    governanceScore += quest.getWeight() * ans.getResponse() * weightFactor;
                     break;
                 case ENVIRONMENTAL:
-                    environmentalScore += quest.getPeso() * ans.getResponse() * weightFactor;
+                    environmentalScore += quest.getWeight() * ans.getResponse() * weightFactor;
                     break;
             }
         }

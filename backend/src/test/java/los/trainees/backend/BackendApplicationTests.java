@@ -5,7 +5,7 @@ import los.trainees.backend.entity.User;
 import los.trainees.backend.enums.ERole;
 import los.trainees.backend.exception.IncorrectUserDataException;
 import los.trainees.backend.repository.IUserRepository;
-import los.trainees.backend.service.LoginService;
+import los.trainees.backend.service.UserService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,11 +24,11 @@ class BackendApplicationTests extends Containers {
     private IUserRepository userRepository;
 
     @Autowired
-    private LoginService loginService;
+    private UserService userService;
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(User.builder().name("Michael").email("usuario@ejemplo.com").password("3506402").role(ERole.PROVIDER).build());
+        userRepository.save(User.builder().username("Michael").email("usuario@ejemplo.com").password("3506402").role(ERole.PROVIDER).build());
     }
 
     @AfterEach
@@ -38,18 +38,18 @@ class BackendApplicationTests extends Containers {
 
     @Test
     void testCheckCredentialsValid() {
-        User user = userRepository.getUserByName("Michael").get();
-        User result = loginService.checkCredentials(LoginRequest.builder().username("Michael").password("root").build());
+        User user = userRepository.getUserByUsername("Michael").get();
+        User result = userService.checkCredentials(LoginRequest.builder().username("Michael").password("root").build());
         assertEquals(user.getUserId(), result.getUserId());
     }
 
     @Test
     void testCheckCredentialsIncorrectUsername() {
-        assertThrows(IncorrectUserDataException.class, () -> loginService.checkCredentials(LoginRequest.builder().username("Michael1234").password("root").build()));
+        assertThrows(IncorrectUserDataException.class, () -> userService.checkCredentials(LoginRequest.builder().username("Michael1234").password("root").build()));
     }
 
     @Test
     void testCheckCredentialsIncorrectPassword() {
-        assertThrows(IncorrectUserDataException.class, () -> loginService.checkCredentials(LoginRequest.builder().username("Michael").password("root1234").build()));
+        assertThrows(IncorrectUserDataException.class, () -> userService.checkCredentials(LoginRequest.builder().username("Michael").password("root1234").build()));
     }
 }

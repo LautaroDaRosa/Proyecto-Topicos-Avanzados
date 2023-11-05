@@ -43,21 +43,6 @@ public class UserService {
         return userRepository.getUserByUsername(username);
     }
 
-    public Optional<Admin> findAdminById(Long id) {
-        return adminRepository.getAdminByUserId(id);
-    }
-
-    public Optional<Partner> findPartnerById(Long id) {
-        return partnerRepository.getPartnersByUserId(id);
-    }
-
-    public Optional<Provider> findProviderById(Long id) {
-        return providerRepository.getProvidersByUserId(id);
-    }
-
-    public  Optional<User> findUserByUserId(Long id) {
-        return  userRepository.getUsersByUserId(id);
-    }
 
     public User checkCredentials(LoginRequest loginRequest) {
         Optional<User> optionalUser = findUserByUsername(loginRequest.getUsername());
@@ -78,11 +63,11 @@ public class UserService {
         profile.setRole(rUser.getRole());
         switch (rUser.getRole()) {
             case ADMIN:
-                Optional<Admin> admin = findAdminById(rUser.getUserId());
+                Optional<Admin> admin = adminRepository.getAdminByUserId(rUser.getUserId());
                 profile.setBusinessRole(admin.get().getBusinessRole());
                 break;
             case PARTNER:
-                Optional<Partner> partner = findPartnerById(rUser.getUserId());
+                Optional<Partner> partner = partnerRepository.getPartnersByUserId(rUser.getUserId());
                 profile.setBusinessName(partner.get().getBusinessName());
                 profile.setRut(partner.get().getRut());
                 profile.setContact(partner.get().getContact());
@@ -90,16 +75,13 @@ public class UserService {
                 profile.setAddress(partner.get().getAddress());
                 break;
             case PROVIDER:
-                Optional<Provider> provider = findProviderById(rUser.getUserId());
+                Optional<Provider> provider = providerRepository.getProvidersByUserId(rUser.getUserId());
                 profile.setBusinessName(provider.get().getBusinessName());
                 profile.setRut(provider.get().getRut());
                 profile.setContact(provider.get().getContact());
                 profile.setLogo(provider.get().getLogo());
                 profile.setAddress(provider.get().getAddress());
                 profile.setScore(provider.get().getScore());
-                profile.setEnvironmental(provider.get().getScore().getEnvironmental());
-                profile.setGovernance(provider.get().getScore().getGovernance());
-                profile.setSocial(provider.get().getScore().getSocial());
                 break;
         }
 

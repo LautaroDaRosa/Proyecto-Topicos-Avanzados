@@ -34,10 +34,5 @@ public class ProfileUser {
 
     private Score score;
 
-    private int governance;
-
-    private int social;
-
-    private int environmental;
 
 }

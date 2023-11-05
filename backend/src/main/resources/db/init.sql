@@ -26,6 +26,7 @@ VALUES ('AGRO_FORESTAL_OTROS', 1),
        ('SERVICIO_GASTRONOMICO_AFINES', 3),
        ('SERVICIO_GASTRONOMICO_AFINES', 1);
 INSERT IGNORE INTO user (user_id, email, info, username, password, phone, role)
-VALUES (5, 'topicos@example.com', 'User Test', 'topicos', '48690', '48691', 'PARTNER');
+VALUES (5, 'topicos@example.com', 'User Test', 'topicos', '48690', '48691', 'PARTNER'),
+        (6, 'admin@example.com', 'User Admin', 'admin', '48690', '48691', 'ADMIN');
 INSERT IGNORE INTO partner (address, business_name, contact, logo, rut, user_id)
 VALUES ('address', 'business_name', 'contact', 'logo', 'rut', 5)

@@ -6,6 +6,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Arrays;
 import java.util.Map;
 
 @ControllerAdvice
@@ -24,5 +25,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Map<String, String>> handleUnauthorizedUserException() {
         return new ResponseEntity<>(Map.of("message", "Access denied"), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(QuestionNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleQuestionNotFoundException() {
+        return new ResponseEntity<>(Map.of("message", "Incorrect question id"), HttpStatus.BAD_REQUEST);
     }
 }

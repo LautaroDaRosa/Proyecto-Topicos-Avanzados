@@ -2,6 +2,7 @@ package los.trainees.backend.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import java.lang.Math;
 
 import java.util.List;
 
@@ -39,12 +40,12 @@ public class Score {
                     break;
             }
         }
-        this.social = (int)socialScore;
-        this.governance = (int)governanceScore;
-        this.environmental = (int)environmentalScore;
+        this.social = (int)Math.round(socialScore/10);
+        this.governance = (int)Math.round(governanceScore/10);
+        this.environmental = (int)Math.round(environmentalScore/10);
     }
 
     public int getAverage() {
-        return (social+governance+environmental)/3;
+        return (int)Math.round((social+governance+environmental)/3D);
     }
 }

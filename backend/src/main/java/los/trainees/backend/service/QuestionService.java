@@ -9,6 +9,7 @@ import los.trainees.backend.entity.AnswerId;
 import los.trainees.backend.entity.Provider;
 import los.trainees.backend.entity.Question;
 import los.trainees.backend.enums.ETypeQuestion;
+import los.trainees.backend.exception.QuestionNotFoundException;
 import los.trainees.backend.repository.IAnswerRepository;
 import los.trainees.backend.repository.IProviderRepository;
 import los.trainees.backend.repository.IQuestionRepository;
@@ -36,11 +37,7 @@ public class QuestionService {
     public Question modifyQuestion(QuestionData questionData) {
         Optional<Question> questionOpt = questionRepository.getQuestionByQuestionId(questionData.getQuestionId());
 
-        if (questionOpt.isEmpty()) {
-            throw new Exception("No existe esa pregunta");
-        }
-
-        Question question = questionOpt.get();
+        Question question = questionOpt.orElseThrow(QuestionNotFoundException::new);
 
         setQuestion(questionData, question);
 
@@ -60,11 +57,9 @@ public class QuestionService {
     public Question deleteQuestion(Long questionId) {
         Optional<Question> questionOpt = questionRepository.getQuestionByQuestionId(questionId);
 
-        if (questionOpt.isEmpty()) {
-            throw new Exception("No existe esa pregunta");
-        }
-
+        Question question = questionOpt.orElseThrow(QuestionNotFoundException::new);
         questionRepository.deleteById(questionId);
-        return questionOpt.get();
+
+        return question;
     }
 }

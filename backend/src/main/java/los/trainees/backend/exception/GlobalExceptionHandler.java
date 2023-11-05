@@ -27,4 +27,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleUnauthorizedUserException() {
         return new ResponseEntity<>(Map.of("message", "Access denied"), HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(QuestionNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleQuestionNotFoundException() {
+        return new ResponseEntity<>(Map.of("message", "Incorrect question id"), HttpStatus.BAD_REQUEST);
+    }
 }

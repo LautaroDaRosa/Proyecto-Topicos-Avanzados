@@ -39,13 +39,11 @@ public class UserController {
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PROVIDER', 'PARTNER')")
-    @GetMapping(path = "/my_profile", produces = "application/json")
+    @GetMapping(path = "/myProfile", produces = "application/json")
     public ProfileUser myProfile() {
         ProfileUser profile = new ProfileUser();
         RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
-
-        profile = userService.fillProfileUser(rUser,profile);
-
+        profile = userService.fillProfileUser(rUser, profile);
         return profile;
 
     }

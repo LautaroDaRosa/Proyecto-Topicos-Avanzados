@@ -1,5 +1,6 @@
 package los.trainees.backend.repository;
 
+import los.trainees.backend.entity.Admin;
 import los.trainees.backend.entity.Provider;
 import los.trainees.backend.enums.ECategory;
 import org.springframework.data.domain.Page;
@@ -9,8 +10,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface IProviderRepository extends JpaRepository<Provider, Long> {
+
+    Optional<Provider> getProvidersByUserId(Long id);
 
     @Query(value = "SELECT p FROM Provider p " +
             "WHERE (:username IS NULL OR p.username LIKE %:username%) " +

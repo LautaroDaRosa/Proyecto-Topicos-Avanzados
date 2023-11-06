@@ -23,8 +23,11 @@ public class ProviderService {
 
     public Page<Provider> filter(String username, String businessName, String rut, Integer score, ECategory category, Pageable pageable) {
         Page<Provider> dbProviders =  providerRepository.filter(username, businessName, rut, category, pageable);
-        List<Provider> list = dbProviders.getContent().stream()
-                .filter(provider -> (provider.getScore().getAverage()/10) == score).toList();
+        List<Provider> list = dbProviders.getContent();
+        if(score != null){
+            list = list.stream()
+                    .filter(provider -> provider.getScore().getAverage() == score).toList();
+        }
         return new PageImpl<>(list,pageable,dbProviders.getTotalElements());
     }
 }

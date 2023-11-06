@@ -2,6 +2,7 @@ package los.trainees.backend.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import java.lang.Math;
 
 import java.util.List;
 
@@ -29,22 +30,22 @@ public class Score {
 
             switch (quest.getCategoryQuestion()){
                 case SOCIAL:
-                    socialScore += quest.getPeso() * ans.getResponse() * weightFactor;
+                    socialScore += quest.getWeight() * ans.getResponse() * weightFactor;
                     break;
                 case GOVERNANCE:
-                    governanceScore += quest.getPeso() * ans.getResponse() * weightFactor;
+                    governanceScore += quest.getWeight() * ans.getResponse() * weightFactor;
                     break;
                 case ENVIRONMENTAL:
-                    environmentalScore += quest.getPeso() * ans.getResponse() * weightFactor;
+                    environmentalScore += quest.getWeight() * ans.getResponse() * weightFactor;
                     break;
             }
         }
-        this.social = (int)socialScore;
-        this.governance = (int)governanceScore;
-        this.environmental = (int)environmentalScore;
+        this.social = (int)Math.round(socialScore/10);
+        this.governance = (int)Math.round(governanceScore/10);
+        this.environmental = (int)Math.round(environmentalScore/10);
     }
 
     public int getAverage() {
-        return (social+governance+environmental)/3;
+        return (int)Math.round((social+governance+environmental)/3D);
     }
 }

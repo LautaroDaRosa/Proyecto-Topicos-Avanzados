@@ -2,6 +2,7 @@ package los.trainees.backend.service;
 
 import los.trainees.backend.dto.AnswerDTO;
 import los.trainees.backend.dto.AnswerData;
+import los.trainees.backend.dto.RUser;
 import los.trainees.backend.entity.Answer;
 import los.trainees.backend.entity.AnswerId;
 import los.trainees.backend.entity.Provider;
@@ -11,6 +12,10 @@ import los.trainees.backend.repository.IProviderRepository;
 import los.trainees.backend.repository.IQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AnswerService {
@@ -45,5 +50,15 @@ public class AnswerService {
             }
         }
         return true;
+    }
+
+    public List<AnswerData> getAnswers(RUser rUser) {
+        Provider provider = providerRepository.getProvidersByUserId(rUser.getUserId()).get();
+        List<AnswerData> answers = new ArrayList<>();
+        for (Answer ans: provider.getAnswerList()) {
+            AnswerData data = new AnswerData(ans.getId().getQuestion().getQuestionId(),ans.getResponse());
+            answers.add(data);
+        }
+        return answers;
     }
 }

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +27,14 @@ public class AnswerController {
         answerDTO.setProvider(rUser.getUserId());
         answerDTO.setAnswers(answerDataList);
         return ResponseEntity.ok(answerService.saveAnswers(answerDTO));
+    }
+
+    @PreAuthorize(value = "hasAnyAuthority('PROVIDER')")
+    @GetMapping(path = "/answered", produces = "application/json")
+    public List<AnswerData> getAnswersFromProvider() {
+        AnswerDTO answerDTO = new AnswerDTO();
+        RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        return answerService.getAnswers(rUser);
     }
 
 }

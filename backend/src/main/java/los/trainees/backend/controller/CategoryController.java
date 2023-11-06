@@ -16,7 +16,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER', 'PROVIDER')")
     @GetMapping(produces = "application/json")
     public List<String> getCategories() {
         return categoryService.getCategories();

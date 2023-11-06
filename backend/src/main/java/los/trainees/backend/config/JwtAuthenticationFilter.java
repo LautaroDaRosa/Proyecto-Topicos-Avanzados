@@ -3,6 +3,7 @@ package los.trainees.backend.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
@@ -42,21 +43,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException {
-        try {
-            String token = extractTokenFromRequest(request);
-            String username = tokenGenerator.getUsernameFromToken(token);
-            String role = tokenGenerator.getRoleFromToken(token);
-            Optional<User> userOptional = userService.findUserByUsername(username);
-            RUser rUser = userMapper.toDto(userOptional.get());
-            Collection<? extends GrantedAuthority> authorities = parseRole(role);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
-            authentication.setDetails(rUser);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        if (!request.getMethod().equalsIgnoreCase("OPTIONS")) {
+            try {
+                String token = extractTokenFromRequest(request);
+                String username = tokenGenerator.getUsernameFromToken(token);
+                String role = tokenGenerator.getRoleFromToken(token);
+                Optional<User> userOptional = userService.findUserByUsername(username);
+                RUser rUser = userMapper.toDto(userOptional.get());
+                Collection<? extends GrantedAuthority> authorities = parseRole(role);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
+                authentication.setDetails(rUser);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                filterChain.doFilter(request, response);
+            } catch (Exception e) {
+                log.error("Error parsing JWT", e);
+                sendError(response);
+            }
+        } else {
             filterChain.doFilter(request, response);
-        } catch (Exception e) {
-            log.error("Error parsing JWT", e);
-            sendError(response);
         }
     }
 

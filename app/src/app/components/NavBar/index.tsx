@@ -79,7 +79,7 @@ const Navbar = () => {
           <AvatarButton onClick={goToMyProfile} />
         </StAvatar>
         <Button
-          text="Cerar sesión"
+          text="Cerrar sesión"
           type="submit"
           action="primary"
           onClick={logout}

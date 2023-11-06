@@ -6,7 +6,3 @@ export interface QuestionAnswer {
   question: number;
   response: number;
 }
-
-export interface Form {
-	
-}

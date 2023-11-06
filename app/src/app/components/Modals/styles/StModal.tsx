@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StModal = styled.div`
   display: flex;
-  position: absolute;
+  position: fixed;
   flex-direction: column;
   z-index: 10;
   background: white;
@@ -12,7 +12,7 @@ const StModal = styled.div`
   box-sizing: border-box;
   top: 45%;
   left: 50%;
-  transform: translate(-50%, 0%);
+  transform: translate(-50%, -50%);
   button {
     width: 200px;
   }

@@ -1,8 +1,7 @@
 import { API_STATUS } from 'utils/constants';
 
 export interface LoginDataType {
-  access: string;
-  refresh: string;
+  token: string;
 }
 
 export interface AuthState {

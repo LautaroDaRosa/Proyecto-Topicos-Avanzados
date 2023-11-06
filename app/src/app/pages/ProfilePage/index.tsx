@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { getProvider } from 'store/providers/api';
 import { Profile } from 'types';
 import { getMyProfile } from 'store/auth/api';
+import AnswerFormModal from 'app/components/Modals/AnswerFormModal';
 
 interface ProfileProperties {
   itsOwnProfile: boolean;
@@ -25,6 +26,9 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
   const { id } = useParams();
   const [useR, setUser] = useState<Profile>();
   console.log(useR);
+
+  const [isModalOpenned, setIsModalOpenned] = useState(false);
+
   useEffect(() => {
     async function fetchProvider() {
       const response = id ? await getProvider(id) : await getMyProfile();
@@ -59,6 +63,10 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
     <StProfile>
       <Navbar />
       <PageContainer>
+        <AnswerFormModal
+          isOpenned={isModalOpenned}
+          setIsOpenned={setIsModalOpenned}
+        />
         <StPageContent>
           <Title text="Perfil de usuario" />
           <UserProfile
@@ -96,8 +104,8 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
             <StButtonContainer>
               <Button
                 action="secondary"
-                text="Editar perfil"
-                onClick={() => alert('click')}
+                text="Formulario"
+                onClick={() => setIsModalOpenned(true)}
               />
             </StButtonContainer>
           )}

@@ -47,7 +47,6 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
   const [environmentQuestions, setEnvironmentQuestions] = useState<Question[]>([
     emptyQuestion('ENVIRONMENTAL'),
   ]);
-  console.log(environmentQuestions);
 
   const [governanceQuestions, setGovernanceQuestions] = useState<Question[]>([
     emptyQuestion('GOVERNANCE'),

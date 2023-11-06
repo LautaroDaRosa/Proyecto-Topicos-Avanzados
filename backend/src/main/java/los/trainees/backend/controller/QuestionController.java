@@ -31,12 +31,6 @@ public class QuestionController {
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN')")
-    @PutMapping(produces = "application/json")
-    public ResponseEntity<List<Question>> modifyQuestion(@RequestBody List<QuestionDTO> listQuestionData) {
-        return ResponseEntity.ok(questionService.modifyQuestions(listQuestionData));
-    }
-
-    @PreAuthorize(value = "hasAnyAuthority('ADMIN')")
     @DeleteMapping(produces = "application/json")
     public ResponseEntity<Boolean> deleteQuestion(@RequestBody ListQuestionIdDTO listQuestionIdDTO) {
         return ResponseEntity.ok(questionService.deleteQuestions(listQuestionIdDTO));

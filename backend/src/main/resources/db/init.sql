@@ -2,7 +2,9 @@ INSERT IGNORE INTO user (user_id, email, info, username, password, phone, role)
 VALUES (1, 'provider1@example.com', 'Provider 1 Info', 'Provider 1', '48690', '48690', 'PROVIDER'),
        (2, 'provider2@example.com', 'Provider 2 Info', 'Provider 2', '48690', '48690', 'PROVIDER'),
        (3, 'provider3@example.com', 'Provider 3 Info', 'Provider 3', '48690', '48690', 'PROVIDER'),
-       (4, 'provider4@example.com', 'Provider 4 Info', 'Provider 4', '48690', '48691', 'PROVIDER');
+       (4, 'provider4@example.com', 'Provider 4 Info', 'Provider 4', '48690', '48691', 'PROVIDER'),
+       (5, 'topicos@example.com', 'User Test', 'topicos', '48690', '48691', 'PARTNER'),
+       (6, 'admin@example.com', 'User Admin', 'admin', '48690', '48691', 'ADMIN');
 INSERT IGNORE INTO provider (address, business_name, contact, logo, rut,user_id)
 VALUES ('Lorenzo Carnelli 1234', 'CANAL 10 S.A.', '',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Canal_10_Uruguay_Logo_1960.webp/640px-Canal_10_Uruguay_Logo_1960.webp.png',
@@ -25,8 +27,8 @@ VALUES ('AGRO_FORESTAL_OTROS', 1),
        ('SERVICIO_FINANCIERO_AFINES', 4),
        ('SERVICIO_GASTRONOMICO_AFINES', 3),
        ('SERVICIO_GASTRONOMICO_AFINES', 1);
-INSERT IGNORE INTO user (user_id, email, info, username, password, phone, role)
-VALUES (5, 'topicos@example.com', 'User Test', 'topicos', '48690', '48691', 'PARTNER'),
-        (6, 'admin@example.com', 'User Admin', 'admin', '48690', '48691', 'ADMIN');
 INSERT IGNORE INTO partner (address, business_name, contact, logo, rut, user_id)
-VALUES ('address', 'business_name', 'contact', 'logo', 'rut', 5)
+VALUES ('address', 'business_name', 'contact', 'logo', 'rut', 5);
+
+INSERT IGNORE INTO admin (user_id, business_role)
+VALUES (6, 'Rol administrador');

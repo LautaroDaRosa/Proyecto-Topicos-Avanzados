@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import tokenService from './tokenService';
+import { LOGIN } from 'store/auth/endpoints';
+import { rootNavigate } from 'app/routes/CustomRouter';
+import api from 'store/auth/api';
 
 function getHeaders() {
   const headers = { Authorization: '' };
@@ -23,7 +26,7 @@ export const axiosInstance = axios.create({
   headers: getHeaders(),
 });
 
-/* axiosInstance.interceptors.request.use(request => {
+axiosInstance.interceptors.request.use(request => {
   const headers =
     request.data?.grant_type === 'refresh_token' ? {} : getHeaders();
 
@@ -64,4 +67,3 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
- */

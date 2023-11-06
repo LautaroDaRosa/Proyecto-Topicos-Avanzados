@@ -18,6 +18,7 @@ import StBrandAndLinks from './StBrandAndLinks';
 import StUserActionsContainer from './StUserActionsContainer';
 import StAvatar from './StAvatar';
 import AvatarButton from './StAvatarButton';
+import currentUser from 'utils/currentUser';
 
 const Navbar = () => {
   const pathname = useLocation().pathname;
@@ -29,6 +30,7 @@ const Navbar = () => {
 
   const logout = () => {
     tokenService.removeLocalTokens();
+    currentUser.remove();
     dispatch(actions.logout());
     navigate('/login');
   };

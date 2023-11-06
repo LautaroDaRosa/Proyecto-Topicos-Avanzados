@@ -6,11 +6,11 @@ import Button from 'app/components/Button';
 import StMainMessageContainer from './StMainMessageContainer';
 import CreateFormModal from 'app/components/Modals/CreateFormModal';
 import { useState } from 'react';
+import currentUser from 'utils/currentUser';
 
 const Home = () => {
-  const roles = ['PROVIDER', 'ADMIN'];
-  const mockedRole = roles[1];
-  const existsForm = true;
+  const user = currentUser.get();
+  const existsForm = false;
   const [isModalOpenned, setIsModalOpenned] = useState(false);
   return (
     <StHome>
@@ -23,7 +23,7 @@ const Home = () => {
             setIsOpenned={setIsModalOpenned}
           />
           <StMainMessageContainer>
-            {mockedRole === 'ADMIN' && !existsForm && (
+            {user.role === 'ADMIN' && !existsForm && (
               <>
                 <span>Aún no existe ningún formulario</span>
                 <Button
@@ -33,7 +33,7 @@ const Home = () => {
                 />
               </>
             )}
-            {mockedRole === 'ADMIN' && existsForm && (
+            {user.role === 'ADMIN' && existsForm && (
               <>
                 <span>Hemos encontrado 1 formulario previamente creado</span>
                 <Button

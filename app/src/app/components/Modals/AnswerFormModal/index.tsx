@@ -114,10 +114,6 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
       };
     });
 
-  console.log(socialAnswers);
-  console.log(environmentAnswers);
-  console.log(governanceAnswers);
-
   const saveForm = () => {
     // Send request to endpoint. En .then avisar al padre que el formulario ya se hizo.
     closeModal();

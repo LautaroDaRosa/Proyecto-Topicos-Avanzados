@@ -84,7 +84,6 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
   }, []);
 
   const saveForm = () => {
-    console.log('calling');
     async function postAnswers() {
       await sendAnswers(
         socialAnswers.concat(governanceAnswers, environmentAnswers),

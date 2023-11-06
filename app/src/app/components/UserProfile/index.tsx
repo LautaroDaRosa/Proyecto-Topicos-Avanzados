@@ -41,9 +41,11 @@ const UserProfile = ({
   };
   return (
     <StProfile>
-      <StLogoContainer>
-        <img src={logo} alt="Profile logo" />
-      </StLogoContainer>
+      {role !== 'ADMIN' && (
+        <StLogoContainer>
+          <img src={logo} alt="Profile logo" />
+        </StLogoContainer>
+      )}
       <StProfileInfo>
         <StInfoLine>
           <StField>

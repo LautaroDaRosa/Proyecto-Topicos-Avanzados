@@ -36,6 +36,14 @@ export const getCategories = async () => {
   return response.data as string[];
 };
 
+export const updateCategories = async (categories: string[]) => {
+  const response = await axiosInstance.put(
+    `${PROVIDERS}/updateCategories`,
+    categories,
+  );
+  return response.data;
+};
+
 const authApi = {
   getProviders,
   getProvider,

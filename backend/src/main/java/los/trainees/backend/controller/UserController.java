@@ -43,9 +43,7 @@ public class UserController {
     public ProfileUser myProfile() {
         ProfileUser profile = new ProfileUser();
         RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
-
-        profile = userService.fillProfileUser(rUser,profile);
-
+        profile = userService.fillProfileUser(rUser, profile);
         return profile;
 
     }

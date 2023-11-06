@@ -21,6 +21,7 @@ import AvatarButton from './StAvatarButton';
 import currentUser from 'utils/currentUser';
 
 const Navbar = () => {
+  const user = currentUser.get();
   const pathname = useLocation().pathname;
 
   const navigate = useNavigate();
@@ -65,15 +66,19 @@ const Navbar = () => {
               <span>Inicio</span>
             </StNavOption>
           </Link>
-          <Link to="/providers">
-            <StNavOption isSelected={pathname === '/providers'}>
-              <img
-                src={pathname === '/providers' ? selectedBuildings : buildings}
-                alt="Home icon"
-              />
-              <span>Proveedores</span>
-            </StNavOption>
-          </Link>
+          {user.role !== 'PROVIDER' && (
+            <Link to="/providers">
+              <StNavOption isSelected={pathname === '/providers'}>
+                <img
+                  src={
+                    pathname === '/providers' ? selectedBuildings : buildings
+                  }
+                  alt="Home icon"
+                />
+                <span>Proveedores</span>
+              </StNavOption>
+            </Link>
+          )}
         </Nav>
       </StBrandAndLinks>
       <StUserActionsContainer>

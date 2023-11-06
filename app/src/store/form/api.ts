@@ -1,46 +1,28 @@
+import { Question, QuestionWithId } from 'types';
 import { axiosInstance } from 'utils/axios';
 import { toCamel } from 'utils/convert-keys';
-import { Profile } from 'types';
-import { CATEGORIES, PROVIDERS } from 'store/providers/endpoints';
-import { ProvidersPage, SearchProps } from 'store/providers/types';
+import { ANSWER, QUESTION } from './endpoints';
+import { QuestionAnswer } from './types';
 
-export const getProviders = async (page: number, size: number) => {
-  const url = `${PROVIDERS}?page=${page}&size=${size}`;
-  const response = await axiosInstance.get(url);
-  return toCamel(response.data as ProvidersPage);
+export const postQuestions = async (questions: Question[]) => {
+  const response = await axiosInstance.post(QUESTION, questions);
+  return toCamel(response.data);
 };
 
-export const getProvider = async (id: string) => {
-  const url = `${PROVIDERS}/${id}`;
-  const response = await axiosInstance.get(url);
-  return toCamel(response.data as Profile);
+export const getQuestions = async () => {
+  const response = await axiosInstance.get(QUESTION);
+  return toCamel(response.data as QuestionWithId[]);
 };
 
-export const filterProviders = async (
-  page: number,
-  size: number,
-  props: SearchProps,
-) => {
-  let url = `${PROVIDERS}/filter?page=${page}&size=${size}`;
-  url += props.name !== '' ? `&name=${props.name}` : '';
-  url += props.businessName !== '' ? `&businessName=${props.businessName}` : '';
-  url += props.rut !== '' ? `&rut=${props.rut}` : '';
-  url += props.score !== '' ? `&score=${props.score}` : '';
-  url += props.category !== '' ? `&category=${props.category}` : '';
-  const response = await axiosInstance.get(url);
-  return toCamel(response.data as ProvidersPage);
-};
-
-export const getCategories = async () => {
-  const response = await axiosInstance.get(CATEGORIES);
-  return response.data as string[];
+export const sendAnswers = async (answers: QuestionAnswer[]) => {
+  const response = await axiosInstance.post(`${ANSWER}/send`, answers);
+  return toCamel(response.data);
 };
 
 const authApi = {
-  getProviders,
-  getProvider,
-  getCategories,
-  filterProviders,
+  postQuestions,
+  getQuestions,
+  sendAnswers,
 };
 
 export default authApi;

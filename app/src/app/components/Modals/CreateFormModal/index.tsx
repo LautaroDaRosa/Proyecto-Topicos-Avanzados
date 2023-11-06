@@ -11,6 +11,7 @@ import RowContainer from '../styles/RowContainer';
 import WeightInput from '../styles/WeightInput';
 import ModalContent from '../styles/ModalContent';
 import SpecificationText from '../styles/SpecificationText';
+import { postQuestions } from 'store/form/api';
 
 interface CreateFormProps {
   isOpenned: boolean;
@@ -30,13 +31,13 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
   };
 
   function emptyQuestion(
-    categoryType: 'SOCIAL' | 'ENVIRONMENTAL' | 'GOVERNANCE',
+    categoryQuestion: 'SOCIAL' | 'ENVIRONMENTAL' | 'GOVERNANCE',
   ) {
     return {
       text: '',
       weight: '',
-      categoryType: categoryType,
-      questionType: 'TrueOrFalse',
+      categoryQuestion: categoryQuestion,
+      typeQuestion: 'TrueOrFalse',
     };
   }
 
@@ -53,20 +54,21 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
   ]);
 
   const saveForm = () => {
-    socialQuestions.concat(environmentQuestions, governanceQuestions);
-    // Send request to endpoint. En .then avisar al padre que el formulario ya se hizo.
+    postQuestions(
+      socialQuestions.concat(environmentQuestions, governanceQuestions),
+    );
     closeModal();
   };
 
   const handleQuestionChange = (
     index: number,
     value: string,
-    categoryType: 'SOCIAL' | 'ENVIRONMENTAL' | 'GOVERNANCE',
-    field: 'text' | 'weight' | 'questionType',
+    categoryQuestion: 'SOCIAL' | 'ENVIRONMENTAL' | 'GOVERNANCE',
+    field: 'text' | 'weight' | 'typeQuestion',
   ) => {
     let updatedQuestions: Question[] = [];
 
-    switch (categoryType) {
+    switch (categoryQuestion) {
       case 'SOCIAL':
         updatedQuestions = [...socialQuestions];
         break;
@@ -89,14 +91,14 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
           updatedQuestions[index].weight = value as string;
         }
         break;
-      case 'questionType':
-        updatedQuestions[index].questionType = value as string;
+      case 'typeQuestion':
+        updatedQuestions[index].typeQuestion = value as string;
         break;
       default:
         return;
     }
 
-    switch (categoryType) {
+    switch (categoryQuestion) {
       case 'SOCIAL':
         setSocialQuestions(updatedQuestions);
         break;
@@ -194,13 +196,13 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                     }
                   />
                   <select
-                    value={question.questionType}
+                    value={question.typeQuestion}
                     onChange={e =>
                       handleQuestionChange(
                         index,
                         e.target.value,
                         'SOCIAL',
-                        'questionType',
+                        'typeQuestion',
                       )
                     }
                   >
@@ -255,13 +257,13 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                     }
                   />
                   <select
-                    value={question.questionType}
+                    value={question.typeQuestion}
                     onChange={e =>
                       handleQuestionChange(
                         index,
                         e.target.value,
                         'ENVIRONMENTAL',
-                        'questionType',
+                        'typeQuestion',
                       )
                     }
                   >
@@ -316,13 +318,13 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                     }
                   />
                   <select
-                    value={question.questionType}
+                    value={question.typeQuestion}
                     onChange={e =>
                       handleQuestionChange(
                         index,
                         e.target.value,
                         'GOVERNANCE',
-                        'questionType',
+                        'typeQuestion',
                       )
                     }
                   >

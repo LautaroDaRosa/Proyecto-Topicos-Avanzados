@@ -24,7 +24,7 @@ const refresh = async () => {
 };
 
 export const getMyProfile = async () => {
-  const url = `/user/my_profile`;
+  const url = `/user/myProfile`;
   const response = await axiosInstance.get(url);
   return toCamel(response.data as Profile);
 };

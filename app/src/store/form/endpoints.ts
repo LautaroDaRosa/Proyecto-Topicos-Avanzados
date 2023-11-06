@@ -1,2 +1,2 @@
 export const ANSWER = '/answer';
-export const FORM = '/form';
+export const QUESTION = '/question';

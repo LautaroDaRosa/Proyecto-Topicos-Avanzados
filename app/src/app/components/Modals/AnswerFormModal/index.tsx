@@ -7,6 +7,10 @@ import RowContainer from '../styles/RowContainer';
 import StModal from '../styles/StModal';
 import SubsectionContainer from '../styles/SubsectionContainer';
 import QuestionTextContainer from '../styles/QuestionTextContainer';
+import { useEffect, useState } from 'react';
+import { getQuestions, sendAnswers } from 'store/form/api';
+import { QuestionWithId } from 'types';
+import { QuestionAnswer } from 'store/form/types';
 
 interface CreateFormProps {
   isOpenned: boolean;
@@ -14,109 +18,105 @@ interface CreateFormProps {
 }
 
 const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
+  const [socialQuestions, setSocialQuestions] = useState<QuestionWithId[]>([]);
+  const [environmentalQuestions, setEnvironmentalQuestions] = useState<
+    QuestionWithId[]
+  >([]);
+  const [governanceQuestions, setGovernanceQuestions] = useState<
+    QuestionWithId[]
+  >([]);
+
+  const [socialAnswers, setSocialAnswers] = useState<QuestionAnswer[]>([]);
+  const [environmentAnswers, setEnvironmentAnswers] = useState<
+    QuestionAnswer[]
+  >([]);
+  const [governanceAnswers, setGovernanceAnswers] = useState<QuestionAnswer[]>(
+    [],
+  );
+
   const closeModal = () => {
     setIsOpenned(false);
   };
 
-  // LLamar al endpoint para obtener las respuestas
-  const socialQuestions = [
-    {
-      questionId: 4,
-      categoryQuestion: 'SOCIAL',
-      weight: 100,
-      text: 'Pregunta prueba Cambio',
-      typeQuestion: 'Ranking5',
-    },
-  ];
+  useEffect(() => {
+    async function fetchQuestions() {
+      const response = await getQuestions();
+      const sQuestions = response.filter(
+        question => question.categoryQuestion === 'SOCIAL',
+      );
+      setSocialQuestions(sQuestions);
 
-  const environmentalQuestions = [
-    {
-      questionId: 1,
-      categoryQuestion: 'ENVIRONMENTAL',
-      weight: 100,
-      text: 'Pregunta prueba',
-      typeQuestion: 'TrueOrFalse',
-    },
-    {
-      questionId: 2,
-      categoryQuestion: 'ENVIRONMENTAL',
-      weight: 100,
-      text: 'Pregunta prueba',
-      typeQuestion: 'TrueOrFalse',
-    },
-    {
-      questionId: 3,
-      categoryQuestion: 'ENVIRONMENTAL',
-      weight: 100,
-      text: 'Pregunta prueba',
-      typeQuestion: 'TrueOrFalse',
-    },
-  ];
+      const eQuestions = response.filter(
+        question => question.categoryQuestion === 'ENVIRONMENTAL',
+      );
+      setEnvironmentalQuestions(eQuestions);
 
-  const governanceQuestions = [
-    {
-      questionId: 6,
-      categoryQuestion: 'GOVERNANCE',
-      weight: 40,
-      text: 'Pregunta prueba',
-      typeQuestion: 'Ranking5',
-    },
-    {
-      questionId: 7,
-      categoryQuestion: 'GOVERNANCE',
-      weight: 60,
-      text: 'Pregunta prueba',
-      typeQuestion: 'Ranking5',
-    },
-    {
-      questionId: 8,
-      categoryQuestion: 'GOVERNANCE',
-      weight: 60,
-      text: 'Pregunta prueba',
-      typeQuestion: 'Ranking5',
-    },
-    {
-      questionId: 9,
-      categoryQuestion: 'GOVERNANCE',
-      weight: 60,
-      text: 'Pregunta prueba',
-      typeQuestion: 'Ranking5',
-    },
-    {
-      questionId: 10,
-      categoryQuestion: 'GOVERNANCE',
-      weight: 60,
-      text: 'Pregunta prueba',
-      typeQuestion: 'Ranking5',
-    },
-  ];
-
-  const socialAnswers = socialQuestions.map(question => {
-    return {
-      question: question.questionId,
-      response: 0,
-    };
-  });
-
-  const environmentAnswers = environmentalQuestions.map(question => {
-    return {
-      question: question.questionId,
-      response: 0,
-    };
-  });
-
-  const governanceAnswers = governanceQuestions
-    .filter(q => q.categoryQuestion === 'GOVERNANCE')
-    .map(question => {
-      return {
-        question: question.questionId,
-        response: 0,
-      };
-    });
+      const gQuesitons = response.filter(
+        question => question.categoryQuestion === 'GOVERNANCE',
+      );
+      setGovernanceQuestions(gQuesitons);
+      setSocialAnswers(
+        sQuestions.map(question => {
+          return {
+            question: question.questionId,
+            response: 0,
+          };
+        }),
+      );
+      setEnvironmentAnswers(
+        eQuestions.map(question => {
+          return {
+            question: question.questionId,
+            response: 0,
+          };
+        }),
+      );
+      setGovernanceAnswers(
+        gQuesitons.map(question => {
+          return {
+            question: question.questionId,
+            response: 0,
+          };
+        }),
+      );
+    }
+    fetchQuestions();
+  }, []);
 
   const saveForm = () => {
-    // Send request to endpoint. En .then avisar al padre que el formulario ya se hizo.
+    console.log('calling');
+    async function postAnswers() {
+      await sendAnswers(
+        socialAnswers.concat(governanceAnswers, environmentAnswers),
+      );
+    }
+    postAnswers();
     closeModal();
+  };
+
+  const handleAnswerChange = (
+    questionIndex: number,
+    response: string,
+    questionCategory: string,
+  ) => {
+    let updatedAnswers: QuestionAnswer[] = [];
+    switch (questionCategory) {
+      case 'SOCIAL':
+        updatedAnswers = [...socialAnswers];
+        updatedAnswers[questionIndex].response = parseInt(response);
+        setSocialAnswers(updatedAnswers);
+        break;
+      case 'GOVERNANCE':
+        updatedAnswers = [...governanceAnswers];
+        updatedAnswers[questionIndex].response = parseInt(response);
+        setGovernanceAnswers(updatedAnswers);
+        break;
+      case 'ENVIRONMENTAL':
+        updatedAnswers = [...environmentAnswers];
+        updatedAnswers[questionIndex].response = parseInt(response);
+        setEnvironmentAnswers(updatedAnswers);
+        break;
+    }
   };
 
   return (
@@ -135,35 +135,25 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                   </QuestionTextContainer>
                   {question.typeQuestion === 'TrueOrFalse' && (
                     <select
-                      value={socialAnswers[index].toString()}
-                      /* onChange={e =>
-                        handleAnswerChange(
-                          index,
-                          e.target.value,
-                          'SOCIAL',
-                          'response',
-                        )
-                      } */
+                      value={socialAnswers[index].response.toString()}
+                      onChange={e =>
+                        handleAnswerChange(index, e.target.value, 'SOCIAL')
+                      }
                     >
                       <option value={'0'} key={'0'}>
-                        Falso
+                        F
                       </option>
                       <option value={'1'} key={'1'}>
-                        Verdadero
+                        V
                       </option>
                     </select>
                   )}
                   {question.typeQuestion === 'Ranking5' && (
                     <select
-                      value={socialAnswers[index].toString()}
-                      /* onChange={e =>
-                        handleAnswerChange(
-                          index,
-                          e.target.value,
-                          'SOCIAL',
-                          'response',
-                        )
-                      } */
+                      value={socialAnswers[index].response.toString()}
+                      onChange={e =>
+                        handleAnswerChange(index, e.target.value, 'SOCIAL')
+                      }
                     >
                       <option value={'0'} key={'0'}>
                         1
@@ -194,15 +184,14 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                   </QuestionTextContainer>
                   {question.typeQuestion === 'TrueOrFalse' && (
                     <select
-                      value={environmentAnswers[index].toString()}
-                      /* onChange={e =>
+                      value={environmentAnswers[index].response.toString()}
+                      onChange={e =>
                         handleAnswerChange(
                           index,
                           e.target.value,
-                          'SOCIAL',
-                          'response',
+                          'ENVIRONMENTAL',
                         )
-                      } */
+                      }
                     >
                       <option value={'0'} key={'0'}>
                         F
@@ -214,15 +203,14 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                   )}
                   {question.typeQuestion === 'Ranking5' && (
                     <select
-                      value={environmentAnswers[index].toString()}
-                      /* onChange={e =>
+                      value={environmentAnswers[index].response.toString()}
+                      onChange={e =>
                         handleAnswerChange(
                           index,
                           e.target.value,
-                          'SOCIAL',
-                          'response',
+                          'ENVIRONMENTAL',
                         )
-                      } */
+                      }
                     >
                       <option value={'0'} key={'0'}>
                         1
@@ -253,15 +241,10 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                   </QuestionTextContainer>
                   {question.typeQuestion === 'TrueOrFalse' && (
                     <select
-                      value={governanceAnswers[index].toString()}
-                      /* onChange={e =>
-                        handleAnswerChange(
-                          index,
-                          e.target.value,
-                          'SOCIAL',
-                          'response',
-                        )
-                      } */
+                      value={governanceAnswers[index].response.toString()}
+                      onChange={e =>
+                        handleAnswerChange(index, e.target.value, 'GOVERNANCE')
+                      }
                     >
                       <option value={'0'} key={'0'}>
                         F
@@ -273,15 +256,10 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                   )}
                   {question.typeQuestion === 'Ranking5' && (
                     <select
-                      value={governanceAnswers[index].toString()}
-                      /* onChange={e =>
-                        handleAnswerChange(
-                          index,
-                          e.target.value,
-                          'SOCIAL',
-                          'response',
-                        )
-                      } */
+                      value={governanceAnswers[index].response.toString()}
+                      onChange={e =>
+                        handleAnswerChange(index, e.target.value, 'GOVERNANCE')
+                      }
                     >
                       <option value={'0'} key={'0'}>
                         1

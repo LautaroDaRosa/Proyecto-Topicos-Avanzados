@@ -26,17 +26,25 @@ export interface Profile {
   address?: string;
 
   categories?: string[];
-  socialScore?: number;
-  environmentalScore?: number;
-  governanceScore?: number;
-  averageScore?: number;
+  score?: Score;
 
   businessRole?: string;
 }
 
+export interface Score {
+  governance: number;
+  social: number;
+  environmental: number;
+  average: number;
+}
+
 export interface Question {
-  categoryType: 'SOCIAL' | 'ENVIRONMENTAL' | 'GOVERNANCE';
-  questionType: string;
+  categoryQuestion: 'SOCIAL' | 'ENVIRONMENTAL' | 'GOVERNANCE';
+  typeQuestion: string;
   text: string;
   weight: string;
+}
+
+export interface QuestionWithId extends Question {
+  questionId: number;
 }

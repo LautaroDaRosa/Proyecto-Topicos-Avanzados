@@ -11,7 +11,7 @@ import RowContainer from '../styles/RowContainer';
 import WeightInput from '../styles/WeightInput';
 import ModalContent from '../styles/ModalContent';
 import SpecificationText from '../styles/SpecificationText';
-import { postQuestions } from 'store/form/api';
+import { updateQuestions } from 'store/form/api';
 
 interface EditFormProps {
   isOpenned: boolean;
@@ -61,7 +61,7 @@ const EditFormModal = ({
   }, [eQuestions, gQuestions, sQuestions]);
 
   const saveForm = () => {
-    postQuestions(
+    updateQuestions(
       socialQuestions.concat(environmentQuestions, governanceQuestions),
     );
     closeModal();

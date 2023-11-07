@@ -11,7 +11,10 @@ export const postQuestions = async (questions: Question[]) => {
 };
 
 export const updateQuestions = async (questions: QuestionWithId[]) => {
-  const response = await axiosInstance.put(QUESTION, questions);
+  const bodyRequest = questions.map(question =>
+    question.questionId === -1 ? { ...question, questionId: null } : question,
+  );
+  const response = await axiosInstance.post(QUESTION, bodyRequest);
   return toCamel(response.data);
 };
 

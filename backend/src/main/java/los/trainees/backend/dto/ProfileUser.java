@@ -1,10 +1,9 @@
 package los.trainees.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import los.trainees.backend.entity.Score;
-import los.trainees.backend.enums.ECategory;
-import los.trainees.backend.enums.ERole;
 import lombok.Data;
+import los.trainees.backend.entity.Score;
+import los.trainees.backend.enums.ERole;
 
 import java.util.List;
 

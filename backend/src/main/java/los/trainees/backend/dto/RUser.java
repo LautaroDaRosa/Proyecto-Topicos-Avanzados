@@ -22,4 +22,15 @@ public class RUser {
 
     private String token;
 
+    public ProfileUser getProfile(){
+        ProfileUser profile = new ProfileUser();
+        profile.setUserId(this.getUserId());
+        profile.setUsername(this.getUsername());
+        profile.setPhone(this.getPhone());
+        profile.setEmail(this.getEmail());
+        profile.setInfo(this.getInfo());
+        profile.setRole(this.getRole());
+        return profile;
+    }
+
 }

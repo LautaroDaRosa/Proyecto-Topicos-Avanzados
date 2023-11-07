@@ -1,6 +1,8 @@
 package los.trainees.backend.service;
 
 import jakarta.transaction.Transactional;
+import los.trainees.backend.dto.ProfileUser;
+import los.trainees.backend.dto.RUser;
 import los.trainees.backend.entity.Provider;
 import los.trainees.backend.entity.ProviderCategory;
 import los.trainees.backend.enums.ECategory;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,5 +46,19 @@ public class ProviderService {
         List<ProviderCategory> providerCategoryList = categoryList.stream().map(providerCategory -> ProviderCategory.builder().provider(provider).category(providerCategory).build()).collect(Collectors.toList());
         providerCategoryRepository.deleteByProviderId(providerId);
         providerCategoryRepository.saveAll(providerCategoryList);
+    }
+
+    public ProfileUser getProfileProvider(RUser rUser) {
+        ProfileUser profile = rUser.getProfile();
+        Optional<Provider> provider = providerRepository.getProvidersByUserId(rUser.getUserId());
+        List<ECategory> categories = providerCategoryRepository.findCategoriesByProviderId(rUser.getUserId());
+        profile.setCategories(categories.stream().map(eCategory -> eCategory.name).toList());
+        profile.setBusinessName(provider.get().getBusinessName());
+        profile.setRut(provider.get().getRut());
+        profile.setContact(provider.get().getContact());
+        profile.setLogo(provider.get().getLogo());
+        profile.setAddress(provider.get().getAddress());
+        profile.setScore(provider.get().getScore());
+        return profile;
     }
 }

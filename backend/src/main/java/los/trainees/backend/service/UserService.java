@@ -7,15 +7,13 @@ import los.trainees.backend.entity.Admin;
 import los.trainees.backend.entity.Partner;
 import los.trainees.backend.entity.Provider;
 import los.trainees.backend.entity.User;
+import los.trainees.backend.enums.ECategory;
 import los.trainees.backend.exception.IncorrectUserDataException;
-import los.trainees.backend.repository.IAdminRepository;
-import los.trainees.backend.repository.IPartnerRepository;
-import los.trainees.backend.repository.IProviderRepository;
-import los.trainees.backend.repository.IUserRepository;
+import los.trainees.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,15 +25,18 @@ public class UserService {
     private IPartnerRepository partnerRepository;
     private IProviderRepository providerRepository;
 
+    private IProviderCategoryRepository providerCategoryRepository;
+
 
     @Autowired
     public UserService(IUserRepository userRepository, IProviderRepository providerRepository,
-                       IPartnerRepository partnerRepository, IAdminRepository adminRepository) {
+                       IPartnerRepository partnerRepository, IAdminRepository adminRepository, IProviderCategoryRepository providerCategoryRepository) {
 
         this.userRepository = userRepository;
         this.partnerRepository = partnerRepository;
         this.adminRepository = adminRepository;
         this.providerRepository = providerRepository;
+        this.providerCategoryRepository = providerCategoryRepository;
     }
 
 
@@ -54,7 +55,8 @@ public class UserService {
         throw new IncorrectUserDataException();
     }
 
-    public ProfileUser fillProfileUser(RUser rUser, ProfileUser profile) {
+    public ProfileUser fillProfileUser(RUser rUser) {
+        ProfileUser profile = new ProfileUser();
         profile.setUserId(rUser.getUserId());
         profile.setUsername(rUser.getUsername());
         profile.setPhone(rUser.getPhone());
@@ -76,6 +78,8 @@ public class UserService {
                 break;
             case PROVIDER:
                 Optional<Provider> provider = providerRepository.getProvidersByUserId(rUser.getUserId());
+                List<ECategory> categories = providerCategoryRepository.findCategoriesByProviderId(rUser.getUserId());
+                profile.setCategories(categories.stream().map(eCategory -> eCategory.name).toList());
                 profile.setBusinessName(provider.get().getBusinessName());
                 profile.setRut(provider.get().getRut());
                 profile.setContact(provider.get().getContact());

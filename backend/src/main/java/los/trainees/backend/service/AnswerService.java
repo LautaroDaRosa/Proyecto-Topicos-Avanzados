@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AnswerService {
@@ -32,20 +31,16 @@ public class AnswerService {
     public Boolean saveAnswers(AnswerDTO answerList) {
         Provider provider = providerRepository.findById(answerList.getProvider()).orElse(null);
         for (AnswerData answerData : answerList.getAnswers()) {
-            // Busca el Provider y la Question por sus IDs.
             Question question = questionRepository.findById(answerData.getQuestion()).orElse(null);
-            // Si Provider o Question son nulos, maneja el caso apropiadamente.
             if (provider == null || question == null) {
                 throw new RuntimeException("invalid Answer");
             } else {
-                // Crea una instancia de Answer y configura su ID, respuesta y otras propiedades si es necesario.
                 Answer answer = new Answer();
                 AnswerId answerId = new AnswerId();
                 answerId.setProvider(provider);
                 answerId.setQuestion(question);
                 answer.setId(answerId);
                 answer.setResponse(answerData.getResponse());
-                // Guarda la respuesta en la base de datos.
                 answerRepository.save(answer);
             }
         }
@@ -55,8 +50,8 @@ public class AnswerService {
     public List<AnswerData> getAnswers(RUser rUser) {
         Provider provider = providerRepository.getProvidersByUserId(rUser.getUserId()).get();
         List<AnswerData> answers = new ArrayList<>();
-        for (Answer ans: provider.getAnswerList()) {
-            AnswerData data = new AnswerData(ans.getId().getQuestion().getQuestionId(),ans.getResponse());
+        for (Answer ans : provider.getAnswerList()) {
+            AnswerData data = new AnswerData(ans.getId().getQuestion().getQuestionId(), ans.getResponse());
             answers.add(data);
         }
         return answers;

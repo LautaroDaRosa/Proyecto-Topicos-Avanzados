@@ -41,9 +41,7 @@ public class ProviderController {
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")
     @GetMapping(path = "/{id}", produces = "application/json")
     public ProfileUser getDetails(@PathVariable(required = true) Long id) {
-        RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        rUser.setUserId(id);
-        return providerService.getProfileProvider(rUser);
+        return providerService.getProfileProvider(id);
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PROVIDER')")

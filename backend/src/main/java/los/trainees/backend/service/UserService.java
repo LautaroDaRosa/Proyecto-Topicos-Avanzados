@@ -56,7 +56,13 @@ public class UserService {
     }
 
     public ProfileUser fillProfileUser(RUser rUser) {
-        ProfileUser profile = rUser.getProfile();
+        ProfileUser profile = new ProfileUser();
+        profile.setUserId(rUser.getUserId());
+        profile.setUsername(rUser.getUsername());
+        profile.setPhone(rUser.getPhone());
+        profile.setEmail(rUser.getEmail());
+        profile.setInfo(rUser.getInfo());
+        profile.setRole(rUser.getRole());
         switch (rUser.getRole()) {
             case ADMIN:
                 Optional<Admin> admin = adminRepository.getAdminByUserId(rUser.getUserId());

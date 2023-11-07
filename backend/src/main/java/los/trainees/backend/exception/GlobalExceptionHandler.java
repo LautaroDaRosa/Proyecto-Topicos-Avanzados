@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Map;
 
@@ -24,5 +25,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(QuestionNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleQuestionNotFoundException() {
         return new ResponseEntity<>(Map.of("message", "Incorrect question id"), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProviderIdNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleBadRequestProviderIDException() {
+        return new ResponseEntity<>(Map.of("message", "Incorrect provider id"), HttpStatus.NOT_FOUND);
     }
 }

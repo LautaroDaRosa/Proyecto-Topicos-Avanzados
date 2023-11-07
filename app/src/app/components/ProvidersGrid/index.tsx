@@ -16,8 +16,8 @@ const ProvidersGrid = ({ providers }: Providers) => {
     <StProvidersGrid>
       {providers.map(provider => (
         <StProviderGridCard key={provider.userId}>
-          <h3>{provider.name}</h3>
-          <img src={provider.logo} alt={`${provider.name} Logo`} />
+          <h3>{provider.username}</h3>
+          <img src={provider.logo} alt={`${provider.username} Logo`} />
           <StInfoContainer>
             <span>Score: {provider.averageScore}</span>
             <span>Razon Social: {provider.businessName}</span>

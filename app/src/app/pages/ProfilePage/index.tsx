@@ -49,7 +49,7 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
             <Title text="Perfil de usuario" />
             <UserProfile
               logo={user.logo || ''}
-              name={user.name || ''}
+              name={user.username || ''}
               role={user.role || ''}
               telephone={user.phone}
               description={user.info}

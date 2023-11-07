@@ -13,7 +13,7 @@ export interface User {
 
 export interface Profile {
   userId: number;
-  name: string;
+  username: string;
   email: string;
   info: string;
   role: 'ADMIN' | 'PROVIDER' | 'PARTNER';

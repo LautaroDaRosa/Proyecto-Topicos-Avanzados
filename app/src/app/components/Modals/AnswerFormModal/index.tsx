@@ -123,164 +123,182 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
       {isOpenned && (
         <StModal>
           <ModalTitle>Contestar Formulario</ModalTitle>
-          <span>Por favor, contesta todas las preguntas.</span>
-          <ModalContent>
-            <QuestionSubtitle>Social</QuestionSubtitle>
-            <SubsectionContainer>
-              {socialQuestions.map((question, index) => (
-                <RowContainer key={`social-${index}`}>
-                  <QuestionTextContainer>
-                    <span>{question.text}</span>
-                  </QuestionTextContainer>
-                  {question.typeQuestion === 'TrueOrFalse' && (
-                    <select
-                      value={socialAnswers[index].response.toString()}
-                      onChange={e =>
-                        handleAnswerChange(index, e.target.value, 'SOCIAL')
-                      }
-                    >
-                      <option value={'0'} key={'0'}>
-                        F
-                      </option>
-                      <option value={'1'} key={'1'}>
-                        V
-                      </option>
-                    </select>
-                  )}
-                  {question.typeQuestion === 'Ranking5' && (
-                    <select
-                      value={socialAnswers[index].response.toString()}
-                      onChange={e =>
-                        handleAnswerChange(index, e.target.value, 'SOCIAL')
-                      }
-                    >
-                      <option value={'0'} key={'0'}>
-                        1
-                      </option>
-                      <option value={'1'} key={'1'}>
-                        2
-                      </option>
-                      <option value={'2'} key={'2'}>
-                        3
-                      </option>
-                      <option value={'3'} key={'3'}>
-                        4
-                      </option>
-                      <option value={'4'} key={'4'}>
-                        5
-                      </option>
-                    </select>
-                  )}
-                </RowContainer>
-              ))}
-            </SubsectionContainer>
-            <QuestionSubtitle>Ambiental</QuestionSubtitle>
-            <SubsectionContainer>
-              {environmentalQuestions.map((question, index) => (
-                <RowContainer key={`environmental-${index}`}>
-                  <QuestionTextContainer>
-                    <span>{question.text}</span>
-                  </QuestionTextContainer>
-                  {question.typeQuestion === 'TrueOrFalse' && (
-                    <select
-                      value={environmentAnswers[index].response.toString()}
-                      onChange={e =>
-                        handleAnswerChange(
-                          index,
-                          e.target.value,
-                          'ENVIRONMENTAL',
-                        )
-                      }
-                    >
-                      <option value={'0'} key={'0'}>
-                        F
-                      </option>
-                      <option value={'1'} key={'1'}>
-                        V
-                      </option>
-                    </select>
-                  )}
-                  {question.typeQuestion === 'Ranking5' && (
-                    <select
-                      value={environmentAnswers[index].response.toString()}
-                      onChange={e =>
-                        handleAnswerChange(
-                          index,
-                          e.target.value,
-                          'ENVIRONMENTAL',
-                        )
-                      }
-                    >
-                      <option value={'0'} key={'0'}>
-                        1
-                      </option>
-                      <option value={'1'} key={'1'}>
-                        2
-                      </option>
-                      <option value={'2'} key={'2'}>
-                        3
-                      </option>
-                      <option value={'3'} key={'3'}>
-                        4
-                      </option>
-                      <option value={'4'} key={'4'}>
-                        5
-                      </option>
-                    </select>
-                  )}
-                </RowContainer>
-              ))}
-            </SubsectionContainer>
-            <QuestionSubtitle>Gobernanza</QuestionSubtitle>
-            <SubsectionContainer>
-              {governanceQuestions.map((question, index) => (
-                <RowContainer key={`governance-${index}`}>
-                  <QuestionTextContainer>
-                    <span>{question.text}</span>
-                  </QuestionTextContainer>
-                  {question.typeQuestion === 'TrueOrFalse' && (
-                    <select
-                      value={governanceAnswers[index].response.toString()}
-                      onChange={e =>
-                        handleAnswerChange(index, e.target.value, 'GOVERNANCE')
-                      }
-                    >
-                      <option value={'0'} key={'0'}>
-                        F
-                      </option>
-                      <option value={'1'} key={'1'}>
-                        V
-                      </option>
-                    </select>
-                  )}
-                  {question.typeQuestion === 'Ranking5' && (
-                    <select
-                      value={governanceAnswers[index].response.toString()}
-                      onChange={e =>
-                        handleAnswerChange(index, e.target.value, 'GOVERNANCE')
-                      }
-                    >
-                      <option value={'0'} key={'0'}>
-                        1
-                      </option>
-                      <option value={'1'} key={'1'}>
-                        2
-                      </option>
-                      <option value={'2'} key={'2'}>
-                        3
-                      </option>
-                      <option value={'3'} key={'3'}>
-                        4
-                      </option>
-                      <option value={'4'} key={'4'}>
-                        5
-                      </option>
-                    </select>
-                  )}
-                </RowContainer>
-              ))}
-            </SubsectionContainer>
-          </ModalContent>
+          {socialQuestions.length === 0 && (
+            <span>
+              Por el momento no hay ningún formulario para contestar. Mantenete
+              antento!
+            </span>
+          )}
+          {socialQuestions.length !== 0 && (
+            <>
+              <span>Por favor, contesta todas las preguntas.</span>
+              <ModalContent>
+                <QuestionSubtitle>Social</QuestionSubtitle>
+                <SubsectionContainer>
+                  {socialQuestions.map((question, index) => (
+                    <RowContainer key={`social-${index}`}>
+                      <QuestionTextContainer>
+                        <span>{question.text}</span>
+                      </QuestionTextContainer>
+                      {question.typeQuestion === 'TrueOrFalse' && (
+                        <select
+                          value={socialAnswers[index].response.toString()}
+                          onChange={e =>
+                            handleAnswerChange(index, e.target.value, 'SOCIAL')
+                          }
+                        >
+                          <option value={'0'} key={'0'}>
+                            F
+                          </option>
+                          <option value={'1'} key={'1'}>
+                            V
+                          </option>
+                        </select>
+                      )}
+                      {question.typeQuestion === 'Ranking5' && (
+                        <select
+                          value={socialAnswers[index].response.toString()}
+                          onChange={e =>
+                            handleAnswerChange(index, e.target.value, 'SOCIAL')
+                          }
+                        >
+                          <option value={'0'} key={'0'}>
+                            1
+                          </option>
+                          <option value={'1'} key={'1'}>
+                            2
+                          </option>
+                          <option value={'2'} key={'2'}>
+                            3
+                          </option>
+                          <option value={'3'} key={'3'}>
+                            4
+                          </option>
+                          <option value={'4'} key={'4'}>
+                            5
+                          </option>
+                        </select>
+                      )}
+                    </RowContainer>
+                  ))}
+                </SubsectionContainer>
+                <QuestionSubtitle>Ambiental</QuestionSubtitle>
+                <SubsectionContainer>
+                  {environmentalQuestions.map((question, index) => (
+                    <RowContainer key={`environmental-${index}`}>
+                      <QuestionTextContainer>
+                        <span>{question.text}</span>
+                      </QuestionTextContainer>
+                      {question.typeQuestion === 'TrueOrFalse' && (
+                        <select
+                          value={environmentAnswers[index].response.toString()}
+                          onChange={e =>
+                            handleAnswerChange(
+                              index,
+                              e.target.value,
+                              'ENVIRONMENTAL',
+                            )
+                          }
+                        >
+                          <option value={'0'} key={'0'}>
+                            F
+                          </option>
+                          <option value={'1'} key={'1'}>
+                            V
+                          </option>
+                        </select>
+                      )}
+                      {question.typeQuestion === 'Ranking5' && (
+                        <select
+                          value={environmentAnswers[index].response.toString()}
+                          onChange={e =>
+                            handleAnswerChange(
+                              index,
+                              e.target.value,
+                              'ENVIRONMENTAL',
+                            )
+                          }
+                        >
+                          <option value={'0'} key={'0'}>
+                            1
+                          </option>
+                          <option value={'1'} key={'1'}>
+                            2
+                          </option>
+                          <option value={'2'} key={'2'}>
+                            3
+                          </option>
+                          <option value={'3'} key={'3'}>
+                            4
+                          </option>
+                          <option value={'4'} key={'4'}>
+                            5
+                          </option>
+                        </select>
+                      )}
+                    </RowContainer>
+                  ))}
+                </SubsectionContainer>
+                <QuestionSubtitle>Gobernanza</QuestionSubtitle>
+                <SubsectionContainer>
+                  {governanceQuestions.map((question, index) => (
+                    <RowContainer key={`governance-${index}`}>
+                      <QuestionTextContainer>
+                        <span>{question.text}</span>
+                      </QuestionTextContainer>
+                      {question.typeQuestion === 'TrueOrFalse' && (
+                        <select
+                          value={governanceAnswers[index].response.toString()}
+                          onChange={e =>
+                            handleAnswerChange(
+                              index,
+                              e.target.value,
+                              'GOVERNANCE',
+                            )
+                          }
+                        >
+                          <option value={'0'} key={'0'}>
+                            F
+                          </option>
+                          <option value={'1'} key={'1'}>
+                            V
+                          </option>
+                        </select>
+                      )}
+                      {question.typeQuestion === 'Ranking5' && (
+                        <select
+                          value={governanceAnswers[index].response.toString()}
+                          onChange={e =>
+                            handleAnswerChange(
+                              index,
+                              e.target.value,
+                              'GOVERNANCE',
+                            )
+                          }
+                        >
+                          <option value={'0'} key={'0'}>
+                            1
+                          </option>
+                          <option value={'1'} key={'1'}>
+                            2
+                          </option>
+                          <option value={'2'} key={'2'}>
+                            3
+                          </option>
+                          <option value={'3'} key={'3'}>
+                            4
+                          </option>
+                          <option value={'4'} key={'4'}>
+                            5
+                          </option>
+                        </select>
+                      )}
+                    </RowContainer>
+                  ))}
+                </SubsectionContainer>
+              </ModalContent>
+            </>
+          )}
           <ButtonsContainer>
             <Button action="secondary" text="Cancelar" onClick={closeModal} />
             <Button action="primary" text="Guardar" onClick={saveForm} />

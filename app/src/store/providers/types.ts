@@ -9,7 +9,7 @@ export interface ProvidersState {
 
 export interface MinimalProvider {
   userId: number;
-  name: string;
+  username: string;
   businessName: string;
   rut: string;
   logo: string;

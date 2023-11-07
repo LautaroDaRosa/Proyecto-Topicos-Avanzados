@@ -1,9 +1,3 @@
-/**
- *
- * Navbar
- *
- */
-
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import selectedHome from '../../../resources/home-selected.svg';
@@ -21,8 +15,13 @@ import tokenService from 'utils/tokenService';
 import { useDispatch } from 'react-redux';
 import { AuthSlice } from 'store/auth/slice';
 import StBrandAndLinks from './StBrandAndLinks';
+import StUserActionsContainer from './StUserActionsContainer';
+import StAvatar from './StAvatar';
+import AvatarButton from './StAvatarButton';
+import currentUser from 'utils/currentUser';
 
 const Navbar = () => {
+  const user = currentUser.get();
   const pathname = useLocation().pathname;
 
   const navigate = useNavigate();
@@ -32,8 +31,14 @@ const Navbar = () => {
 
   const logout = () => {
     tokenService.removeLocalTokens();
+    currentUser.remove();
     dispatch(actions.logout());
     navigate('/login');
+  };
+
+  const goToMyProfile = () => {
+    dispatch(actions.logout());
+    navigate('/profile');
   };
 
   return (
@@ -61,23 +66,32 @@ const Navbar = () => {
               <span>Inicio</span>
             </StNavOption>
           </Link>
-          <Link to="/providers">
-            <StNavOption isSelected={pathname === '/providers'}>
-              <img
-                src={pathname === '/providers' ? selectedBuildings : buildings}
-                alt="Home icon"
-              />
-              <span>Proveedores</span>
-            </StNavOption>
-          </Link>
+          {user.role !== 'PROVIDER' && (
+            <Link to="/providers">
+              <StNavOption isSelected={pathname === '/providers'}>
+                <img
+                  src={
+                    pathname === '/providers' ? selectedBuildings : buildings
+                  }
+                  alt="Home icon"
+                />
+                <span>Proveedores</span>
+              </StNavOption>
+            </Link>
+          )}
         </Nav>
       </StBrandAndLinks>
-      <Button
-        text="Cerar sesión"
-        type="submit"
-        action="primary"
-        onClick={logout}
-      />
+      <StUserActionsContainer>
+        <StAvatar>
+          <AvatarButton onClick={goToMyProfile} />
+        </StAvatar>
+        <Button
+          text="Cerrar sesión"
+          type="submit"
+          action="primary"
+          onClick={logout}
+        />
+      </StUserActionsContainer>
     </Header>
   );
 };

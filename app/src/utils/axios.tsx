@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
-import { rootNavigate } from 'app/routes/CustomRouter';
 import tokenService from './tokenService';
 import { LOGIN } from 'store/auth/endpoints';
+import { rootNavigate } from 'app/routes/CustomRouter';
 import api from 'store/auth/api';
 
 function getHeaders() {
@@ -43,10 +43,10 @@ axiosInstance.interceptors.response.use(
       if (error.response.status === 401 && !originalConfig._retry) {
         originalConfig._retry = true;
         const refresh = tokenService.getLocalRefreshToken();
-        /* const decodedJwt = parseJwt(refresh); */
+        // const decodedJwt = parseJwt(refresh);
         // if there isn't a refresh token or the refresh token is expired
         if (
-          !refresh /* || (decodedJwt && decodedJwt.exp * 1000 < Date.now()) */
+          !refresh // || (decodedJwt && decodedJwt.exp * 1000 < Date.now())
         ) {
           tokenService.removeLocalTokens();
           rootNavigate('/login');

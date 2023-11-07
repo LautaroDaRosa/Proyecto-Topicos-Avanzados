@@ -2,11 +2,18 @@ import { axiosInstance } from 'utils/axios';
 import { toCamel } from 'utils/convert-keys';
 import { ProvidersPage, SearchProps } from './types';
 import { CATEGORIES, PROVIDERS } from './endpoints';
+import { Profile } from 'types';
 
 export const getProviders = async (page: number, size: number) => {
   const url = `${PROVIDERS}?page=${page}&size=${size}`;
   const response = await axiosInstance.get(url);
   return toCamel(response.data as ProvidersPage);
+};
+
+export const getProvider = async (id: string) => {
+  const url = `${PROVIDERS}/${id}`;
+  const response = await axiosInstance.get(url);
+  return toCamel(response.data as Profile);
 };
 
 export const filterProviders = async (
@@ -15,7 +22,7 @@ export const filterProviders = async (
   props: SearchProps,
 ) => {
   let url = `${PROVIDERS}/filter?page=${page}&size=${size}`;
-  url += props.name !== '' ? `&name=${props.name}` : '';
+  url += props.name !== '' ? `&username=${props.name}` : '';
   url += props.businessName !== '' ? `&businessName=${props.businessName}` : '';
   url += props.rut !== '' ? `&rut=${props.rut}` : '';
   url += props.score !== '' ? `&score=${props.score}` : '';
@@ -29,8 +36,17 @@ export const getCategories = async () => {
   return response.data as string[];
 };
 
+export const updateCategories = async (categories: string[]) => {
+  const response = await axiosInstance.put(
+    `${PROVIDERS}/updateCategories`,
+    categories,
+  );
+  return response.data;
+};
+
 const authApi = {
   getProviders,
+  getProvider,
   getCategories,
   filterProviders,
 };

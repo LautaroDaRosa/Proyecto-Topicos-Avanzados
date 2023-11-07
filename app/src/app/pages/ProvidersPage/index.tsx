@@ -5,6 +5,7 @@ import StProviders from './StProviders';
 import Providers from '../Providers';
 import { useEffect, useState } from 'react';
 import { getCategories } from 'store/providers/api';
+import StPageContent from 'app/components/StPageContent/StPageContent';
 
 const ProvidersPage = () => {
   const [categories, setCategories] = useState<string[]>([]);
@@ -21,18 +22,10 @@ const ProvidersPage = () => {
     <StProviders>
       <Navbar />
       <PageContainer>
-        <div
-          style={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            margin: 32,
-            marginTop: 0,
-          }}
-        >
+        <StPageContent>
           <Title text="Proveedores asociados" />
           <Providers categories={categories} />
-        </div>
+        </StPageContent>
       </PageContainer>
     </StProviders>
   );

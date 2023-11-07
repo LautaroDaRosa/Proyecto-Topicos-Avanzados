@@ -1,14 +1,17 @@
-import { Provider } from 'store/providers/types';
+import { MinimalProvider } from 'store/providers/types';
 import StProviderGridCard from './StProviderGridCard';
 import StProvidersGrid from './StProvidersGrid';
 import Button from '../Button';
 import StInfoContainer from './StInfoContainer';
+import { useNavigate } from 'react-router-dom';
 
 interface Providers {
-  providers: Provider[];
+  providers: MinimalProvider[];
 }
 
 const ProvidersGrid = ({ providers }: Providers) => {
+  const navigate = useNavigate();
+
   return (
     <StProvidersGrid>
       {providers.map(provider => (
@@ -20,9 +23,9 @@ const ProvidersGrid = ({ providers }: Providers) => {
             <span>Razon Social: {provider.businessName}</span>
             <span>RUT: {provider.rut}</span>
             <Button
-              disabled={true}
               text="Ver perfil de proveedor"
               action="primary"
+              onClick={() => navigate(`/provider/${provider.userId}`)}
             />
           </StInfoContainer>
         </StProviderGridCard>

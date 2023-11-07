@@ -4,6 +4,7 @@ import TokenService from 'utils/tokenService';
 import { LOGIN, REFRESH } from './endpoints';
 
 import { LoginDataType } from './types';
+import { Profile } from 'types';
 
 const login = async (username, password) => {
   const response = await axiosInstance.post(LOGIN, {
@@ -22,9 +23,16 @@ const refresh = async () => {
   return toCamel(response.data);
 };
 
+export const getMyProfile = async () => {
+  const url = `/user/myProfile`;
+  const response = await axiosInstance.get(url);
+  return toCamel(response.data as Profile);
+};
+
 const authApi = {
   login,
   refresh,
+  getMyProfile,
 };
 
 export default authApi;

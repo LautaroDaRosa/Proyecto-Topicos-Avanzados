@@ -1,5 +1,6 @@
 package los.trainees.backend.controller;
 
+import los.trainees.backend.dto.ProfileUser;
 import los.trainees.backend.dto.RProviderReduced;
 import los.trainees.backend.dto.RUser;
 import los.trainees.backend.enums.ECategory;
@@ -35,6 +36,12 @@ public class ProviderController {
     @GetMapping(path = "/filter", produces = "application/json")
     public Page<RProviderReduced> filterProviders(@RequestParam(required = false) String username, @RequestParam(required = false) String businessName, @RequestParam(required = false) String rut, @RequestParam(required = false) Integer score, @RequestParam(required = false) String category, Pageable pageable) {
         return providerMapper.pageToDtoReduced(providerService.filter(username, businessName, rut, score, ECategory.findByName(category), pageable));
+    }
+
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")
+    @GetMapping(path = "/{id}", produces = "application/json")
+    public ProfileUser getDetails(@PathVariable(required = true) Long id) {
+        return providerService.getProfileProvider(id);
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PROVIDER')")

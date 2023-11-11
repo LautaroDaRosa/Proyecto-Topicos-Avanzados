@@ -84,6 +84,7 @@ const Navbar = () => {
       <StUserActionsContainer>
         <StAvatar>
           <AvatarButton onClick={goToMyProfile} />
+            <img src={user.logo} alt="Logo del usuario" />
         </StAvatar>
         <Button
           text="Cerrar sesión"

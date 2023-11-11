@@ -40,7 +40,7 @@ public class ProviderController {
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")
     @GetMapping(path = "/{id}", produces = "application/json")
-    public ProfileUser getDetails(@PathVariable(required = true) Long id) {
+    public ProfileUser getDetails(@PathVariable Long id) {
         return providerService.getProfileProvider(id);
     }
 

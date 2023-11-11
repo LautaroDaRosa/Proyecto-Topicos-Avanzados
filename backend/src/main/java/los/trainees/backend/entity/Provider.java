@@ -13,6 +13,7 @@ public class Provider extends User {
 
     private String businessName;
 
+    @Column(unique = true)
     private String rut;
 
     private String contact;

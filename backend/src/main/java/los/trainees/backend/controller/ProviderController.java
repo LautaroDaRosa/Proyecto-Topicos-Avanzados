@@ -4,6 +4,7 @@ import los.trainees.backend.dto.ProfileUser;
 import los.trainees.backend.dto.RProviderReduced;
 import los.trainees.backend.dto.RUser;
 import los.trainees.backend.enums.ECategory;
+import los.trainees.backend.enums.ERole;
 import los.trainees.backend.mapper.ProviderMapper;
 import los.trainees.backend.service.ProviderService;
 import org.mapstruct.factory.Mappers;
@@ -29,13 +30,17 @@ public class ProviderController {
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")
     @GetMapping(produces = "application/json")
     public Page<RProviderReduced> getAllProviders(Pageable pageable) {
-        return providerMapper.pageToDtoReduced(providerService.getProviders(pageable));
+        RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        String email = rUser.getRole() == ERole.ADMIN ? null : rUser.getEmail();
+        return providerMapper.pageToDtoReduced(providerService.getProviders(email, pageable));
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")
     @GetMapping(path = "/filter", produces = "application/json")
     public Page<RProviderReduced> filterProviders(@RequestParam(required = false) String username, @RequestParam(required = false) String businessName, @RequestParam(required = false) String rut, @RequestParam(required = false) Integer score, @RequestParam(required = false) String category, Pageable pageable) {
-        return providerMapper.pageToDtoReduced(providerService.filter(username, businessName, rut, score, ECategory.findByName(category), pageable));
+        RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        String email = rUser.getRole() == ERole.ADMIN ? null : rUser.getEmail();
+        return providerMapper.pageToDtoReduced(providerService.filter(email, username, businessName, rut, score, ECategory.findByName(category), pageable));
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")

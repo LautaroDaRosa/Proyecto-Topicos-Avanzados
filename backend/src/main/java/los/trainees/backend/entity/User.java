@@ -26,7 +26,7 @@ public class User {
 
     protected String email;
 
-    private String logo;
+    protected String logo;
 
     protected String info;
 

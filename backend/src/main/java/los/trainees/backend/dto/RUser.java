@@ -18,6 +18,8 @@ public class RUser {
 
     private String info;
 
+    private String logo;
+
     private ERole role;
 
     private String token;

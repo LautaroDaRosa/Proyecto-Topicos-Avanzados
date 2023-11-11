@@ -8,4 +8,4 @@ spring:
       ddl-auto: update
 jwt:
   secret: "jwt_secret"
-  expirationInMinutes: 15
+  expirationInMinutes: 1500

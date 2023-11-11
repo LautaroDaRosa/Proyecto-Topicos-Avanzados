@@ -6,6 +6,7 @@ export interface LoginDataType {
   phone: string;
   email: string;
   info: string;
+  logo: string;
   role: string;
   token: string;
 }

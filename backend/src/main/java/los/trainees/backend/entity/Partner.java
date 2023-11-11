@@ -23,8 +23,6 @@ public class Partner extends User {
 
     private String contact;
 
-    private String logo;
-
     private String address;
 
 }

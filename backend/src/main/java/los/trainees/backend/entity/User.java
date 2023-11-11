@@ -26,6 +26,8 @@ public class User {
 
     protected String email;
 
+    protected String logo;
+
     protected String info;
 
     @Enumerated(EnumType.STRING)

@@ -19,19 +19,22 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    @Autowired
     private IUserRepository userRepository;
 
+    @Autowired
     private IAdminRepository adminRepository;
-    private IPartnerRepository partnerRepository;
-    private IProviderRepository providerRepository;
-
-    private IProviderCategoryRepository providerCategoryRepository;
-
 
     @Autowired
-    public UserService(IUserRepository userRepository, IProviderRepository providerRepository,
-                       IPartnerRepository partnerRepository, IAdminRepository adminRepository, IProviderCategoryRepository providerCategoryRepository) {
+    private IPartnerRepository partnerRepository;
 
+    @Autowired
+    private IProviderRepository providerRepository;
+
+    @Autowired
+    private IProviderCategoryRepository providerCategoryRepository;
+
+    public UserService(IUserRepository userRepository, IProviderRepository providerRepository, IPartnerRepository partnerRepository, IAdminRepository adminRepository, IProviderCategoryRepository providerCategoryRepository) {
         this.userRepository = userRepository;
         this.partnerRepository = partnerRepository;
         this.adminRepository = adminRepository;
@@ -43,7 +46,6 @@ public class UserService {
     public Optional<User> findUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
-
 
     public User checkCredentials(LoginRequest loginRequest) {
         Optional<User> optionalUser = findUserByUsername(loginRequest.getUsername());
@@ -88,7 +90,6 @@ public class UserService {
                 profile.setScore(provider.get().getScore());
                 break;
         }
-
         return profile;
     }
 

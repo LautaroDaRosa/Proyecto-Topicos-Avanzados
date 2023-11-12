@@ -1,35 +1,22 @@
 import Button from 'app/components/Button';
-import StModal from '../styles/StModal';
+import { useState } from 'react';
+import { postQuestions } from 'store/form/api';
+import { Question } from 'types';
+import QuestionsByTypeContainer from '../components/QuestionsByTypeContainer';
 import ButtonsContainer from '../styles/ButtonsContainer';
+import ModalContent from '../styles/ModalContent';
 import ModalTitle from '../styles/ModalTitle';
 import QuestionSubtitle from '../styles/QuestionSubtitle';
-import { useState } from 'react';
-import { Question } from 'types';
-import SubsectionContainer from '../styles/SubsectionContainer';
-import QuestionInput from '../styles/QuestionInput';
-import RowContainer from '../styles/RowContainer';
-import WeightInput from '../styles/WeightInput';
-import ModalContent from '../styles/ModalContent';
 import SpecificationText from '../styles/SpecificationText';
-import { postQuestions } from 'store/form/api';
+import StModal from '../styles/StModal';
+import SubsectionContainer from '../styles/SubsectionContainer';
 
-interface CreateFormProps {
-  isOpenned: boolean;
-  setIsOpenned: (isOpenned: boolean) => void;
+interface Props {
+  isOpen: boolean;
+  setIsOpen: (b: boolean) => void;
+  fetchQuestions: () => void;
 }
-
-const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
-  const closeModal = () => {
-    setIsOpenned(false);
-    clearForm();
-  };
-
-  const clearForm = () => {
-    setSocialQuestions([emptyQuestion('SOCIAL')]);
-    setEnvironmentQuestions([emptyQuestion('ENVIRONMENTAL')]);
-    setGovernanceQuestions([emptyQuestion('GOVERNANCE')]);
-  };
-
+const CreateFormModal = ({ isOpen, setIsOpen, fetchQuestions }: Props) => {
   function emptyQuestion(
     categoryQuestion: 'SOCIAL' | 'ENVIRONMENTAL' | 'GOVERNANCE',
   ) {
@@ -56,8 +43,8 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
   const saveForm = () => {
     postQuestions(
       socialQuestions.concat(environmentQuestions, governanceQuestions),
-    );
-    closeModal();
+    ).then(() => fetchQuestions());
+    setIsOpen(false);
   };
 
   const handleQuestionChange = (
@@ -157,7 +144,7 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
 
   return (
     <>
-      {isOpenned && (
+      {isOpen && (
         <StModal>
           <ModalTitle>Crear Formulario</ModalTitle>
           <span>Agrega las preguntas y sus pesos porcentuales.</span>
@@ -167,54 +154,18 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
           <ModalContent>
             <QuestionSubtitle>Social</QuestionSubtitle>
             <SubsectionContainer>
-              {socialQuestions.map((question, index) => (
-                <RowContainer key={`social-${index}`}>
-                  <QuestionInput
-                    value={question.text}
-                    placeholder="Ingrese el texto de la pregunta"
-                    onChange={e =>
-                      handleQuestionChange(
-                        index,
-                        e.target.value,
-                        'SOCIAL',
-                        'text',
-                      )
-                    }
-                  />
-                  <WeightInput
-                    value={question.weight}
-                    placeholder="%"
-                    onChange={e =>
-                      e.target.value.length <= 3
-                        ? handleQuestionChange(
-                            index,
-                            e.target.value,
-                            'SOCIAL',
-                            'weight',
-                          )
-                        : null
-                    }
-                  />
-                  <select
-                    value={question.typeQuestion}
-                    onChange={e =>
-                      handleQuestionChange(
-                        index,
-                        e.target.value,
-                        'SOCIAL',
-                        'typeQuestion',
-                      )
-                    }
-                  >
-                    <option value={'TrueOrFalse'} key={'TrueOrFalse'}>
-                      V o F
-                    </option>
-                    <option value={'Ranking5'} key={'Ranking5'}>
-                      Ranking
-                    </option>
-                  </select>
-                </RowContainer>
-              ))}
+              <QuestionsByTypeContainer
+                questionsType="SOCIAL"
+                questions={socialQuestions}
+                handleQuestionChange={handleQuestionChange}
+                deleteQuestion={index =>
+                  setSocialQuestions(
+                    socialQuestions.filter(
+                      i => socialQuestions.indexOf(i) !== index,
+                    ),
+                  )
+                }
+              />
               <Button
                 action="link"
                 text="Agregar pregunta +"
@@ -228,54 +179,18 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
             </SubsectionContainer>
             <QuestionSubtitle>Ambiental</QuestionSubtitle>
             <SubsectionContainer>
-              {environmentQuestions.map((question, index) => (
-                <RowContainer key={`environmental-${index}`}>
-                  <QuestionInput
-                    value={question.text}
-                    placeholder="Ingrese el texto de la pregunta"
-                    onChange={e =>
-                      handleQuestionChange(
-                        index,
-                        e.target.value,
-                        'ENVIRONMENTAL',
-                        'text',
-                      )
-                    }
-                  />
-                  <WeightInput
-                    value={question.weight}
-                    placeholder="%"
-                    onChange={e =>
-                      e.target.value.length <= 3
-                        ? handleQuestionChange(
-                            index,
-                            e.target.value,
-                            'ENVIRONMENTAL',
-                            'weight',
-                          )
-                        : null
-                    }
-                  />
-                  <select
-                    value={question.typeQuestion}
-                    onChange={e =>
-                      handleQuestionChange(
-                        index,
-                        e.target.value,
-                        'ENVIRONMENTAL',
-                        'typeQuestion',
-                      )
-                    }
-                  >
-                    <option value={'TrueOrFalse'} key={'TrueOrFalse'}>
-                      V o F
-                    </option>
-                    <option value={'Ranking5'} key={'Ranking5'}>
-                      Ranking
-                    </option>
-                  </select>
-                </RowContainer>
-              ))}
+              <QuestionsByTypeContainer
+                questionsType="ENVIRONMENTAL"
+                questions={environmentQuestions}
+                handleQuestionChange={handleQuestionChange}
+                deleteQuestion={index =>
+                  setEnvironmentQuestions(
+                    environmentQuestions.filter(
+                      i => environmentQuestions.indexOf(i) !== index,
+                    ),
+                  )
+                }
+              />
               <Button
                 action="link"
                 text="Agregar pregunta +"
@@ -289,54 +204,18 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
             </SubsectionContainer>
             <QuestionSubtitle>Gobernanza</QuestionSubtitle>
             <SubsectionContainer>
-              {governanceQuestions.map((question, index) => (
-                <RowContainer key={`governance-${index}`}>
-                  <QuestionInput
-                    value={question.text}
-                    placeholder="Ingrese el texto de la pregunta"
-                    onChange={e =>
-                      handleQuestionChange(
-                        index,
-                        e.target.value,
-                        'GOVERNANCE',
-                        'text',
-                      )
-                    }
-                  />
-                  <WeightInput
-                    value={question.weight}
-                    placeholder="%"
-                    onChange={e =>
-                      e.target.value.length <= 3
-                        ? handleQuestionChange(
-                            index,
-                            e.target.value,
-                            'GOVERNANCE',
-                            'weight',
-                          )
-                        : null
-                    }
-                  />
-                  <select
-                    value={question.typeQuestion}
-                    onChange={e =>
-                      handleQuestionChange(
-                        index,
-                        e.target.value,
-                        'GOVERNANCE',
-                        'typeQuestion',
-                      )
-                    }
-                  >
-                    <option value={'TrueOrFalse'} key={'TrueOrFalse'}>
-                      V o F
-                    </option>
-                    <option value={'Ranking5'} key={'Ranking5'}>
-                      Ranking
-                    </option>
-                  </select>
-                </RowContainer>
-              ))}
+              <QuestionsByTypeContainer
+                questionsType="GOVERNANCE"
+                questions={governanceQuestions}
+                handleQuestionChange={handleQuestionChange}
+                deleteQuestion={index =>
+                  setGovernanceQuestions(
+                    governanceQuestions.filter(
+                      i => governanceQuestions.indexOf(i) !== index,
+                    ),
+                  )
+                }
+              />
               <Button
                 action="link"
                 text="Agregar pregunta +"
@@ -350,7 +229,11 @@ const CreateFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
             </SubsectionContainer>
           </ModalContent>
           <ButtonsContainer>
-            <Button action="secondary" text="Cancelar" onClick={closeModal} />
+            <Button
+              action="secondary"
+              text="Cancelar"
+              onClick={() => setIsOpen(false)}
+            />
             <Button
               action="primary"
               text="Guardar"

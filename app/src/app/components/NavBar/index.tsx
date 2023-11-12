@@ -19,9 +19,9 @@ import StUserActionsContainer from './StUserActionsContainer';
 import StAvatar from './StAvatar';
 import AvatarButton from './StAvatarButton';
 import currentUser from 'utils/currentUser';
+import { isProvider } from 'utils/roleMapper';
 
 const Navbar = () => {
-  const user = currentUser.get();
   const pathname = useLocation().pathname;
 
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const Navbar = () => {
               <span>Inicio</span>
             </StNavOption>
           </Link>
-          {user.role !== 'PROVIDER' && (
+          {!isProvider() && (
             <Link to="/providers">
               <StNavOption isSelected={pathname === '/providers'}>
                 <img

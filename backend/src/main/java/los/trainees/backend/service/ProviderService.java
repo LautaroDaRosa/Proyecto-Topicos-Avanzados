@@ -12,10 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,17 +28,23 @@ public class ProviderService {
     @Autowired
     private IProviderCategoryRepository providerCategoryRepository;
 
-    public Page<Provider> getProviders(Pageable pageable) {
-        return providerRepository.findAll(pageable);
+    public Page<Provider> getProviders(String email, Pageable pageable) {
+        return providerRepository.getProvidersInvited(email, pageable);
     }
 
-    public Page<Provider> filter(String username, String businessName, String rut, Integer score, ECategory category, Pageable pageable) {
-        Page<Provider> dbProviders = providerRepository.filter(username, businessName, rut, category, pageable);
-        List<Provider> list = dbProviders.getContent();
+    public Page<Provider> filter(String email, String username, String businessName, String rut, Integer score, ECategory category, Pageable pageable) {
         if (score != null) {
-            list = list.stream().filter(provider -> provider.getScore().getAverage() == score).toList();
+            List<Provider> providerList = providerRepository.filterList(username, businessName, rut, category, email).stream().filter(provider -> provider.getScore().getAverage() == score).toList();
+            int lowerIndex = pageable.getPageNumber() * pageable.getPageSize();
+            int upperIndex = lowerIndex + pageable.getPageSize();
+            List<Provider> finalList = Collections.emptyList();
+            if (providerList.size() >= lowerIndex) {
+                finalList = providerList.subList(lowerIndex, Math.min(providerList.size(), upperIndex));
+            }
+            return new PageImpl<>(finalList, pageable, providerList.size());
+        } else {
+            return providerRepository.filterPage(username, businessName, rut, category, email, pageable);
         }
-        return new PageImpl<>(list, pageable, dbProviders.getTotalElements());
     }
 
     @Transactional

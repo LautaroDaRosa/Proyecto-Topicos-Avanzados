@@ -7,6 +7,9 @@ const StAvatar = styled.div`
   border-radius: 100%;
   width: 48px;
   position: relative;
+  img {
+    object-fit: cover;
+  }
 `;
 
 export default StAvatar;

@@ -1,5 +1,6 @@
 package los.trainees.backend.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 import lombok.Data;
@@ -19,11 +20,10 @@ public class Partner extends User {
 
     private String businessName;
 
+    @Column(unique = true)
     private String rut;
 
     private String contact;
-
-    private String logo;
 
     private String address;
 

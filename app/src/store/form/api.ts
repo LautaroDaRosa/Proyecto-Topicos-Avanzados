@@ -39,10 +39,16 @@ export const sendAnswers = async (answers: QuestionAnswer[]) => {
   return toCamel(response.data);
 };
 
+export const getAnswered = async () => {
+  const response = await axiosInstance.get(`${ANSWER}/answered`);
+  return response.data as QuestionAnswer[];
+};
+
 const authApi = {
   postQuestions,
   getQuestions,
   sendAnswers,
+  getAnswered,
 };
 
 export default authApi;

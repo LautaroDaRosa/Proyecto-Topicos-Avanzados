@@ -19,10 +19,13 @@ import StUserActionsContainer from './StUserActionsContainer';
 import StAvatar from './StAvatar';
 import AvatarButton from './StAvatarButton';
 import currentUser from 'utils/currentUser';
+import { isProvider } from 'utils/roleMapper';
+import UserAndAvatarContainer from './UserAndAvatarContainer';
 
 const Navbar = () => {
-  const user = currentUser.get();
   const pathname = useLocation().pathname;
+
+  const user = currentUser.get();
 
   const navigate = useNavigate();
 
@@ -37,7 +40,6 @@ const Navbar = () => {
   };
 
   const goToMyProfile = () => {
-    dispatch(actions.logout());
     navigate('/profile');
   };
 
@@ -66,7 +68,7 @@ const Navbar = () => {
               <span>Inicio</span>
             </StNavOption>
           </Link>
-          {user.role !== 'PROVIDER' && (
+          {!isProvider() && (
             <Link to="/providers">
               <StNavOption isSelected={pathname === '/providers'}>
                 <img
@@ -82,10 +84,13 @@ const Navbar = () => {
         </Nav>
       </StBrandAndLinks>
       <StUserActionsContainer>
-        <StAvatar>
+        <UserAndAvatarContainer>
+          <span>{user.username}</span>
           <AvatarButton onClick={goToMyProfile} />
+          <StAvatar>
             <img src={user.logo} alt="Logo del usuario" />
-        </StAvatar>
+          </StAvatar>
+        </UserAndAvatarContainer>
         <Button
           text="Cerrar sesión"
           type="submit"

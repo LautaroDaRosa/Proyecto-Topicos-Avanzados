@@ -4,47 +4,59 @@ import PageContainer from 'app/components/PageContainer';
 import StProfile from './StProfile';
 import StPageContent from 'app/components/StPageContent/StPageContent';
 import UserProfile from '../../components/UserProfile';
-import { roleMapper } from 'utils/roleMapper';
+import { isPartner, isProvider, roleMapper } from 'utils/roleMapper';
 import UserInfo from 'app/components/UserInfo';
 import ProviderScores from 'app/components/ProviderScores';
 import Button from 'app/components/Button';
 import StButtonContainer from './StButtonContainer';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getProvider } from 'store/providers/api';
 import { Profile } from 'types';
 import { getMyProfile } from 'store/auth/api';
 import AnswerFormModal from 'app/components/Modals/AnswerFormModal';
+import CategoriesModal from 'app/components/Modals/components/CategoriesModal';
 
 interface ProfileProperties {
   itsOwnProfile: boolean;
 }
 
 const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
-  // Como este es el que va a repartir la informacion, tiene que hacer la request.
-  // Dependiendo de si el perfil es propio o no, se hace una request con el id.
   const { id } = useParams();
   const [user, setUser] = useState<Profile>();
 
-  const [isModalOpenned, setIsModalOpenned] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCategoriesModalOpen, setIsCategoriesModalOpen] = useState(false);
+
+  const fetchProvider = useCallback(async () => {
+    const response = id ? await getProvider(id) : await getMyProfile();
+    setUser(response);
+  }, [id]);
 
   useEffect(() => {
-    async function fetchProvider() {
-      const response = id ? await getProvider(id) : await getMyProfile();
-      setUser(response);
-    }
     fetchProvider();
-  }, [id]);
+  }, [fetchProvider, id]);
 
   return (
     <StProfile>
       <Navbar />
       <PageContainer>
-        <AnswerFormModal
-          isOpenned={isModalOpenned}
-          setIsOpenned={setIsModalOpenned}
-        />
-        {user !== undefined && (
+        {(isPartner() || isProvider()) && (
+          <AnswerFormModal
+            isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
+            fetchProvider={fetchProvider}
+          />
+        )}
+        {user && isProvider() && itsOwnProfile && (
+          <CategoriesModal
+            preselectedCategories={user.categories || []}
+            isOpen={isCategoriesModalOpen}
+            setIsOpen={setIsCategoriesModalOpen}
+            fetchProfile={fetchProvider}
+          />
+        )}
+        {user && (
           <StPageContent>
             <Title text="Perfil de usuario" />
             <UserProfile
@@ -64,10 +76,12 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
                   contact={user.contact || ''}
                   address={user.address || ''}
                   categories={user.categories || []}
+                  setIsCategoriesModalOpen={setIsCategoriesModalOpen}
+                  itsOwnProfile={itsOwnProfile}
                 />
               </>
             )}
-            {user.role === 'PROVIDER' && user.score && (
+            {['PROVIDER', 'PARTNER'].includes(user.role) && user.score && (
               <>
                 <Title text={'Resumen de scores'} />
                 <ProviderScores
@@ -78,12 +92,12 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
                 />
               </>
             )}
-            {itsOwnProfile && user.role === 'PROVIDER' && (
+            {itsOwnProfile && isProvider() && (
               <StButtonContainer>
                 <Button
                   action="secondary"
                   text="Formulario"
-                  onClick={() => setIsModalOpenned(true)}
+                  onClick={() => setIsModalOpen(true)}
                 />
               </StButtonContainer>
             )}

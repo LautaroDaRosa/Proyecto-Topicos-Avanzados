@@ -10,7 +10,7 @@ const StModal = styled.div`
   border-radius: 8px;
   padding: 32px;
   box-sizing: border-box;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   button {

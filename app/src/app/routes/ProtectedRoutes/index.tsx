@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { isUserLoggedIn } from 'store/auth/selectors';
-import currentUser from 'utils/currentUser';
+import { isProvider } from 'utils/roleMapper';
 
 const ProtectedRoutes = () => {
   const isLoggedIn = useSelector(isUserLoggedIn);
@@ -15,12 +15,10 @@ const ProtectedRoutes = () => {
     return <Navigate to="/login" replace />;
   }
 
-  const user = currentUser.get();
-
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      {user.role !== 'PROVIDER' && (
+      {!isProvider() && (
         <>
           <Route path="/providers" element={<ProvidersPage />} />
           <Route
@@ -30,7 +28,7 @@ const ProtectedRoutes = () => {
         </>
       )}
       <Route path="/profile" element={<ProfilePage itsOwnProfile={true} />} />
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="*" element={<NotFoundPage />} />;
     </Routes>
   );
 };

@@ -8,16 +8,17 @@ import StModal from '../styles/StModal';
 import SubsectionContainer from '../styles/SubsectionContainer';
 import QuestionTextContainer from '../styles/QuestionTextContainer';
 import { useEffect, useState } from 'react';
-import { getQuestions, sendAnswers } from 'store/form/api';
+import { getAnswered, getQuestions, sendAnswers } from 'store/form/api';
 import { QuestionWithId } from 'types';
 import { QuestionAnswer } from 'store/form/types';
 
-interface CreateFormProps {
-  isOpenned: boolean;
-  setIsOpenned: (isOpenned: boolean) => void;
+interface Props {
+  isOpen: boolean;
+  setIsOpen: (b: boolean) => void;
+  fetchProvider: () => void;
 }
 
-const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
+const AnswerFormModal = ({ isOpen, setIsOpen, fetchProvider }: Props) => {
   const [socialQuestions, setSocialQuestions] = useState<QuestionWithId[]>([]);
   const [environmentalQuestions, setEnvironmentalQuestions] = useState<
     QuestionWithId[]
@@ -34,13 +35,14 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
     [],
   );
 
-  const closeModal = () => {
-    setIsOpenned(false);
+  const searchAnswer = (list: QuestionAnswer[], id: number) => {
+    return list.find(item => item['question'] === id);
   };
 
   useEffect(() => {
     async function fetchQuestions() {
       const response = await getQuestions();
+      const answers = await getAnswered();
       const sQuestions = response.filter(
         question => question.categoryQuestion === 'SOCIAL',
       );
@@ -59,7 +61,7 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
         sQuestions.map(question => {
           return {
             question: question.questionId,
-            response: 0,
+            response: searchAnswer(answers, question.questionId)?.response || 0,
           };
         }),
       );
@@ -67,7 +69,7 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
         eQuestions.map(question => {
           return {
             question: question.questionId,
-            response: 0,
+            response: searchAnswer(answers, question.questionId)?.response || 0,
           };
         }),
       );
@@ -75,7 +77,7 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
         gQuesitons.map(question => {
           return {
             question: question.questionId,
-            response: 0,
+            response: searchAnswer(answers, question.questionId)?.response || 0,
           };
         }),
       );
@@ -89,8 +91,8 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
         socialAnswers.concat(governanceAnswers, environmentAnswers),
       );
     }
-    postAnswers();
-    closeModal();
+    postAnswers().then(() => fetchProvider());
+    setIsOpen(false);
   };
 
   const handleAnswerChange = (
@@ -120,7 +122,7 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
 
   return (
     <>
-      {isOpenned && (
+      {isOpen && (
         <StModal>
           <ModalTitle>Contestar Formulario</ModalTitle>
           {socialQuestions.length === 0 && (
@@ -162,19 +164,19 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                             handleAnswerChange(index, e.target.value, 'SOCIAL')
                           }
                         >
-                          <option value={'0'} key={'0'}>
+                          <option value={'1'} key={'1'}>
                             1
                           </option>
-                          <option value={'1'} key={'1'}>
+                          <option value={'2'} key={'2'}>
                             2
                           </option>
-                          <option value={'2'} key={'2'}>
+                          <option value={'3'} key={'3'}>
                             3
                           </option>
-                          <option value={'3'} key={'3'}>
+                          <option value={'4'} key={'4'}>
                             4
                           </option>
-                          <option value={'4'} key={'4'}>
+                          <option value={'5'} key={'5'}>
                             5
                           </option>
                         </select>
@@ -219,19 +221,19 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                             )
                           }
                         >
-                          <option value={'0'} key={'0'}>
+                          <option value={'1'} key={'1'}>
                             1
                           </option>
-                          <option value={'1'} key={'1'}>
+                          <option value={'2'} key={'2'}>
                             2
                           </option>
-                          <option value={'2'} key={'2'}>
+                          <option value={'3'} key={'3'}>
                             3
                           </option>
-                          <option value={'3'} key={'3'}>
+                          <option value={'4'} key={'4'}>
                             4
                           </option>
-                          <option value={'4'} key={'4'}>
+                          <option value={'5'} key={'5'}>
                             5
                           </option>
                         </select>
@@ -276,19 +278,19 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
                             )
                           }
                         >
-                          <option value={'0'} key={'0'}>
+                          <option value={'1'} key={'1'}>
                             1
                           </option>
-                          <option value={'1'} key={'1'}>
+                          <option value={'2'} key={'2'}>
                             2
                           </option>
-                          <option value={'2'} key={'2'}>
+                          <option value={'3'} key={'3'}>
                             3
                           </option>
-                          <option value={'3'} key={'3'}>
+                          <option value={'4'} key={'4'}>
                             4
                           </option>
-                          <option value={'4'} key={'4'}>
+                          <option value={'5'} key={'5'}>
                             5
                           </option>
                         </select>
@@ -300,7 +302,11 @@ const AnswerFormModal = ({ isOpenned, setIsOpenned }: CreateFormProps) => {
             </>
           )}
           <ButtonsContainer>
-            <Button action="secondary" text="Cancelar" onClick={closeModal} />
+            <Button
+              action="secondary"
+              text="Cancelar"
+              onClick={() => setIsOpen(false)}
+            />
             <Button action="primary" text="Guardar" onClick={saveForm} />
           </ButtonsContainer>
         </StModal>

@@ -4,6 +4,8 @@ import StInfoLine from '../UserProfile/InfoLine';
 import StField from '../UserProfile/StField';
 import StCategoriesContainer from './StCategoriesContainer';
 import StCategory from './StCategory';
+import Button from '../Button';
+import { isProvider } from 'utils/roleMapper';
 
 interface UserInfoProps {
   businessName: string;
@@ -11,6 +13,8 @@ interface UserInfoProps {
   contact: string;
   address: string;
   categories: string[];
+  itsOwnProfile: boolean;
+  setIsCategoriesModalOpen: (b: boolean) => void;
 }
 
 const UserInfo = ({
@@ -19,6 +23,8 @@ const UserInfo = ({
   contact,
   address,
   categories,
+  setIsCategoriesModalOpen,
+  itsOwnProfile,
 }: UserInfoProps) => {
   return (
     <StUserInfo>
@@ -54,6 +60,13 @@ const UserInfo = ({
           </StCategoriesContainer>
         )}
       </StField>
+      {itsOwnProfile && isProvider() && (
+        <Button
+          action="link"
+          text="Editar categorias"
+          onClick={() => setIsCategoriesModalOpen(true)}
+        />
+      )}
     </StUserInfo>
   );
 };

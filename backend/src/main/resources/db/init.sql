@@ -11,9 +11,9 @@ VALUES (1, 'provider1@example.com', 'Provider 1 Info',
        (4, 'provider4@example.com', 'Provider 4 Info',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Banco_santander_logo.svg/2560px-Banco_santander_logo.svg.png',
         'Provider 4', '48690', '48691', 'PROVIDER'),
-       (5, 'partner@example.com', 'User Test', 'https://deres.org.uy/wp-content/uploads/2020/02/deres_logo_celeste.png',
+       (5, 'partner@example.com', 'User Test', 'https://pbs.twimg.com/profile_images/1367445938801901574/kyh0-_mu_400x400.jpg',
         'partner', '48690', '48691', 'PARTNER'),
-       (6, 'admin@example.com', 'User Admin', 'https://deres.org.uy/wp-content/uploads/2020/02/deres_logo_celeste.png',
+       (6, 'admin@example.com', 'User Admin', 'https://pbs.twimg.com/profile_images/1367445938801901574/kyh0-_mu_400x400.jpg',
         'admin', '48690', '48691', 'ADMIN');
 
 INSERT IGNORE INTO provider (address, business_name, contact, rut, user_id)

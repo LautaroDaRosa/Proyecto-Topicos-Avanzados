@@ -1,20 +1,20 @@
 INSERT IGNORE INTO user (user_id, email, info, logo, username, password, phone, role)
 VALUES (1, 'provider1@example.com', 'Provider 1 Info',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Canal_10_Uruguay_Logo_1960.webp/640px-Canal_10_Uruguay_Logo_1960.webp.png',
-        'Provider 1', '48690', '48690', 'PROVIDER'),
+        'Provider 1', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48690', 'PROVIDER'),
        (2, 'provider2@example.com', 'Provider 2 Info',
-        'https://upload.wikimedia.org/wikipedia/commons/3/33/Canal4_uy.png', 'Provider 2', '48690', '48690',
+        'https://upload.wikimedia.org/wikipedia/commons/3/33/Canal4_uy.png', 'Provider 2', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48690',
         'PROVIDER'),
        (3, 'provider3@example.com', 'Provider 3 Info',
-        'https://upload.wikimedia.org/wikipedia/commons/7/79/Teledoce_2022.png', 'Provider 3', '48690', '48690',
+        'https://upload.wikimedia.org/wikipedia/commons/7/79/Teledoce_2022.png', 'Provider 3', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48690',
         'PROVIDER'),
        (4, 'provider4@example.com', 'Provider 4 Info',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Banco_santander_logo.svg/2560px-Banco_santander_logo.svg.png',
-        'Provider 4', '48690', '48691', 'PROVIDER'),
+        'Provider 4', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48691', 'PROVIDER'),
        (5, 'partner@example.com', 'User Test', 'https://pbs.twimg.com/profile_images/1367445938801901574/kyh0-_mu_400x400.jpg',
-        'partner', '48690', '48691', 'PARTNER'),
+        'partner', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48691', 'PARTNER'),
        (6, 'admin@example.com', 'User Admin', 'https://pbs.twimg.com/profile_images/1367445938801901574/kyh0-_mu_400x400.jpg',
-        'admin', '48690', '48691', 'ADMIN');
+        'admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48691', 'ADMIN');
 
 INSERT IGNORE INTO provider (address, business_name, contact, rut, user_id)
 VALUES ('Lorenzo Carnelli 1234', 'CANAL 10 S.A.', 'contact',

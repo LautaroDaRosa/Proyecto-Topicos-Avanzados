@@ -11,6 +11,18 @@ export interface LoginDataType {
   token: string;
 }
 
+export interface RegisterDataType {
+  username: string;
+  phone: string;
+  email: string;
+  info: string;
+  logo: string;
+  rut: string;
+  address: string;
+  contact: string;
+  businessName: string;
+}
+
 export interface AuthState {
   login: {
     error: string | number | undefined;

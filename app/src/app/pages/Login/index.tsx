@@ -11,6 +11,7 @@ import Form from './Form';
 import StBackgroundImage from './StBackgroundImage';
 import StLogin from './StLogin';
 import tokenService from 'utils/tokenService';
+import { hashPassword } from 'utils/hash';
 
 const Login = () => {
   const [user, setUser] = useState('');
@@ -32,7 +33,9 @@ const Login = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(actions.login({ username: user, password: password }));
+    hashPassword(password).then(hash =>
+      dispatch(actions.login({ username: user, password: hash })),
+    );
   };
 
   return (

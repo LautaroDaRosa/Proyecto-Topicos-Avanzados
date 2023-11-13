@@ -9,3 +9,6 @@ spring:
 jwt:
   secret: "jwt_secret"
   expirationInMinutes: 1500
+mail:
+  username: ""
+  password: ""

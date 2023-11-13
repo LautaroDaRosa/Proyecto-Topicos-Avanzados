@@ -5,6 +5,7 @@ const StUserActionsContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 12px;
+  align-items: center;
 `;
 
 export default StUserActionsContainer;

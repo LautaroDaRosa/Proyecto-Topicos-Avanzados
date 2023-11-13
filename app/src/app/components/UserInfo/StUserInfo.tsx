@@ -10,6 +10,10 @@ const StUserInfo = styled.div`
   margin-right: 256px;
   flex-direction: column;
   gap: 16px;
+
+  button {
+    width: 130px;
+  }
 `;
 
 export default StUserInfo;

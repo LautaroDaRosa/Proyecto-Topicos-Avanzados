@@ -18,6 +18,7 @@ public class User {
     @EqualsAndHashCode.Include
     protected Long userId;
 
+    @Column(unique = true)
     protected String username;
 
     protected String phone;

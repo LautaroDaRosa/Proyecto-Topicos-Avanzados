@@ -12,6 +12,11 @@ const RowContainer = styled.div`
     padding-right: 4px;
     cursor: pointer;
   }
+
+  input,
+  select {
+    font-size: 16px;
+  }
 `;
 
 export default RowContainer;

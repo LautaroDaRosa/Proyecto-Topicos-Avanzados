@@ -1,13 +1,14 @@
 import { axiosInstance } from 'utils/axios';
 import { toCamel, toSnake } from 'utils/convert-keys';
 import TokenService from 'utils/tokenService';
-import { LOGIN, REFRESH } from './endpoints';
+import { USER, REFRESH, LOGIN } from './endpoints';
 
-import { LoginDataType } from './types';
+import { LoginDataType, RegisterDataType } from './types';
 import { Profile } from 'types';
+import tokenService from 'utils/tokenService';
 
 const login = async (username, password) => {
-  const response = await axiosInstance.post(LOGIN, {
+  const response = await axiosInstance.post(`${LOGIN}`, {
     username,
     password,
   });
@@ -27,6 +28,11 @@ export const getMyProfile = async () => {
   const url = `/user/myProfile`;
   const response = await axiosInstance.get(url);
   return toCamel(response.data as Profile);
+};
+
+export const register = async (newUser: RegisterDataType, token: string) => {
+  tokenService.updateLocalAccessToken(token);
+  await axiosInstance.post(`${USER}/register`, newUser);
 };
 
 const authApi = {

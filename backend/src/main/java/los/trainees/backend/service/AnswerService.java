@@ -29,7 +29,7 @@ public class AnswerService {
     private IQuestionRepository questionRepository;
 
     public Boolean saveAnswers(AnswerDTO answerList) {
-        Provider provider = providerRepository.findById(answerList.getProvider()).orElse(null);
+        Provider provider = providerRepository.findById(answerList.getUserId()).orElse(null);
         for (AnswerData answerData : answerList.getAnswers()) {
             Question question = questionRepository.findById(answerData.getQuestion()).orElse(null);
             if (provider == null || question == null) {
@@ -37,7 +37,7 @@ public class AnswerService {
             } else {
                 Answer answer = new Answer();
                 AnswerId answerId = new AnswerId();
-                answerId.setProvider(provider);
+                answerId.setUser(provider);
                 answerId.setQuestion(question);
                 answer.setId(answerId);
                 answer.setResponse(answerData.getResponse());

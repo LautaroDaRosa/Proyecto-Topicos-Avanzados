@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class AnswerDTO {
-    private Long provider;
+    private Long userId;
     private List<AnswerData> answers;
 }

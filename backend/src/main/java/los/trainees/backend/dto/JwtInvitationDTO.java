@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class InviteDTO {
+public class JwtInvitationDTO {
 
-    private RUser senderUser;
+    private String senderUserEmail;
 
     private String receiverUserEmail;
 

@@ -1,6 +1,6 @@
 package los.trainees.backend.controller;
 
-import los.trainees.backend.config.JwtGenerator;
+import los.trainees.backend.config.JwtUtils;
 import los.trainees.backend.dto.LoginRequest;
 import los.trainees.backend.dto.ProfileUser;
 import los.trainees.backend.dto.RUser;
@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private JwtGenerator jwtGenerator;
+    private JwtUtils jwtUtils;
 
     private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
 
@@ -31,7 +31,7 @@ public class UserController {
     public ResponseEntity<RUser> login(@RequestBody LoginRequest loginRequest) {
         RUser rUser = userMapper.toDto(userService.checkCredentials(loginRequest));
         if (rUser != null) {
-            String token = jwtGenerator.generateToken(rUser.getUsername(), rUser.getRole().name());
+            String token = jwtUtils.generateLoginToken(rUser.getUsername(), rUser.getRole().name());
             return ResponseEntity.ok(rUser.toBuilder().token(token).build());
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

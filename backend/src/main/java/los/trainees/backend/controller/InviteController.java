@@ -1,6 +1,7 @@
 package los.trainees.backend.controller;
 
 import los.trainees.backend.dto.InviteDTO;
+import los.trainees.backend.dto.JwtInvitationDTO;
 import los.trainees.backend.dto.RUser;
 import los.trainees.backend.entity.Invite;
 import los.trainees.backend.service.InviteService;
@@ -17,14 +18,15 @@ public class InviteController {
     private InviteService inviteService;
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PARTNER')")
-    @PostMapping(path = "/send",produces = "application/json")
-    public Invite sendInvite(@RequestParam String email){
+    @PostMapping(path = "/send", produces = "application/json")
+    public Invite sendInvite(@RequestParam String email) {
         RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        return inviteService.sendInvite(rUser.getEmail(),email);
+        return inviteService.sendInvite(rUser, email);
     }
 
-    @GetMapping(path = "/get",produces = "application/json")
-    public InviteDTO getInvite(@RequestParam String inviteId){
-        return inviteService.getInvite(inviteId);
+    @GetMapping(path = "/get", produces = "application/json")
+    public InviteDTO getInvite() {
+        JwtInvitationDTO jwtInvitationDTO = (JwtInvitationDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        return inviteService.getInvite(jwtInvitationDTO);
     }
 }

@@ -19,11 +19,10 @@ public class Partner extends User {
 
     private String businessName;
 
+    @Column(unique = true)
     private String rut;
 
     private String contact;
-
-    private String logo;
 
     private String address;
 

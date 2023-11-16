@@ -31,7 +31,7 @@ public class AnswerController {
 
     @PreAuthorize(value = "hasAnyAuthority('PROVIDER', 'PARTNER')")
     @GetMapping(path = "/answered", produces = "application/json")
-    public List<AnswerData> getAnswersFromProvider() {
+    public List<AnswerData> getAnswers() {
         RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
         return answerService.getAnswers(rUser);
     }

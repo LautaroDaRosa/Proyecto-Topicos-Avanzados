@@ -3,13 +3,11 @@ package los.trainees.backend.service;
 import los.trainees.backend.dto.AnswerDTO;
 import los.trainees.backend.dto.AnswerData;
 import los.trainees.backend.dto.RUser;
-import los.trainees.backend.entity.Answer;
-import los.trainees.backend.entity.AnswerId;
-import los.trainees.backend.entity.Provider;
-import los.trainees.backend.entity.Question;
+import los.trainees.backend.entity.*;
 import los.trainees.backend.repository.IAnswerRepository;
 import los.trainees.backend.repository.IProviderRepository;
 import los.trainees.backend.repository.IQuestionRepository;
+import los.trainees.backend.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,16 +26,19 @@ public class AnswerService {
     @Autowired
     private IQuestionRepository questionRepository;
 
+    @Autowired
+    private IUserRepository userRepository;
+
     public Boolean saveAnswers(AnswerDTO answerList) {
-        Provider provider = providerRepository.findById(answerList.getUserId()).orElse(null);
+        User user = userRepository.findById(answerList.getUserId()).orElse(null);
         for (AnswerData answerData : answerList.getAnswers()) {
             Question question = questionRepository.findById(answerData.getQuestion()).orElse(null);
-            if (provider == null || question == null) {
+            if (user == null || question == null) {
                 throw new RuntimeException("invalid Answer");
             } else {
                 Answer answer = new Answer();
                 AnswerId answerId = new AnswerId();
-                answerId.setUser(provider);
+                answerId.setUser(user);
                 answerId.setQuestion(question);
                 answer.setId(answerId);
                 answer.setResponse(answerData.getResponse());

@@ -9,6 +9,8 @@ spring:
 jwt:
   secret: "jwt_secret"
   expirationInMinutes: 1500
+invite:
+  emailUrl: "http://localhost:3000/"
 mail:
   username: ""
   password: ""

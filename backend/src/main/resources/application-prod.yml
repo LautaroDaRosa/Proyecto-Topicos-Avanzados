@@ -1,3 +1,5 @@
 spring:
   datasource:
     url: "jdbc:mysql://db:3306/topicos_avanzados"
+invite:
+  emailUrl: "frontend:3000/"

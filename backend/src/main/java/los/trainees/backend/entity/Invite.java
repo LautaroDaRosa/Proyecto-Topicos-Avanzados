@@ -1,37 +1,29 @@
 package los.trainees.backend.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import los.trainees.backend.enums.EStatus;
-import org.apache.commons.codec.digest.DigestUtils;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
+import static los.trainees.backend.enums.EStatus.PENDING;
 
 @Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Invite {
 
-    @Id
-    private String invite_id;
-
-    private String userSenderEmail;
-
-    private String userReceiverEmail;
+    @EmbeddedId
+    private InviteId id;
 
     @Enumerated(EnumType.STRING)
-    private EStatus status;
+    @Builder.Default
+    private EStatus status = PENDING;
 
-    private LocalDate timeStamp;
-
-    public Invite() {
-    }
-
-    public Invite(String userSenderEmail, String userReceiverEmail, EStatus status) {
-        this.invite_id = DigestUtils.sha256Hex(userSenderEmail+userReceiverEmail);
-        this.userSenderEmail = userSenderEmail;
-        this.userReceiverEmail = userReceiverEmail;
-        this.status = status;
-        timeStamp = LocalDate.now(ZoneId.of("AGT"));
-    }
 }

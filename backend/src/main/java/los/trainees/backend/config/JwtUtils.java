@@ -32,10 +32,10 @@ public class JwtUtils {
         return generateToken(new HashMap<>(), username, role, EJwtType.LOGIN);
     }
 
-    public String generateEmailInvitationToken(String username, String role, String senderUserEmail) {
+    public String generateEmailInvitationToken(String username, String role, String senderUserEmail, EJwtType jwtType) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(SENDER_USER_EMAIL_CLAIM, senderUserEmail);
-        return generateToken(claims, username, role, EJwtType.INVITATION);
+        return generateToken(claims, username, role, jwtType);
     }
 
     public String generateToken(Map<String, Object> claims, String username, String role, EJwtType jwtType) {

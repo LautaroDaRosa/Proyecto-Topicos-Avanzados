@@ -30,7 +30,7 @@ public class EmailService {
         String subject = null;
         String body = null;
         switch (emailType) {
-            case SING_UP -> {
+            case SIGN_UP -> {
                 subject = "DERES | Bienvenido a DERES!";
                 body = readFromFile("email_sign_up.html", url);
             }

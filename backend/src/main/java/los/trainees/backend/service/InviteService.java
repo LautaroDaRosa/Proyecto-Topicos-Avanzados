@@ -9,6 +9,7 @@ import los.trainees.backend.entity.Invite;
 import los.trainees.backend.entity.InviteId;
 import los.trainees.backend.entity.User;
 import los.trainees.backend.enums.EEmailType;
+import los.trainees.backend.enums.EJwtType;
 import los.trainees.backend.enums.ERole;
 import los.trainees.backend.enums.EStatus;
 import los.trainees.backend.exception.AlreadyCreatedInviteException;
@@ -53,15 +54,18 @@ public class InviteService {
             Optional<User> userOptional = userRepository.getUserByEmail(receiverEmail);
             String url = emailUrl;
             EEmailType emailType;
+            EJwtType jwtType;
             if (userOptional.isEmpty()) {
                 url += "sign_up/";
-                emailType = EEmailType.SING_UP;
+                emailType = EEmailType.SIGN_UP;
+                jwtType = EJwtType.SIGN_UP;
             } else {
                 url += "invitation/";
                 emailType = EEmailType.INVITATION;
+                jwtType = EJwtType.INVITATION;
             }
             ERole receiverUserRole = senderUser.getRole() == ERole.ADMIN ? ERole.PARTNER : ERole.PROVIDER;
-            String inviteJwt = jwtUtils.generateEmailInvitationToken(receiverEmail, receiverUserRole.name(), senderUser.getEmail());
+            String inviteJwt = jwtUtils.generateEmailInvitationToken(receiverEmail, receiverUserRole.name(), senderUser.getEmail(), jwtType);
             url += inviteJwt;
             emailService.sendEmailList(List.of(receiverEmail), emailType, url);
             return invite;
@@ -70,12 +74,14 @@ public class InviteService {
     }
 
     public InviteDTO getInvite(JwtInvitationDTO jwtInvitationDTO) {
+        EJwtType jwtType = jwtInvitationDTO.getJwtType();
         String senderUserEmail = jwtInvitationDTO.getSenderUserEmail();
         String receiverUserEmail = jwtInvitationDTO.getReceiverUserEmail();
         Optional<Invite> invite = inviteRepository.findById(InviteId.builder().senderUserEmail(senderUserEmail).receiverUserEmail(receiverUserEmail).build());
         if (invite.isPresent()) {
-            RUser rUser = userMapper.toDto(userRepository.getUserByEmail(senderUserEmail).get());
-            return InviteDTO.builder().senderUser(rUser).receiverUserEmail(receiverUserEmail).receiverUserRole(jwtInvitationDTO.getReceiverUserRole()).token(jwtInvitationDTO.getToken()).build();
+            RUser rUserSender = userMapper.toDto(userRepository.getUserByEmail(senderUserEmail).get());
+            RUser rUserReceiver = jwtType == EJwtType.INVITATION ? userMapper.toDto(userRepository.getUserByEmail(receiverUserEmail).get()) : null;
+            return InviteDTO.builder().senderUser(rUserSender).receiverUser(rUserReceiver).receiverUserEmail(receiverUserEmail).receiverUserRole(jwtInvitationDTO.getReceiverUserRole()).token(jwtInvitationDTO.getToken()).build();
         }
         throw new InviteNotFoundException();
     }

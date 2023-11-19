@@ -64,9 +64,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         Optional<User> userOptional = userService.findUserByUsername(username);
                         authentication.setDetails(userMapper.toDto(userOptional.get()));
                     }
-                    case INVITATION -> {
+                    case SIGN_UP, INVITATION -> {
                         String senderUserEmail = jwtUtils.getClaimFromToken(token, SENDER_USER_EMAIL_CLAIM);
-                        authentication.setDetails(JwtInvitationDTO.builder().senderUserEmail(senderUserEmail).receiverUserEmail(username).receiverUserRole(role).token(token).build());
+                        authentication.setDetails(JwtInvitationDTO.builder().senderUserEmail(senderUserEmail).receiverUserEmail(username).receiverUserRole(role).token(token).jwtType(jwtType).build());
                     }
                 }
                 SecurityContextHolder.getContext().setAuthentication(authentication);

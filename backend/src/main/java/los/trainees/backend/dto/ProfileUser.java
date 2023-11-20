@@ -1,6 +1,7 @@
 package los.trainees.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import los.trainees.backend.entity.Score;
 import los.trainees.backend.enums.ERole;
@@ -39,5 +40,6 @@ public class ProfileUser {
 
     private List<String> categories;
 
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
 }

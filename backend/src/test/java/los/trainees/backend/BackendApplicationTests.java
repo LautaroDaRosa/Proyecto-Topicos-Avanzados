@@ -6,6 +6,7 @@ import los.trainees.backend.enums.ERole;
 import los.trainees.backend.exception.IncorrectUserDataException;
 import los.trainees.backend.repository.IUserRepository;
 import los.trainees.backend.service.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class BackendApplicationTests extends Containers {
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(User.builder().username("Michael").email("usuario@ejemplo.com").password("root").role(ERole.PROVIDER).build());
+        userRepository.save(User.builder().username("Michael").email("usuario@ejemplo.com").password(DigestUtils.sha256Hex("root")).role(ERole.PROVIDER).build());
     }
 
     @AfterEach

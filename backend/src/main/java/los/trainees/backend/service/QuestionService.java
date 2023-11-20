@@ -49,7 +49,6 @@ public class QuestionService {
     @SneakyThrows
     public boolean deleteQuestions(ListQuestionIdDTO listQuestionIdDTO) {
         questionRepository.deleteAllById(listQuestionIdDTO.getListQuestionId());
-
         return true;
     }
 }

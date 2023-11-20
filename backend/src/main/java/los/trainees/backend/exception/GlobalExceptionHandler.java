@@ -40,4 +40,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleBadIdInvite() {
         return new ResponseEntity<>(Map.of("message", "Invite not found"), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(InvalidRegisterException.class)
+    public ResponseEntity<Map<String, String>> handleBadRegister() {
+        return new ResponseEntity<>(Map.of("message", "Can not create that user with the passed params"), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidInviteException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidInvite() {
+        return new ResponseEntity<>(Map.of("message", "Can not create that invite"), HttpStatus.BAD_REQUEST);
+    }
 }

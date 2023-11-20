@@ -10,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/invite")
 public class InviteController {
@@ -28,5 +30,11 @@ public class InviteController {
     public InviteDTO getInvite() {
         JwtInvitationDTO jwtInvitationDTO = (JwtInvitationDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
         return inviteService.getInvite(jwtInvitationDTO);
+    }
+
+    @PostMapping(path = "/respond", produces = "application/json")
+    public Map<String, String> acceptInvite(@RequestParam String status) {
+        JwtInvitationDTO jwtInvitationDTO = (JwtInvitationDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        return inviteService.acceptInvite(jwtInvitationDTO, status);
     }
 }

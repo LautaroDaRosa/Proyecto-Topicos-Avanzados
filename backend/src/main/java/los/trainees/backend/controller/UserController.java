@@ -1,6 +1,7 @@
 package los.trainees.backend.controller;
 
 import los.trainees.backend.config.JwtUtils;
+import los.trainees.backend.dto.JwtInvitationDTO;
 import los.trainees.backend.dto.LoginRequest;
 import los.trainees.backend.dto.ProfileUser;
 import los.trainees.backend.dto.RUser;
@@ -43,6 +44,12 @@ public class UserController {
     public ProfileUser myProfile() {
         RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
         return userService.fillProfileUser(rUser);
+    }
+
+    @PostMapping(value = "/register", produces = "application/json")
+    public ProfileUser register(@RequestBody ProfileUser userRegister) {
+        JwtInvitationDTO jwtInvitationDTO = (JwtInvitationDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        return userService.registerUser(userRegister, jwtInvitationDTO);
     }
 }
 

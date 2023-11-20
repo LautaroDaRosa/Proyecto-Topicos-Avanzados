@@ -1,5 +1,6 @@
 package los.trainees.backend.controller;
 
+import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.dto.ListQuestionIdDTO;
 import los.trainees.backend.dto.QuestionDTO;
 import los.trainees.backend.entity.Question;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/question")
+@Log4j2
 public class QuestionController {
 
     @Autowired

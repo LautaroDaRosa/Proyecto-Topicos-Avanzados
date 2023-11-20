@@ -2,19 +2,17 @@ package los.trainees.backend.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@SuperBuilder
 public class Partner extends User {
-
-    @Transient
-    private Boolean connected;
 
     private LocalDateTime lastConnection;
 
@@ -27,4 +25,7 @@ public class Partner extends User {
 
     private String address;
 
+    public Partner() {
+
+    }
 }

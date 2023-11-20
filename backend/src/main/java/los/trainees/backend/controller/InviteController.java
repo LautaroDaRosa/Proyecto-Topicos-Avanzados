@@ -1,5 +1,6 @@
 package los.trainees.backend.controller;
 
+import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.dto.InviteDTO;
 import los.trainees.backend.dto.JwtInvitationDTO;
 import los.trainees.backend.dto.RUser;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/invite")
+@Log4j2
 public class InviteController {
 
     @Autowired
@@ -28,5 +30,11 @@ public class InviteController {
     public InviteDTO getInvite() {
         JwtInvitationDTO jwtInvitationDTO = (JwtInvitationDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
         return inviteService.getInvite(jwtInvitationDTO);
+    }
+
+    @PostMapping(path = "/respond", produces = "application/json")
+    public InviteDTO acceptInvite(@RequestParam String status) {
+        JwtInvitationDTO jwtInvitationDTO = (JwtInvitationDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        return inviteService.acceptInvite(jwtInvitationDTO, status);
     }
 }

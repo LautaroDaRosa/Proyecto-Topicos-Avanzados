@@ -12,5 +12,5 @@ jwt:
 invite:
   emailUrl: "http://localhost:3000/"
 mail:
-  username: ""
-  password: ""
+  username: "sisdistribuidos.no.reply@gmail.com"
+  password: "tgaryhzzmziehmbp"

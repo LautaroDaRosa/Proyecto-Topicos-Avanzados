@@ -1,5 +1,6 @@
 package los.trainees.backend.controller;
 
+import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.dto.AnswerDTO;
 import los.trainees.backend.dto.AnswerData;
 import los.trainees.backend.dto.RUser;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/answer")
+@Log4j2
 public class AnswerController {
 
     @Autowired

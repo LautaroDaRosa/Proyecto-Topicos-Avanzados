@@ -62,8 +62,10 @@ public class QuestionService {
         return newQuestion.getTypeQuestion() != actualQuestion.getTypeQuestion() || !newQuestion.getText().contentEquals(actualQuestion.getText());
     }
 
+    @Transactional
     public boolean deleteQuestions(ListQuestionIdDTO listQuestionIdDTO) {
         try {
+            answerRepository.deleteAnswersByQuestionIdList(listQuestionIdDTO.getListQuestionId());
             questionRepository.deleteAllById(listQuestionIdDTO.getListQuestionId());
         } catch (Exception e) {
             log.error("Error deleting Questions", e);

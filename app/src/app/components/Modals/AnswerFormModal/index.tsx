@@ -11,6 +11,8 @@ import { useEffect, useState } from 'react';
 import { getAnswered, getQuestions, sendAnswers } from 'store/form/api';
 import { QuestionWithId } from 'types';
 import { QuestionAnswer } from 'store/form/types';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
   isOpen: boolean;
@@ -93,6 +95,18 @@ const AnswerFormModal = ({ isOpen, setIsOpen, fetchProvider }: Props) => {
     }
     postAnswers().then(() => fetchProvider());
     setIsOpen(false);
+    showToast();
+  };
+
+  const showToast = () => {
+    toast.success('Respuestas enviadas correctamente', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
 
   const handleAnswerChange = (

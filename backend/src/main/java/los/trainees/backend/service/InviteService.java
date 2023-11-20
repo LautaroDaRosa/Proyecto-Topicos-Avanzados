@@ -1,6 +1,5 @@
 package los.trainees.backend.service;
 
-import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.config.JwtUtils;
 import los.trainees.backend.dto.InviteDTO;
 import los.trainees.backend.dto.JwtInvitationDTO;
@@ -29,7 +28,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@Log4j2
 public class InviteService {
 
     @Autowired

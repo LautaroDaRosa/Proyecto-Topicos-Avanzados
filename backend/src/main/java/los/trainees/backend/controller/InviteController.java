@@ -1,6 +1,5 @@
 package los.trainees.backend.controller;
 
-import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.dto.InviteDTO;
 import los.trainees.backend.dto.JwtInvitationDTO;
 import los.trainees.backend.dto.RUser;
@@ -15,7 +14,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/invite")
-@Log4j2
 public class InviteController {
 
     @Autowired

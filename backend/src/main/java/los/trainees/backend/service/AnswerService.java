@@ -1,6 +1,5 @@
 package los.trainees.backend.service;
 
-import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.dto.AnswerDTO;
 import los.trainees.backend.dto.AnswerData;
 import los.trainees.backend.dto.RUser;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Log4j2
 public class AnswerService {
 
     @Autowired

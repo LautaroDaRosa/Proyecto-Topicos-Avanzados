@@ -1,7 +1,6 @@
 package los.trainees.backend.service;
 
 import jakarta.transaction.Transactional;
-import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.dto.ProfileUser;
 import los.trainees.backend.entity.Provider;
 import los.trainees.backend.entity.ProviderCategory;
@@ -21,7 +20,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Log4j2
 public class ProviderService {
 
     @Autowired

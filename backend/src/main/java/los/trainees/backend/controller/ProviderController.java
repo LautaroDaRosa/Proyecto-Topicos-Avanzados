@@ -1,6 +1,5 @@
 package los.trainees.backend.controller;
 
-import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.dto.ProfileUser;
 import los.trainees.backend.dto.RProviderReduced;
 import los.trainees.backend.dto.RUser;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/provider")
-@Log4j2
 public class ProviderController {
 
     @Autowired

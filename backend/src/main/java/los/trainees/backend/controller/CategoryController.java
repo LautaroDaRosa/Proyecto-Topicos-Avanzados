@@ -1,6 +1,5 @@
 package los.trainees.backend.controller;
 
-import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/category")
-@Log4j2
 public class CategoryController {
 
     @Autowired

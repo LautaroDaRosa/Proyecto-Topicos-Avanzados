@@ -113,6 +113,7 @@ public class UserService {
                     break;
             }
         } catch (Exception e) {
+            log.error("Error",e);
             throw new InvalidRegisterException();
         }
         String senderUserEmail = jwtInvitationDTO.getSenderUserEmail();

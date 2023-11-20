@@ -1,5 +1,6 @@
 package los.trainees.backend.service;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.dto.ListQuestionIdDTO;
 import los.trainees.backend.entity.Question;
@@ -35,6 +36,7 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
+    @Transactional
     public List<Question> createQuestions(List<Question> questionList) {
         List<Question> finalQuestions = new ArrayList<>();
         for (Question question : questionList) {
@@ -50,13 +52,14 @@ public class QuestionService {
         }
         if (!finalQuestions.isEmpty()) {
             emailService.sendEmailList(answerRepository.findAllEmailsDistinct(), EEmailType.NOTIFICATION, loginUrl);
+            answerRepository.deleteAnswersByQuestionIdList(finalQuestions.stream().map(Question::getQuestionId).toList());
             return questionRepository.saveAll(finalQuestions);
         }
         return finalQuestions;
     }
 
     private Boolean areQuestionsDifferent(Question newQuestion, Question actualQuestion) {
-        return newQuestion.getTypeQuestion() != actualQuestion.getTypeQuestion() || newQuestion.getWeight() != actualQuestion.getWeight() || !newQuestion.getText().contentEquals(actualQuestion.getText());
+        return newQuestion.getTypeQuestion() != actualQuestion.getTypeQuestion() || !newQuestion.getText().contentEquals(actualQuestion.getText());
     }
 
     public boolean deleteQuestions(ListQuestionIdDTO listQuestionIdDTO) {

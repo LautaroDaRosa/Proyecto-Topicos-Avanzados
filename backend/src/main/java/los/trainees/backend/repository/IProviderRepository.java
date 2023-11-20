@@ -24,7 +24,7 @@ public interface IProviderRepository extends JpaRepository<Provider, Long> {
             "AND (:category IS NULL OR EXISTS (SELECT pc FROM ProviderCategory pc " +
             "WHERE pc.provider.userId = p.userId AND pc.category = :category)) " +
             "AND (:email is null or p.email in " +
-            "(SELECT i.userReceiverEmail from Invite i where i.userSenderEmail = :email " +
+            "(SELECT i.id.receiverUserEmail from Invite i where i.id.senderUserEmail = :email " +
             "AND i.status = 'ACCEPTED'))")
     Page<Provider> filterPage(@Param("username") String username,
                               @Param("businessName") String businessName,
@@ -40,7 +40,7 @@ public interface IProviderRepository extends JpaRepository<Provider, Long> {
             "AND (:category IS NULL OR EXISTS (SELECT pc FROM ProviderCategory pc " +
             "WHERE pc.provider.userId = p.userId AND pc.category = :category)) " +
             "AND (:email is null or p.email in " +
-            "(SELECT i.userReceiverEmail from Invite i where i.userSenderEmail = :email " +
+            "(SELECT i.id.receiverUserEmail from Invite i where i.id.senderUserEmail = :email " +
             "AND i.status = 'ACCEPTED'))")
     List<Provider> filterList(@Param("username") String username,
                               @Param("businessName") String businessName,
@@ -50,7 +50,7 @@ public interface IProviderRepository extends JpaRepository<Provider, Long> {
 
     @Query(value = "SELECT p FROM Provider p " +
             "WHERE :email is null or p.email in " +
-            "(SELECT i.userReceiverEmail from Invite i where i.userSenderEmail = :email " +
+            "(SELECT i.id.receiverUserEmail from Invite i where i.id.senderUserEmail = :email " +
             "AND i.status = 'ACCEPTED')")
     Page<Provider> getProvidersInvited(@Param("email") String email,
                                        Pageable pageable);

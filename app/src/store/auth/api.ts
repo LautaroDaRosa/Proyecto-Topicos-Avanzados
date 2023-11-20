@@ -5,7 +5,6 @@ import { USER, REFRESH, LOGIN } from './endpoints';
 
 import { LoginDataType, RegisterDataType } from './types';
 import { Profile } from 'types';
-import tokenService from 'utils/tokenService';
 
 const login = async (username, password) => {
   const response = await axiosInstance.post(`${LOGIN}`, {
@@ -30,8 +29,7 @@ export const getMyProfile = async () => {
   return toCamel(response.data as Profile);
 };
 
-export const register = async (newUser: RegisterDataType, token: string) => {
-  tokenService.updateLocalAccessToken(token);
+export const register = async (newUser: RegisterDataType) => {
   await axiosInstance.post(`${USER}/register`, newUser);
 };
 

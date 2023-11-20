@@ -7,6 +7,7 @@ import StField from './StField';
 import StDescription from './StDescriptionContainer';
 import StRole from './StRole';
 import { roleMapper } from 'utils/roleMapper';
+import { roleColorMapper } from 'utils/colors';
 
 interface UserProfileProps {
   logo: string;
@@ -25,20 +26,6 @@ const UserProfile = ({
   telephone,
   description,
 }: UserProfileProps) => {
-  const roleColorMapper = {
-    PROVIDER: {
-      text: '#008744',
-      background: '#18e881',
-    },
-    PARTNER: {
-      text: '#0057e7',
-      background: '#669bf2',
-    },
-    ADMIN: {
-      text: '#d62d20',
-      background: '#f88d85',
-    },
-  };
   return (
     <StProfile>
       <StLogoContainer>

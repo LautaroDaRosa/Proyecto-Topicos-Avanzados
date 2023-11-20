@@ -64,9 +64,8 @@ const InvitationModal = ({ token }: Props) => {
     <StModal>
       {wasSended ? (
         <FlexColumn alignItems="center" gap={10}>
-          <Title text="¡Muchas gracias!" />
+          <Title text="Tu respuesta ha sido procedada con éxito." />
           <CircleCheckIcon size={240} />
-          <span>Tu respuesta ha sido procedada con éxito.</span>
           <span> Ya puedes cerrar esta página.</span>
           <Button
             action="link"
@@ -115,7 +114,7 @@ const InvitationModal = ({ token }: Props) => {
               action="primary"
               disabled={!['ACEPTAR', 'RECHAZAR'].includes(decision)}
               onClick={takeFakeDecision}
-              text="Tomar decisión"
+              text="Continuar"
             />
           </FlexColumn>
         </FlexColumn>

@@ -11,6 +11,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/invite")
 @Log4j2
@@ -33,7 +35,7 @@ public class InviteController {
     }
 
     @PostMapping(path = "/respond", produces = "application/json")
-    public InviteDTO acceptInvite(@RequestParam String status) {
+    public Map<String, String> acceptInvite(@RequestParam String status) {
         JwtInvitationDTO jwtInvitationDTO = (JwtInvitationDTO) SecurityContextHolder.getContext().getAuthentication().getDetails();
         return inviteService.acceptInvite(jwtInvitationDTO, status);
     }

@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -91,7 +92,7 @@ public class InviteService {
         throw new InviteNotFoundException();
     }
 
-    public InviteDTO acceptInvite(JwtInvitationDTO jwtInvitationDTO, String status) {
+    public Map<String, String> acceptInvite(JwtInvitationDTO jwtInvitationDTO, String status) {
         String senderUserEmail = jwtInvitationDTO.getSenderUserEmail();
         String receiverUserEmail = jwtInvitationDTO.getReceiverUserEmail();
         Optional<Invite> invite = inviteRepository.findInviteByIdAndStatus(InviteId.builder().senderUserEmail(senderUserEmail).receiverUserEmail(receiverUserEmail).build(), EStatus.PENDING);
@@ -99,8 +100,7 @@ public class InviteService {
             Invite inv = invite.get();
             inv.setStatus(EStatus.valueOf(status));
             inviteRepository.save(inv);
-            RUser rUser = userMapper.toDto(userRepository.getUserByEmail(senderUserEmail).get());
-            return InviteDTO.builder().senderUser(rUser).receiverUserEmail(receiverUserEmail).receiverUserRole(jwtInvitationDTO.getReceiverUserRole()).token(jwtInvitationDTO.getToken()).build();
+            return Map.of("message", "Invite accepted");
         }
         throw new InviteNotFoundException();
     }

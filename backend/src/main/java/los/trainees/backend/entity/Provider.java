@@ -3,12 +3,14 @@ package los.trainees.backend.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@SuperBuilder
 public class Provider extends User {
 
     private String businessName;
@@ -22,6 +24,10 @@ public class Provider extends User {
 
     @Transient
     private Score score;
+
+    public Provider() {
+
+    }
 
     public Score getScore() {
         if (this.score == null) {

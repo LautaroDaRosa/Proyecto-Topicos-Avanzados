@@ -9,6 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
@@ -26,6 +27,7 @@ public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Async
     public void sendEmailList(List<String> emailList, EEmailType emailType, String url) {
         String subject = null;
         String body = null;
@@ -39,6 +41,8 @@ public class EmailService {
                 body = readFromFile("email_invitation.html", url);
             }
             case NOTIFICATION -> {
+                subject = "DERES | Actualiza tus respuestas!";
+                body = readFromFile("email_notification.html", url);
             }
         }
         for (String emailTo : emailList) {

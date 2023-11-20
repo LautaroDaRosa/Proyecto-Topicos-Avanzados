@@ -3,3 +3,4 @@ spring:
     url: "jdbc:mysql://db:3306/topicos_avanzados"
 invite:
   emailUrl: "frontend:3000/"
+  loginUrl: "frontend:3000/login"

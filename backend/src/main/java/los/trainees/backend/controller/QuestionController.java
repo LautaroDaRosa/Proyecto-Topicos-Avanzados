@@ -3,9 +3,10 @@ package los.trainees.backend.controller;
 import los.trainees.backend.dto.ListQuestionIdDTO;
 import los.trainees.backend.dto.QuestionDTO;
 import los.trainees.backend.entity.Question;
+import los.trainees.backend.mapper.QuestionMapper;
 import los.trainees.backend.service.QuestionService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,21 +19,23 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    private final QuestionMapper questionMapper = Mappers.getMapper(QuestionMapper.class);
+
     @PreAuthorize(value = "hasAnyAuthority('ADMIN','PROVIDER')")
-    @GetMapping(produces = "application/json")
-    public ResponseEntity<List<Question>> getQuestion() {
-        return ResponseEntity.ok(questionService.getQuestions());
+    @GetMapping
+    public List<Question> getQuestion() {
+        return questionService.getQuestions();
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN')")
-    @PostMapping(produces = "application/json")
-    public ResponseEntity<List<Question>> createQuestion(@RequestBody List<QuestionDTO> listQuestionData) {
-        return ResponseEntity.ok(questionService.createQuestions(listQuestionData));
+    @PostMapping
+    public List<Question> createQuestion(@RequestBody List<QuestionDTO> listQuestionData) {
+        return questionService.createQuestions(questionMapper.toEntityList(listQuestionData));
     }
 
     @PreAuthorize(value = "hasAnyAuthority('ADMIN')")
-    @DeleteMapping(produces = "application/json")
-    public ResponseEntity<Boolean> deleteQuestion(@RequestBody ListQuestionIdDTO listQuestionIdDTO) {
-        return ResponseEntity.ok(questionService.deleteQuestions(listQuestionIdDTO));
+    @DeleteMapping
+    public Boolean deleteQuestion(@RequestBody ListQuestionIdDTO listQuestionIdDTO) {
+        return questionService.deleteQuestions(listQuestionIdDTO);
     }
 }

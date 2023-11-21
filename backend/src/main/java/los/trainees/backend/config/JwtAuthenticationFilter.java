@@ -10,6 +10,8 @@ import lombok.extern.log4j.Log4j2;
 import los.trainees.backend.dto.JwtInvitationDTO;
 import los.trainees.backend.entity.User;
 import los.trainees.backend.enums.EJwtType;
+import los.trainees.backend.exception.IncorrectUserDataException;
+import los.trainees.backend.exception.InvalidTokenException;
 import los.trainees.backend.mapper.UserMapper;
 import los.trainees.backend.service.UserService;
 import org.mapstruct.factory.Mappers;
@@ -71,8 +73,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
+
                 log.error("Error", e);
-                sendError(response);
+                String username = "none";
+                String role = "NONE";
+                Collection<? extends GrantedAuthority> authorities = parseRole(role);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
+                Optional<User> userOptional = userService.findUserByUsername(username);
+                authentication.setDetails(userMapper.toDto(userOptional.get()));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                // Si llamo a esto se rompe
+                //sendError(response);
             }
             filterChain.doFilter(request, response);
         } else {

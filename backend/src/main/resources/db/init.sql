@@ -14,7 +14,9 @@ VALUES (1, 'provider1@example.com', 'Provider 1 Info',
        (5, 'partner@example.com', 'User Test', 'https://pbs.twimg.com/profile_images/1367445938801901574/kyh0-_mu_400x400.jpg',
         'partner', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48691', 'PARTNER'),
        (6, 'admin@example.com', 'User Admin', 'https://pbs.twimg.com/profile_images/1367445938801901574/kyh0-_mu_400x400.jpg',
-        'admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48691', 'ADMIN');
+        'admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48691', 'ADMIN'),
+        (7, 'none@example.com', 'User None', 'https://pbs.twimg.com/profile_images/1367445938801901574/kyh0-_mu_400x400.jpg',
+            'none', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48691', 'NONE');
 
 INSERT IGNORE INTO provider (address, business_name, contact, rut, user_id)
 VALUES ('Lorenzo Carnelli 1234', 'CANAL 10 S.A.', 'contact',

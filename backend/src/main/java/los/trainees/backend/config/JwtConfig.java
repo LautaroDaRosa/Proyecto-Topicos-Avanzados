@@ -21,7 +21,7 @@ public class JwtConfig {
     }
 
     @Bean
-    public JwtGenerator jwtGenerator() {
-        return new JwtGenerator(secret, expirationInMinutes);
+    public JwtUtils jwtUtils() {
+        return new JwtUtils(secret, expirationInMinutes);
     }
 }

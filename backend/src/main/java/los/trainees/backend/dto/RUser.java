@@ -1,11 +1,13 @@
 package los.trainees.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
 import los.trainees.backend.enums.ERole;
 
 @Data
 @Builder(toBuilder = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RUser {
 
     private Long userId;

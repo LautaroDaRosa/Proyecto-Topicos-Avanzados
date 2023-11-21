@@ -3,6 +3,7 @@ package los.trainees.backend.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
+@SuperBuilder
 public class Partner extends User {
 
     @Transient
@@ -39,4 +41,7 @@ public class Partner extends User {
     @OneToMany(mappedBy = "id.partner", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Answer> answerList;
 
+    public Partner() {
+
+    }
 }

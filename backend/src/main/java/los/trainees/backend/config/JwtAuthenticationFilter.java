@@ -7,8 +7,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
-import los.trainees.backend.dto.RUser;
+import los.trainees.backend.dto.JwtInvitationDTO;
 import los.trainees.backend.entity.User;
+import los.trainees.backend.enums.EJwtType;
 import los.trainees.backend.mapper.UserMapper;
 import los.trainees.backend.service.UserService;
 import org.mapstruct.factory.Mappers;
@@ -27,12 +28,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static los.trainees.backend.config.JwtUtils.*;
+
 @Component
 @Log4j2
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private JwtGenerator tokenGenerator;
+    private JwtUtils jwtUtils;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -51,19 +54,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (!request.getMethod().equalsIgnoreCase("OPTIONS")) {
             try {
                 String token = extractTokenFromRequest(request);
-                String username = tokenGenerator.getUsernameFromToken(token);
-                String role = tokenGenerator.getRoleFromToken(token);
-                Optional<User> userOptional = userService.findUserByUsername(username);
-                RUser rUser = userMapper.toDto(userOptional.get());
+                String username = jwtUtils.getUsernameFromToken(token);
+                String role = jwtUtils.getClaimFromToken(token, ROLE_CLAIM);
+                EJwtType jwtType = EJwtType.valueOf(jwtUtils.getClaimFromToken(token, JWT_TYPE_CLAIM));
                 Collection<? extends GrantedAuthority> authorities = parseRole(role);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
-                authentication.setDetails(rUser);
+                switch (jwtType) {
+                    case LOGIN -> {
+                        Optional<User> userOptional = userService.findUserByUsername(username);
+                        authentication.setDetails(userMapper.toDto(userOptional.get()));
+                    }
+                    case SIGN_UP, INVITATION -> {
+                        String senderUserEmail = jwtUtils.getClaimFromToken(token, SENDER_USER_EMAIL_CLAIM);
+                        authentication.setDetails(JwtInvitationDTO.builder().senderUserEmail(senderUserEmail).receiverUserEmail(username).receiverUserRole(role).token(token).jwtType(jwtType).build());
+                    }
+                }
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-                filterChain.doFilter(request, response);
             } catch (Exception e) {
                 log.error("Error", e);
                 sendError(response);
             }
+            filterChain.doFilter(request, response);
         } else {
             filterChain.doFilter(request, response);
         }

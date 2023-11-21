@@ -42,9 +42,3 @@ VALUES ('address', 'business_name', 'contact', 'rut', 5);
 
 INSERT IGNORE INTO admin (user_id, business_role)
 VALUES (6, 'Rol administrador');
-
-INSERT IGNORE INTO question
-VALUES (1, 'GOVERNANCE', 'Pregunta #1 Governance', 'TrueOrFalse', 10),
-       (2, 'GOVERNANCE', 'Pregunta #2 Governance', 'Ranking5', 20),
-       (3, 'ENVIRONMENTAL', 'Pregunta #1 Environmental', 'TrueOrFalse', 30),
-       (4, 'SOCIAL', 'Pregunta #1 Social', 'TrueOrFalse', 40);

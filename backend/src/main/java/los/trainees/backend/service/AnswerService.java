@@ -52,7 +52,7 @@ public class AnswerService {
 
     public List<AnswerData> getAnswers(RUser rUser) {
 
-        User user = userRepository.getUsersByUserId(rUser.getUserId()).get();
+        User user = userRepository.findById(rUser.getUserId()).get();
         List<AnswerData> answers = new ArrayList<>();
 
         if(user.getRole() == PARTNER){

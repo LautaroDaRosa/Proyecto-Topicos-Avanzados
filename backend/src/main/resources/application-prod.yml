@@ -1,5 +1,3 @@
 spring:
   datasource:
-    url: ${PROD_DB_URL}
-    username: ${PROD_DB_USERNAME}
-    password: ${PROD_DB_PASSWORD}
+    url: ${AZURE_MYSQL_CONNECTIONSTRING}

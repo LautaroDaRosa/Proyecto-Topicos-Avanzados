@@ -23,9 +23,9 @@ jobs:
 
       - name: Configure Database Connection
         run: |
-          echo "AZURE_DB_URL=jdbc:mysql://proyecot-topicos-avanzados-db.mysql.database.azure.com:3306/topicos_avanzados" >> .env
-          echo "AZURE_DB_USERNAME=swlfjdgjgg" >> .env
-          echo "AZURE_DB_PASSWORD=08FHQXY4IJ1V08TC$" >> .env
+          echo "PROD_DB_URL=jdbc:mysql://proyecot-topicos-avanzados-db.mysql.database.azure.com:3306/topicos_avanzados" >> .env
+          echo "PROD_DB_USERNAME=swlfjdgjgg" >> .env
+          echo "PROD_DB_PASSWORD=08FHQXY4IJ1V08TC$" >> .env
 
       - name: Build with Maven
         run: |

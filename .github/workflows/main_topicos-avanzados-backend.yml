@@ -30,7 +30,7 @@ jobs:
       - name: Build with Maven
         run: |
           cd backend
-          mvn clean install -Dspring.profiles.active=prod
+          mvn clean install
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -59,3 +59,4 @@ jobs:
           slot-name: 'Production'
           package: '*.jar'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E51C65F9BD0E470C9D57304D13F30BDC }}
+          app-settings: 'SPRING_PROFILES_ACTIVE=prod'

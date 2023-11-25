@@ -92,7 +92,7 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
                 />
               </>
             )}
-            {itsOwnProfile && isProvider() && (
+            {itsOwnProfile && (isProvider() || isPartner()) && (
               <StButtonContainer>
                 <Button
                   action="secondary"

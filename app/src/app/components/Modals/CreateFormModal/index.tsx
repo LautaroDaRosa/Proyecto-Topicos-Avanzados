@@ -10,6 +10,8 @@ import QuestionSubtitle from '../styles/QuestionSubtitle';
 import SpecificationText from '../styles/SpecificationText';
 import StModal from '../styles/StModal';
 import SubsectionContainer from '../styles/SubsectionContainer';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
   isOpen: boolean;
@@ -45,6 +47,18 @@ const CreateFormModal = ({ isOpen, setIsOpen, fetchQuestions }: Props) => {
       socialQuestions.concat(environmentQuestions, governanceQuestions),
     ).then(() => fetchQuestions());
     setIsOpen(false);
+    showToast();
+  };
+
+  const showToast = () => {
+    toast.success('Formulario creado correctamente', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
 
   const handleQuestionChange = (

@@ -10,7 +10,7 @@ export const sendInvitation = async (email: string) => {
 
 export const getInvitation = async () => {
   const response = await axiosInstance.get(`${INVITE}/get`);
-  return response.data as Invitation[];
+  return response.data as Invitation;
 };
 
 export const respondInvitation = async (status: 'ACCEPTED' | 'REJECTED') => {

@@ -21,6 +21,8 @@ export interface RegisterDataType {
   address: string;
   contact: string;
   businessName: string;
+  role: string;
+  password: string;
 }
 
 export interface AuthState {

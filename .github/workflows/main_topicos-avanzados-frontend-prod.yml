@@ -22,8 +22,8 @@ jobs:
           node-version: '16.x'
 
       - name: Install dependencies
-          working-directory: ./app
-          run: yarn install
+        working-directory: ./app
+        run: yarn install
 
       - name: Run Yarn Test
         working-directory: ./app

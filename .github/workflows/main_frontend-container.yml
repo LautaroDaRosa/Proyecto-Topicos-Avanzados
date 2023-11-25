@@ -26,13 +26,13 @@ jobs:
         username: ${{ secrets.AzureAppService_ContainerUsername_c06977ed6edf4de0ae653fa099cdf7f4 }}
         password: ${{ secrets.AzureAppService_ContainerPassword_e959a98d27614a98afdcb501c44e4af7 }}
 
-    - name: Build and push container image to registry
-      run: |
-        cd app
-        docker build -t index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c06977ed6edf4de0ae653fa099cdf7f4 }}/lautarodarosa/proyecto-topicos-avanzados-frontend:${{ github.sha }} .
-        docker push index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c06977ed6edf4de0ae653fa099cdf7f4 }}/lautarodarosa/proyecto-topicos-avanzados-frontend:${{ github.sha }}
-      env:
-        DOCKER_BUILDKIT: 1
+#    - name: Build and push container image to registry
+#      run: |
+#        cd app
+#        docker build -t index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c06977ed6edf4de0ae653fa099cdf7f4 }}/lautarodarosa/proyecto-topicos-avanzados-frontend:${{ github.sha }} .
+#        docker push index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c06977ed6edf4de0ae653fa099cdf7f4 }}/lautarodarosa/proyecto-topicos-avanzados-frontend:${{ github.sha }}
+#      env:
+#        DOCKER_BUILDKIT: 1
 
   deploy:
     runs-on: ubuntu-latest

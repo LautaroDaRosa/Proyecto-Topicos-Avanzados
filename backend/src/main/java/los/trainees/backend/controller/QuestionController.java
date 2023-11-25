@@ -21,7 +21,7 @@ public class QuestionController {
 
     private final QuestionMapper questionMapper = Mappers.getMapper(QuestionMapper.class);
 
-    @PreAuthorize(value = "hasAnyAuthority('ADMIN','PROVIDER')")
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN','PROVIDER','PARTNER')")
     @GetMapping
     public List<Question> getQuestion() {
         return questionService.getQuestions();

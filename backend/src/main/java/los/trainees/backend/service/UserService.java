@@ -84,6 +84,7 @@ public class UserService {
                 profile.setContact(partner.get().getContact());
                 profile.setLogo(partner.get().getLogo());
                 profile.setAddress(partner.get().getAddress());
+                profile.setScore(partner.get().getScore());
                 break;
             case PROVIDER:
                 Optional<Provider> provider = providerRepository.getProvidersByUserId(rUser.getUserId());

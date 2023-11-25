@@ -1,0 +1,45 @@
+{
+    "routes": [
+      {
+        "route": "/login",
+        "serve": "/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/invitation/*",
+        "serve": "/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/sign_up/*",
+        "serve": "/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/providers/*",
+        "serve": "/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/provider/:id/*",
+        "serve": "/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/profile",
+        "serve": "/index.html",
+        "statusCode": 200
+      },
+      {
+        "route": "/*",
+        "serve": "/index.html",
+        "statusCode": 200
+      }
+    ],
+    "platformErrorOverrides": [
+      {
+        "errorType": "NotFound",
+        "serve": "/index.html"
+      }
+    ]
+  }

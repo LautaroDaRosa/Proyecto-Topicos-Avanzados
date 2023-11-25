@@ -52,4 +52,4 @@ jobs:
           app-name: 'topicos-avanzados-backend'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_b9385e8118ff4ee8a8ce2477a106ea81   }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C215B6A602E14786B797BE0B059829F7 }}

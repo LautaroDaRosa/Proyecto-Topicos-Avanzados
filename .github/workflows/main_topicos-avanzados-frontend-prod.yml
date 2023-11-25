@@ -35,7 +35,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: ./app/release.zip
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip -q node-app/release.zip -d ./app
+        run: unzip release.zip
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -62,4 +62,4 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8C544368F0204AAB85B4988EEBFA1778 }}
-          package: ./app
+          package: .

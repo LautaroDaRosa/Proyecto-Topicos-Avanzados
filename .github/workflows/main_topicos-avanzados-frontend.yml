@@ -58,4 +58,4 @@ jobs:
           app-name: 'topicos-avanzados-frontend'
           slot-name: 'Production'
           package: '*.zip'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_008370D62B0A4EA58FD8A17A226166B9 }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_fb6e975d3ffe4959b211ad2854cd6408  }}

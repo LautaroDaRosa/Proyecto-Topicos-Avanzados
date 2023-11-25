@@ -4,7 +4,7 @@ import Input from './Input';
 import { useState } from 'react';
 import InputButtonContainer from './InputButtonContainer';
 import Button from '../Button';
-// import { sendInvitation } from 'store/invitation/api';
+import { sendInvitation } from 'store/invitation/api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -24,33 +24,43 @@ const SendInvite = () => {
   const [mail, setMail] = useState('');
 
   const invite = () => {
-    /*   async function inviteUser() {
+    async function inviteUser() {
       await sendInvitation(mail);
     }
-    inviteUser().then(showToast); */
-    finishInvite();
+    inviteUser()
+      .then(() => finishInvite(true))
+      .catch(() => finishInvite(false));
   };
 
-  const finishInvite = () => {
-    showToast();
+  const finishInvite = (error: boolean) => {
+    showToast(error);
     setMail('');
   };
 
-  const showToast = () => {
-    toast.success('Mail de invitación enviado', {
-      position: 'top-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
+  const showToast = (error: boolean) => {
+    error
+      ? toast.success('Mail de invitación enviado', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        })
+      : toast.error('Ya hay una solicitud pendiente para este usuario', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
   };
   return (
     <StInviteCard>
       <h3>Invitar a un {role}</h3>
       <span>
-        Ingresa el correo electrónico del {role} al que que invitar a la
+        Ingresa el correo electrónico del {role} al que quieres invitar a la
         aplicación.
       </span>
       <InputButtonContainer>

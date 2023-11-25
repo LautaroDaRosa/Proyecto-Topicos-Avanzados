@@ -1,5 +1,5 @@
 export interface Invitation {
-  inviteSender: {
+  senderUser: {
     userId: number;
     username: string;
     phone: string;
@@ -8,5 +8,10 @@ export interface Invitation {
     logo: string;
     role: string;
   };
-  invteReceiver: string;
+  receiverUserEmail: string;
+  receiverUserRole: string;
+  receiverUser: {
+    logo: string;
+  };
+  token: string;
 }

@@ -20,6 +20,8 @@ interface Props {
   setInfo: (s: string) => void;
   logo: string;
   setLogo: (s: string) => void;
+  address: string;
+  setAddress: (s: string) => void;
 }
 const GeneralInfoStep = ({
   email,
@@ -36,6 +38,8 @@ const GeneralInfoStep = ({
   setInfo,
   logo,
   setLogo,
+  address,
+  setAddress,
 }: Props) => {
   function containsOnlyDigits(inputString: string) {
     const regex = /^[0-9]+$/;
@@ -68,6 +72,10 @@ const GeneralInfoStep = ({
               onChange={e => setBusinessName(e.target.value)}
             />
           </FlexColumn>
+          <FlexColumn>
+            <span>Descripción</span>
+            <Input value={info} onChange={e => setInfo(e.target.value)} />
+          </FlexColumn>
         </FlexColumn>
         <FlexColumn gap={12}>
           <FlexColumn style={{ marginBottom: 9 }}>
@@ -94,12 +102,12 @@ const GeneralInfoStep = ({
               }
             />
           </FlexColumn>
+          <FlexColumn>
+            <span>Dirección</span>
+            <Input value={address} onChange={e => setAddress(e.target.value)} />
+          </FlexColumn>
         </FlexColumn>
       </GeneralInfoTwoColumns>
-      <FlexColumn>
-        <span>Descripción</span>
-        <Input value={info} onChange={e => setInfo(e.target.value)} />
-      </FlexColumn>
       <FlexColumn>
         <span>Logo</span>
         <Input

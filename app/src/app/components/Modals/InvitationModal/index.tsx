@@ -8,7 +8,7 @@ import { useState } from 'react';
 import ConditionRow from './styles/ConditionRow';
 import { CheckIcon } from 'resources/icons/check-icon';
 import Button from 'app/components/Button';
-//import { respondInvitation } from 'store/invitation/api';
+import { respondInvitation } from 'store/invitation/api';
 import { CircleCheckIcon } from 'resources/icons/circle-check-icon';
 import tokenService from 'utils/tokenService';
 import Title from 'app/components/Title';
@@ -27,17 +27,18 @@ export const decisionMapper = {
 
 interface Props {
   token?: string;
+  partnerName?: string;
+  partnerLogo?: string;
+  providerLogo?: string;
 }
-const InvitationModal = ({ token }: Props) => {
+const InvitationModal = ({
+  token,
+  partnerName,
+  partnerLogo,
+  providerLogo,
+}: Props) => {
   const [decision, setDecision] = useState('');
   const [wasSended, setWasSended] = useState(false);
-  const invitation = {
-    partnerName: 'McDonalds',
-    partnerLogo:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/McDonald%27s_SVG_logo.svg/1047px-McDonald%27s_SVG_logo.svg.png',
-    providerLogo:
-      'https://dsof32ggjkwpf.cloudfront.net/wp-content/uploads/2022/08/10165301/McCain-logo.png',
-  };
 
   const clearInvitation = () => {
     setWasSended(true);
@@ -46,18 +47,12 @@ const InvitationModal = ({ token }: Props) => {
 
   const navigate = useNavigate();
 
-  /*
-    const takeDecision = () => {
-      async function respondInv() {
-        tokenService.setLocalTokens(token, token);
-        await respondInvitation(decisionMapper[decision]);
-      }
-      respondInv().then(clearInvitation);
-    };
-  */
-
-  const takeFakeDecision = () => {
-    clearInvitation();
+  const takeDecision = () => {
+    async function respondInv() {
+      tokenService.setLocalTokens(token, token);
+      await respondInvitation(decisionMapper[decision]);
+    }
+    respondInv().then(clearInvitation);
   };
 
   return (
@@ -77,13 +72,13 @@ const InvitationModal = ({ token }: Props) => {
         <FlexColumn gap={36}>
           <FlexColumn gap={12}>
             <IconsContainer>
-              <img src={invitation.partnerLogo} alt="Partner Logo"></img>
+              <img src={partnerLogo} alt="Partner Logo"></img>
               <LeftRightIcon size={26} color={COLORS.textGeneral2} />
-              <img src={invitation.providerLogo} alt="Provider Logo"></img>
+              <img src={providerLogo} alt="Provider Logo"></img>
             </IconsContainer>
             <span>
-              <strong>{invitation.partnerName}</strong> ha solicitado que formes
-              parte de su grupo de proveedores.
+              <strong>{partnerName}</strong> ha solicitado que formes parte de
+              su grupo de proveedores.
             </span>
           </FlexColumn>
           <FlexColumn gap={2}>
@@ -113,7 +108,7 @@ const InvitationModal = ({ token }: Props) => {
             <Button
               action="primary"
               disabled={!['ACEPTAR', 'RECHAZAR'].includes(decision)}
-              onClick={takeFakeDecision}
+              onClick={takeDecision}
               text="Continuar"
             />
           </FlexColumn>

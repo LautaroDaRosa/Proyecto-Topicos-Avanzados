@@ -40,7 +40,7 @@ export function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/invitation/:token" element={<InvitationPage />} />
-        <Route path="/register/:token" element={<RegisterPage />} />
+        <Route path="/sign_up/:token" element={<RegisterPage />} />
         <Route path="*" element={<ProtectedRoutes />} />
       </Routes>
       <GlobalStyle />

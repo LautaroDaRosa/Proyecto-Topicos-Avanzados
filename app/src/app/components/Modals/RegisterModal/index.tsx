@@ -2,7 +2,6 @@ import FlexColumn from './styles/FlexColumn';
 import { useState } from 'react';
 import Button from 'app/components/Button';
 import { CircleCheckIcon } from 'resources/icons/circle-check-icon';
-// import tokenService from 'utils/tokenService';
 import Title from 'app/components/Title';
 import { useNavigate } from 'react-router-dom';
 import CredentialsStep from './CredentialsStep';
@@ -14,8 +13,10 @@ import RegisterContent from './styles/RegisterContent';
 import GeneralInfoStep from './GeneralInfoStep';
 import StepFooter from './StepFooter';
 import { RegisterDataType } from 'store/auth/types';
-//import { register } from 'store/auth/api';
+import { register } from 'store/auth/api';
 import tokenService from 'utils/tokenService';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const stepMapping = {
   1: {
@@ -34,8 +35,10 @@ function hasWhiteSpace(s: string) {
 
 interface Props {
   token?: string;
+  email?: string;
+  role?: string;
 }
-const RegisterModal = ({ token }: Props) => {
+const RegisterModal = ({ token, email, role }: Props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -46,6 +49,7 @@ const RegisterModal = ({ token }: Props) => {
   const [rut, setRut] = useState('');
   const [info, setInfo] = useState('');
   const [logo, setLogo] = useState('');
+  const [address, setAddress] = useState('');
 
   const isStep1Valid =
     username !== '' &&
@@ -64,8 +68,9 @@ const RegisterModal = ({ token }: Props) => {
   const [wasSended, setWasSended] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const clearRegister = () => {
-    setWasSended(true);
     tokenService.removeLocalTokens();
+    setWasSended(true);
+    setCurrentStep(currentStep + 1);
   };
 
   const navigate = useNavigate();
@@ -74,21 +79,36 @@ const RegisterModal = ({ token }: Props) => {
     if (!stepMapping[currentStep + 1]) {
       const newUser: RegisterDataType = {
         username: username,
+        password: password,
         phone: telephone,
-        email: 'EmailQueVienePorCorreo',
+        email: email || '',
         info: info,
         logo: logo,
         rut: rut,
-        address: 'address',
+        address: address,
         contact: contact,
         businessName: businessName,
+        role: role || '',
       };
-      //tokenService.setLocalTokens(token, token);
-      //register(newUser).then(clearRegister);
-      console.log(newUser);
-      clearRegister();
+      register(newUser).then(clearRegister).catch(displayError);
+    } else {
+      setCurrentStep(currentStep + 1);
     }
-    setCurrentStep(currentStep + 1);
+  };
+
+  const displayError = () => {
+    showError();
+  };
+
+  const showError = () => {
+    toast.error('Nombre de usuario, email o RUT ya existentes', {
+      position: 'top-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
   };
   return (
     <StStepsModal>
@@ -96,8 +116,10 @@ const RegisterModal = ({ token }: Props) => {
       {wasSended ? (
         <FlexColumn alignItems="center" gap={10}>
           <Title text="Usuario creado con éxito." />
+
           <CircleCheckIcon size={240} />
           <span> Ya puedes cerrar esta página.</span>
+
           <Button
             action="link"
             text="Ir al login"
@@ -143,8 +165,10 @@ const RegisterModal = ({ token }: Props) => {
                 setInfo={setInfo}
                 logo={logo}
                 setLogo={setLogo}
-                email={'test@deres.org.uy'}
-                role={'PROVIDER'}
+                email={email || ''}
+                role={role || ''}
+                address={address}
+                setAddress={setAddress}
               />
             )}
           </FlexColumn>

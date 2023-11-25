@@ -86,7 +86,7 @@ const Home = () => {
                   )}
                 </StMainMessageContainer>
               )}
-              {isAdmin() || (isPartner() && <SendInvite />)}
+              {(isAdmin() || isPartner()) && <SendInvite />}
             </HomeContent>
           </div>
         </div>

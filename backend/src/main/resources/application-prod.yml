@@ -6,6 +6,8 @@ spring:
 jwt:
   secret: ${AZURE_JWT_SECRET}
   expirationInMinutes: 180
+invite:
+  emailUrl: ${AZURE_FRONTEND_URL}
 mail:
   username: ${AZURE_MAIL_USERNAME}
   password: ${AZURE_MAIL_PASSWORD}

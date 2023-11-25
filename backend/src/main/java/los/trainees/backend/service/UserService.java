@@ -76,6 +76,7 @@ public class UserService {
             case ADMIN:
                 Optional<Admin> admin = adminRepository.getAdminByUserId(rUser.getUserId());
                 profile.setBusinessRole(admin.get().getBusinessRole());
+                profile.setLogo(admin.get().getLogo());
                 break;
             case PARTNER:
                 Optional<Partner> partner = partnerRepository.getPartnersByUserId(rUser.getUserId());
@@ -114,7 +115,7 @@ public class UserService {
                     break;
             }
         } catch (Exception e) {
-            log.error("Error",e);
+            log.error("Error", e);
             throw new InvalidRegisterException();
         }
         String senderUserEmail = jwtInvitationDTO.getSenderUserEmail();

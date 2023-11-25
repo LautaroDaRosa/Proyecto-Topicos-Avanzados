@@ -29,8 +29,8 @@ public class QuestionService {
     @Autowired
     private EmailService emailService;
 
-    @Value("${invite.loginUrl}")
-    private String loginUrl;
+    @Value("${invite.emailUrl}")
+    private String emailUrl;
 
     public List<Question> getQuestions() {
         return questionRepository.findAll();
@@ -51,7 +51,7 @@ public class QuestionService {
             }
         }
         if (!finalQuestions.isEmpty()) {
-            emailService.sendEmailList(answerRepository.findAllEmailsDistinct(), EEmailType.NOTIFICATION, loginUrl);
+            emailService.sendEmailList(answerRepository.findAllEmailsDistinct(), EEmailType.NOTIFICATION, emailUrl + "/login");
             answerRepository.deleteAnswersByQuestionIdList(finalQuestions.stream().map(Question::getQuestionId).toList());
             return questionRepository.saveAll(finalQuestions);
         }

@@ -26,7 +26,7 @@ const ProviderScores = ({
         <CircleGraph endScore={environmentalScore} colorType="primary" />
       </StScore>
       <StScore>
-        <span>Score de Gobernanza</span>
+        <span>Score Gobernanza</span>
         <CircleGraph endScore={governanceScore} colorType="primary" />
       </StScore>
       <StScore>

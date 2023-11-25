@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class AnswerId implements Serializable {
 
     @ManyToOne
-    private Provider provider;
+    private User user;
 
     @ManyToOne
     private Question question;

@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface IAnswerRepository extends JpaRepository<Answer, AnswerId> {
 
-    @Query(value = "SELECT DISTINCT a.id.provider.email FROM Answer a")
+    @Query(value = "SELECT DISTINCT a.id.user.email FROM Answer a")
     List<String> findAllEmailsDistinct();
 
     @Modifying

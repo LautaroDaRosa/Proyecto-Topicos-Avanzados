@@ -3,18 +3,15 @@ package los.trainees.backend.service;
 import los.trainees.backend.dto.AnswerDTO;
 import los.trainees.backend.dto.AnswerData;
 import los.trainees.backend.dto.RUser;
-import los.trainees.backend.entity.Answer;
-import los.trainees.backend.entity.AnswerId;
-import los.trainees.backend.entity.Provider;
-import los.trainees.backend.entity.Question;
-import los.trainees.backend.repository.IAnswerRepository;
-import los.trainees.backend.repository.IProviderRepository;
-import los.trainees.backend.repository.IQuestionRepository;
+import los.trainees.backend.entity.*;
+import los.trainees.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static los.trainees.backend.enums.ERole.PARTNER;
 
 @Service
 public class AnswerService {
@@ -28,16 +25,22 @@ public class AnswerService {
     @Autowired
     private IQuestionRepository questionRepository;
 
+    @Autowired
+    private IUserRepository userRepository;
+
+    @Autowired
+    private IPartnerRepository partnerRepository;
+
     public Boolean saveAnswers(AnswerDTO answerList) {
-        Provider provider = providerRepository.findById(answerList.getProvider()).orElse(null);
+        User user = userRepository.findById(answerList.getUserId()).orElse(null);
         for (AnswerData answerData : answerList.getAnswers()) {
             Question question = questionRepository.findById(answerData.getQuestion()).orElse(null);
-            if (provider == null || question == null) {
+            if (user == null || question == null) {
                 throw new RuntimeException("invalid Answer");
             } else {
                 Answer answer = new Answer();
                 AnswerId answerId = new AnswerId();
-                answerId.setProvider(provider);
+                answerId.setUser(user);
                 answerId.setQuestion(question);
                 answer.setId(answerId);
                 answer.setResponse(answerData.getResponse());
@@ -48,12 +51,25 @@ public class AnswerService {
     }
 
     public List<AnswerData> getAnswers(RUser rUser) {
-        Provider provider = providerRepository.getProvidersByUserId(rUser.getUserId()).get();
+
+        User user = userRepository.findById(rUser.getUserId()).get();
         List<AnswerData> answers = new ArrayList<>();
-        for (Answer ans : provider.getAnswerList()) {
-            AnswerData data = new AnswerData(ans.getId().getQuestion().getQuestionId(), ans.getResponse());
-            answers.add(data);
+
+        if(user.getRole() == PARTNER){
+            Partner partner = partnerRepository.getPartnersByUserId(rUser.getUserId()).get();
+            for (Answer ans : partner.getAnswerList()) {
+                AnswerData data = new AnswerData(ans.getId().getQuestion().getQuestionId(), ans.getResponse());
+                answers.add(data);
+            }
+        }else {
+            Provider provider = providerRepository.getProvidersByUserId(rUser.getUserId()).get();
+            for (Answer ans : provider.getAnswerList()) {
+                AnswerData data = new AnswerData(ans.getId().getQuestion().getQuestionId(), ans.getResponse());
+                answers.add(data);
+            }
         }
+
+
         return answers;
     }
 }

@@ -24,14 +24,14 @@ public class AnswerController {
     public ResponseEntity<Boolean> sendAnswers(@RequestBody List<AnswerData> answerDataList) {
         AnswerDTO answerDTO = new AnswerDTO();
         RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        answerDTO.setProvider(rUser.getUserId());
+        answerDTO.setUserId(rUser.getUserId());
         answerDTO.setAnswers(answerDataList);
         return ResponseEntity.ok(answerService.saveAnswers(answerDTO));
     }
 
-    @PreAuthorize(value = "hasAnyAuthority('PROVIDER')")
+    @PreAuthorize(value = "hasAnyAuthority('PROVIDER', 'PARTNER')")
     @GetMapping(path = "/answered", produces = "application/json")
-    public List<AnswerData> getAnswersFromProvider() {
+    public List<AnswerData> getAnswers() {
         RUser rUser = (RUser) SecurityContextHolder.getContext().getAuthentication().getDetails();
         return answerService.getAnswers(rUser);
     }

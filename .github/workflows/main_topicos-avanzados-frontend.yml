@@ -22,6 +22,7 @@ jobs:
           node-version: '18.x'
 
       - name: Check for .yarn cache
+        working-directory: ./app
         run: |
           if [ -d ".yarn/cache/" ]; then
             echo ".yarn/cache checked in for 'Zero Installs', pushing cache and not running install.."  
@@ -38,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: ./app/*
 
   deploy:
     runs-on: ubuntu-latest

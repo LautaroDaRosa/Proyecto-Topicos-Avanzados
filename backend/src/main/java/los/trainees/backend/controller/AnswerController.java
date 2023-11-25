@@ -19,7 +19,7 @@ public class AnswerController {
     @Autowired
     private AnswerService answerService;
 
-    @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'PROVIDER')")
+    @PreAuthorize(value = "hasAnyAuthority('PROVIDER', 'PARTNER')")
     @PostMapping(path = "/send", produces = "application/json")
     public ResponseEntity<Boolean> sendAnswers(@RequestBody List<AnswerData> answerDataList) {
         AnswerDTO answerDTO = new AnswerDTO();

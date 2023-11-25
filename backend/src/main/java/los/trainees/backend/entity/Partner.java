@@ -38,7 +38,7 @@ public class Partner extends User {
         return this.score;
     }
 
-    @OneToMany(mappedBy = "id.partner", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "id.user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Answer> answerList;
 
     public Partner() {

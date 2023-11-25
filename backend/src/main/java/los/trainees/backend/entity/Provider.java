@@ -36,6 +36,6 @@ public class Provider extends User {
         return this.score;
     }
 
-    @OneToMany(mappedBy = "id.provider", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "id.user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Answer> answerList;
 }

@@ -33,7 +33,6 @@ const Login = () => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(actions.login({ username: user, password: password }));
-
   };
 
   return (

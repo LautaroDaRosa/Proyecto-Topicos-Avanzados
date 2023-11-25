@@ -21,11 +21,13 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+      - name: Install dependencies
+          working-directory: ./app
+          run: yarn install
+
+      - name: Run Yarn Test
+        working-directory: ./app
+        run: yarn test
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -58,5 +60,7 @@ jobs:
         with:
           app-name: 'topicos-avanzados-frontend-prod'
           slot-name: 'Production'
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8C544368F0204AAB85B4988EEBFA1778 }}
           package: .

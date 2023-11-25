@@ -49,4 +49,4 @@ jobs:
         app-name: 'frontend-container'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_89f911f9306a4e5ba9c0a878c5ffc256 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c06977ed6edf4de0ae653fa099cdf7f4 }}/lautarodarosa/proyecto-topicos-avanzados-frontend:latest'
+        images: 'index.docker.io/lautarodarosa/proyecto-topicos-avanzados-frontend:latest'

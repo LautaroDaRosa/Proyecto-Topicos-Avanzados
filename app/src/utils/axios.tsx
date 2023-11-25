@@ -22,7 +22,7 @@ export const parseJwt = token => {
 
 // AXIOS INSTANCE
 export const axiosInstance = axios.create({
-  baseURL: `http://localhost:8080`,
+  baseURL: `https://topicos-avanzados-backend.azurewebsites.net`,
   headers: getHeaders(),
 });
 

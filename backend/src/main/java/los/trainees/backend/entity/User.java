@@ -32,6 +32,7 @@ public class User {
     @Column(unique = true)
     protected String email;
 
+    @Column(columnDefinition = "TEXT")
     protected String logo;
 
     protected String info;

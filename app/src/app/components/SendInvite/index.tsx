@@ -25,7 +25,9 @@ const SendInvite = () => {
 
   const invite = () => {
     async function inviteUser() {
-      await sendInvitation(mail);
+      const mailToSend = mail;
+      setMail('');
+      await sendInvitation(mailToSend);
     }
     inviteUser()
       .then(() => finishInvite(true))
@@ -34,7 +36,6 @@ const SendInvite = () => {
 
   const finishInvite = (error: boolean) => {
     showToast(error);
-    setMail('');
   };
 
   const showToast = (error: boolean) => {
@@ -47,14 +48,17 @@ const SendInvite = () => {
           pauseOnHover: true,
           draggable: true,
         })
-      : toast.error('Ya hay una solicitud pendiente para este usuario', {
-          position: 'top-right',
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+      : toast.error(
+          'Ya has invitado a este usuario. Por favor, prueba con otro',
+          {
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          },
+        );
   };
   return (
     <StInviteCard>

@@ -51,7 +51,7 @@ public class QuestionService {
             }
         }
         if (!finalQuestions.isEmpty()) {
-            emailService.sendEmailList(answerRepository.findAllEmailsDistinct(), EEmailType.NOTIFICATION, emailUrl + "/login");
+            emailService.sendEmailList(answerRepository.findAllEmailsDistinct(), EEmailType.NOTIFICATION, emailUrl + "login");
             answerRepository.deleteAnswersByQuestionIdList(finalQuestions.stream().map(Question::getQuestionId).toList());
             return questionRepository.saveAll(finalQuestions);
         }

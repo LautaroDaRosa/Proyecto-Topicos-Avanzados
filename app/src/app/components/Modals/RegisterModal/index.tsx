@@ -53,7 +53,6 @@ const RegisterModal = ({ token, email, role }: Props) => {
 
   const isStep1Valid =
     username !== '' &&
-    !hasWhiteSpace(username) &&
     password !== '' &&
     !hasWhiteSpace(password) &&
     password === repeatPassword;

@@ -14,7 +14,7 @@ interface ProviderProps {
 const override = {
   display: 'block',
   margin: '0 auto',
-  borderColor: '#fca408'
+  borderColor: '#fca408',
 };
 
 const Providers = ({ categories }: ProviderProps) => {

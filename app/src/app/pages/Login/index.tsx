@@ -11,11 +11,15 @@ import Form from './Form';
 import StBackgroundImage from './StBackgroundImage';
 import StLogin from './StLogin';
 import tokenService from 'utils/tokenService';
+import ErrorContainer from './ErrorContainer';
+import ErrorMessage from './ErrorMessage';
 
 const Login = () => {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const loginStatus = useSelector(loginStatusSelector);
+
+  const error = loginStatus === API_STATUS.error;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -45,14 +49,20 @@ const Login = () => {
             Usuario
             <input type="text" onChange={e => setUser(e.target.value)} />
           </label>
-          <label>
-            Contraseña
-            <input
-              type="password"
-              onChange={e => setPassword(e.target.value)}
-            />
-          </label>
-          {}
+          <ErrorContainer>
+            <label>
+              Contraseña
+              <input
+                type="password"
+                onChange={e => setPassword(e.target.value)}
+              />
+            </label>
+            {error && (
+              <ErrorMessage>
+                Usuario y contraseña no coinciden. Intenta de nuevo.
+              </ErrorMessage>
+            )}
+          </ErrorContainer>
           <Button
             type="submit"
             action="primary"

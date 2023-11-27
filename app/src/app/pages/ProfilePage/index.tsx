@@ -16,6 +16,13 @@ import { Profile } from 'types';
 import { getMyProfile } from 'store/auth/api';
 import AnswerFormModal from 'app/components/Modals/AnswerFormModal';
 import CategoriesModal from 'app/components/Modals/components/CategoriesModal';
+import { RingLoader } from 'react-spinners';
+
+const override = {
+  display: 'block',
+  margin: '0 auto',
+  borderColor: '#fca408',
+};
 
 interface ProfileProperties {
   itsOwnProfile: boolean;
@@ -24,6 +31,7 @@ interface ProfileProperties {
 const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
   const { id } = useParams();
   const [user, setUser] = useState<Profile>();
+  const [loadingProfile, setLoadingProfile] = useState(true);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCategoriesModalOpen, setIsCategoriesModalOpen] = useState(false);
@@ -31,6 +39,8 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
   const fetchProvider = useCallback(async () => {
     const response = id ? await getProvider(id) : await getMyProfile();
     setUser(response);
+
+    setLoadingProfile(false);
   }, [id]);
 
   useEffect(() => {
@@ -56,7 +66,20 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
             fetchProfile={fetchProvider}
           />
         )}
-        {user && (
+        {loadingProfile && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100vh',
+              width: '100%',
+            }}
+          >
+            <RingLoader css={override} size={50} color={'#fca408'} />
+          </div>
+        )}
+        {!loadingProfile && user && (
           <StPageContent>
             <Title text="Perfil de usuario" />
             <UserProfile
@@ -107,4 +130,5 @@ const ProfilePage = ({ itsOwnProfile }: ProfileProperties) => {
     </StProfile>
   );
 };
+
 export default ProfilePage;

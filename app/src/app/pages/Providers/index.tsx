@@ -5,10 +5,17 @@ import ProvidersGrid from 'app/components/ProvidersGrid';
 import { filterProviders, getProviders } from 'store/providers/api';
 import { MinimalProvider, SearchProps } from 'store/providers/types';
 import Button from 'app/components/Button';
+import { RingLoader } from 'react-spinners';
 
 interface ProviderProps {
   categories: string[];
 }
+
+const override = {
+  display: 'block',
+  margin: '0 auto',
+  borderColor: '#fca408'
+};
 
 const Providers = ({ categories }: ProviderProps) => {
   const pageSize = 3;
@@ -24,16 +31,22 @@ const Providers = ({ categories }: ProviderProps) => {
     score: '',
     category: '',
   });
+  const [loadingProviders, setLoadingProviders] = useState(true);
 
   useEffect(() => {
     async function fetchProviders() {
+      setLoadingProviders(true);
+
       const result = !isFiltering
         ? await getProviders(currentPage, pageSize)
         : await filterProviders(currentPage, pageSize, searchProps);
+
       setIsFirst(result.first);
       setIsLast(result.last);
       setProviders(result.content);
+      setLoadingProviders(false);
     }
+
     fetchProviders();
   }, [pageSize, currentPage, isFiltering, searchProps]);
 
@@ -76,36 +89,52 @@ const Providers = ({ categories }: ProviderProps) => {
           clearFilters={handleClearFilters}
           categories={categories}
         />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 8,
-            width: '100%',
-            justifyContent: 'center',
-          }}
-        >
-          <Button
-            text="Anterior"
-            action="link"
-            disabled={isFirst}
-            onClick={previousPage}
-          />
-          <Button
-            text="Siguiente"
-            action="link"
-            disabled={isLast}
-            onClick={nextPage}
-          />
-        </div>
+        {loadingProviders && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100vh',
+            }}
+          >
+            <RingLoader css={override} size={50} color={'#fca408'} />
+          </div>
+        )}
+        {!loadingProviders && (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 8,
+              width: '100%',
+              justifyContent: 'center',
+            }}
+          >
+            <Button
+              text="Anterior"
+              action="link"
+              disabled={isFirst}
+              onClick={previousPage}
+            />
+            <Button
+              text="Siguiente"
+              action="link"
+              disabled={isLast}
+              onClick={nextPage}
+            />
+          </div>
+        )}
       </div>
-      {providers.length ? (
+      {!loadingProviders && providers.length ? (
         <ProvidersGrid providers={providers} />
       ) : (
-        <span>
-          No se han encontrado proveedores para los filtros de búsqueda
-          aplicados.
-        </span>
+        !loadingProviders && (
+          <span>
+            No se han encontrado proveedores para los filtros de búsqueda
+            aplicados.
+          </span>
+        )
       )}
     </StProviders>
   );

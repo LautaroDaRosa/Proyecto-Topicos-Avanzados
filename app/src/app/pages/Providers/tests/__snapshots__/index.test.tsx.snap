@@ -80,29 +80,6 @@ Object {
   border-color: #b27508;
 }
 
-.c4 {
-  border-radius: 8px;
-  height: 48px;
-  font-size: 16px;
-  padding: 12px 24px;
-  -webkit-transition: 0.1s;
-  transition: 0.1s;
-  border-color: transparent;
-  background: transparent;
-  color: #fca408;
-  padding: 0;
-}
-
-.c4:disabled {
-  color: #c0bfcb;
-}
-
-.c4:hover:enabled {
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
 .c1 {
   background: white;
   border-radius: 8px;
@@ -267,27 +244,21 @@ Object {
             </div>
           </div>
           <div
-            style="display: flex; flex-direction: row; gap: 8px; width: 100%; justify-content: center;"
+            style="display: flex; justify-content: center; align-items: center; height: 100vh;"
           >
-            <button
-              action="link"
-              class="c4"
-              disabled=""
+            <span
+              css="[object Object]"
+              style="display: inherit; width: 50px; height: 50px; position: relative;"
             >
-              Anterior
-            </button>
-            <button
-              action="link"
-              class="c4"
-              disabled=""
-            >
-              Siguiente
-            </button>
+              <span
+                style="position: absolute; top: 0px; left: 0px; width: 50px; height: 50px; border: 5px solid #fca408; opacity: 0.4; border-radius: 100%; animation-fill-mode: forwards; animation: react-spinners-RingLoader-right 2s 0s infinite linear;"
+              />
+              <span
+                style="position: absolute; top: 0px; left: 0px; width: 50px; height: 50px; border: 5px solid #fca408; opacity: 0.4; border-radius: 100%; animation-fill-mode: forwards; animation: react-spinners-RingLoader-left 2s 0s infinite linear;"
+              />
+            </span>
           </div>
         </div>
-        <span>
-          No se han encontrado proveedores para los filtros de búsqueda aplicados.
-        </span>
       </div>
     </div>
   </body>,
@@ -366,29 +337,6 @@ Object {
   color: white;
   background-color: #b27508;
   border-color: #b27508;
-}
-
-.c4 {
-  border-radius: 8px;
-  height: 48px;
-  font-size: 16px;
-  padding: 12px 24px;
-  -webkit-transition: 0.1s;
-  transition: 0.1s;
-  border-color: transparent;
-  background: transparent;
-  color: #fca408;
-  padding: 0;
-}
-
-.c4:disabled {
-  color: #c0bfcb;
-}
-
-.c4:hover:enabled {
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
 }
 
 .c1 {
@@ -554,27 +502,21 @@ Object {
           </div>
         </div>
         <div
-          style="display: flex; flex-direction: row; gap: 8px; width: 100%; justify-content: center;"
+          style="display: flex; justify-content: center; align-items: center; height: 100vh;"
         >
-          <button
-            action="link"
-            class="c4"
-            disabled=""
+          <span
+            css="[object Object]"
+            style="display: inherit; width: 50px; height: 50px; position: relative;"
           >
-            Anterior
-          </button>
-          <button
-            action="link"
-            class="c4"
-            disabled=""
-          >
-            Siguiente
-          </button>
+            <span
+              style="position: absolute; top: 0px; left: 0px; width: 50px; height: 50px; border: 5px solid #fca408; opacity: 0.4; border-radius: 100%; animation-fill-mode: forwards; animation: react-spinners-RingLoader-right 2s 0s infinite linear;"
+            />
+            <span
+              style="position: absolute; top: 0px; left: 0px; width: 50px; height: 50px; border: 5px solid #fca408; opacity: 0.4; border-radius: 100%; animation-fill-mode: forwards; animation: react-spinners-RingLoader-left 2s 0s infinite linear;"
+            />
+          </span>
         </div>
       </div>
-      <span>
-        No se han encontrado proveedores para los filtros de búsqueda aplicados.
-      </span>
     </div>
   </div>,
   "debug": [Function],
